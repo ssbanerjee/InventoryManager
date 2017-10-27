@@ -23,51 +23,50 @@ Partial Class MainMenu
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainMenu))
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btnAddMachine = New System.Windows.Forms.Button()
+        Me.btnEdit = New System.Windows.Forms.Button()
+        Me.btnSearch = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'Button1
+        'btnAddMachine
         '
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(0, 0)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(1918, 346)
-        Me.Button1.TabIndex = 0
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnAddMachine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnAddMachine.Image = CType(resources.GetObject("btnAddMachine.Image"), System.Drawing.Image)
+        Me.btnAddMachine.Location = New System.Drawing.Point(0, 0)
+        Me.btnAddMachine.Name = "btnAddMachine"
+        Me.btnAddMachine.Size = New System.Drawing.Size(1918, 346)
+        Me.btnAddMachine.TabIndex = 0
+        Me.btnAddMachine.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnEdit
         '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
-        Me.Button2.Location = New System.Drawing.Point(0, 346)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(1918, 346)
-        Me.Button2.TabIndex = 1
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEdit.Image = CType(resources.GetObject("btnEdit.Image"), System.Drawing.Image)
+        Me.btnEdit.Location = New System.Drawing.Point(0, 368)
+        Me.btnEdit.Name = "btnEdit"
+        Me.btnEdit.Size = New System.Drawing.Size(1918, 346)
+        Me.btnEdit.TabIndex = 1
+        Me.btnEdit.UseVisualStyleBackColor = True
         '
-        'Button3
+        'btnSearch
         '
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Image = CType(resources.GetObject("Button3.Image"), System.Drawing.Image)
-        Me.Button3.Location = New System.Drawing.Point(0, 692)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(1918, 346)
-        Me.Button3.TabIndex = 2
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSearch.Image = CType(resources.GetObject("btnSearch.Image"), System.Drawing.Image)
+        Me.btnSearch.Location = New System.Drawing.Point(0, 734)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(1918, 346)
+        Me.btnSearch.TabIndex = 2
+        Me.btnSearch.UseVisualStyleBackColor = True
         '
         'MainMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1918, 1038)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.ClientSize = New System.Drawing.Size(1920, 1080)
+        Me.Controls.Add(Me.btnSearch)
+        Me.Controls.Add(Me.btnEdit)
+        Me.Controls.Add(Me.btnAddMachine)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.MinimumSize = New System.Drawing.Size(1918, 1038)
         Me.Name = "MainMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Main Menu"
@@ -76,7 +75,7 @@ Partial Class MainMenu
 
     End Sub
 
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button3 As Button
+    Friend WithEvents btnAddMachine As Button
+    Friend WithEvents btnEdit As Button
+    Friend WithEvents btnSearch As Button
 End Class
