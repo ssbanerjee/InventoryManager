@@ -22,7 +22,6 @@ Partial Class AddMachineMenu
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AddMachineMenu))
         Me.btnBack = New System.Windows.Forms.Button()
         Me.btnLaptop = New System.Windows.Forms.Button()
         Me.btnWorkstation = New System.Windows.Forms.Button()
@@ -42,7 +41,7 @@ Partial Class AddMachineMenu
         'btnLaptop
         '
         Me.btnLaptop.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnLaptop.Image = CType(resources.GetObject("btnLaptop.Image"), System.Drawing.Image)
+        Me.btnLaptop.Image = Global.InventoryManager.My.Resources.Resources.laptop
         Me.btnLaptop.Location = New System.Drawing.Point(0, 0)
         Me.btnLaptop.Name = "btnLaptop"
         Me.btnLaptop.Size = New System.Drawing.Size(960, 540)
@@ -53,7 +52,7 @@ Partial Class AddMachineMenu
         '
         Me.btnWorkstation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnWorkstation.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnWorkstation.Image = CType(resources.GetObject("btnWorkstation.Image"), System.Drawing.Image)
+        Me.btnWorkstation.Image = Global.InventoryManager.My.Resources.Resources.workstation
         Me.btnWorkstation.Location = New System.Drawing.Point(960, 0)
         Me.btnWorkstation.Name = "btnWorkstation"
         Me.btnWorkstation.Size = New System.Drawing.Size(960, 540)
@@ -64,7 +63,7 @@ Partial Class AddMachineMenu
         '
         Me.btnEMV.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnEMV.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEMV.Image = CType(resources.GetObject("btnEMV.Image"), System.Drawing.Image)
+        Me.btnEMV.Image = Global.InventoryManager.My.Resources.Resources.EMV
         Me.btnEMV.Location = New System.Drawing.Point(0, 540)
         Me.btnEMV.Name = "btnEMV"
         Me.btnEMV.Size = New System.Drawing.Size(960, 540)
@@ -75,7 +74,7 @@ Partial Class AddMachineMenu
         '
         Me.btnOther.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnOther.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnOther.Image = CType(resources.GetObject("btnOther.Image"), System.Drawing.Image)
+        Me.btnOther.Image = Global.InventoryManager.My.Resources.Resources.other
         Me.btnOther.Location = New System.Drawing.Point(960, 540)
         Me.btnOther.Name = "btnOther"
         Me.btnOther.Size = New System.Drawing.Size(960, 540)

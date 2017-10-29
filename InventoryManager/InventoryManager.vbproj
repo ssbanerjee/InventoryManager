@@ -139,5 +139,32 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Laptop_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMV.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMV_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\laptop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\laptop_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\other.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\other_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\workstation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\workstation_selected.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
