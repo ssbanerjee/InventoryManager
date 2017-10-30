@@ -23,20 +23,20 @@ Partial Class MainMenu
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainMenu))
-        Me.btnAddMachine = New System.Windows.Forms.Button()
-        Me.btnEdit = New System.Windows.Forms.Button()
         Me.btnSearch = New System.Windows.Forms.Button()
+        Me.btnEdit = New System.Windows.Forms.Button()
+        Me.btnAddMachine = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'btnAddMachine
+        'btnSearch
         '
-        Me.btnAddMachine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAddMachine.Image = CType(resources.GetObject("btnAddMachine.Image"), System.Drawing.Image)
-        Me.btnAddMachine.Location = New System.Drawing.Point(0, 0)
-        Me.btnAddMachine.Name = "btnAddMachine"
-        Me.btnAddMachine.Size = New System.Drawing.Size(1918, 346)
-        Me.btnAddMachine.TabIndex = 0
-        Me.btnAddMachine.UseVisualStyleBackColor = True
+        Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSearch.Image = CType(resources.GetObject("btnSearch.Image"), System.Drawing.Image)
+        Me.btnSearch.Location = New System.Drawing.Point(0, 734)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(1918, 346)
+        Me.btnSearch.TabIndex = 2
+        Me.btnSearch.UseVisualStyleBackColor = True
         '
         'btnEdit
         '
@@ -48,15 +48,15 @@ Partial Class MainMenu
         Me.btnEdit.TabIndex = 1
         Me.btnEdit.UseVisualStyleBackColor = True
         '
-        'btnSearch
+        'btnAddMachine
         '
-        Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSearch.Image = CType(resources.GetObject("btnSearch.Image"), System.Drawing.Image)
-        Me.btnSearch.Location = New System.Drawing.Point(0, 734)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(1918, 346)
-        Me.btnSearch.TabIndex = 2
-        Me.btnSearch.UseVisualStyleBackColor = True
+        Me.btnAddMachine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnAddMachine.Image = Global.InventoryManager.My.Resources.Resources.Top
+        Me.btnAddMachine.Location = New System.Drawing.Point(0, 0)
+        Me.btnAddMachine.Name = "btnAddMachine"
+        Me.btnAddMachine.Size = New System.Drawing.Size(1920, 360)
+        Me.btnAddMachine.TabIndex = 0
+        Me.btnAddMachine.UseVisualStyleBackColor = True
         '
         'MainMenu
         '
