@@ -63,6 +63,46 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property addMachine() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("addMachine", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property addMachine_selected() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("addMachine_selected", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property editInfo() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("editInfo", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property editInfo_selected() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("editInfo_selected", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property EMV() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("EMV", resourceCulture)
@@ -123,9 +163,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Top() As System.Drawing.Bitmap
+        Friend ReadOnly Property searchMachine() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Top", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("searchMachine", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -133,9 +173,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Top_selected() As System.Drawing.Bitmap
+        Friend ReadOnly Property searchMachine_selected() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Top_selected", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("searchMachine_selected", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

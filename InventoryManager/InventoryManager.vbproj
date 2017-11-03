@@ -72,6 +72,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddLaptop.Designer.vb">
+      <DependentUpon>AddLaptop.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AddLaptop.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AddMachineMenu.Designer.vb">
       <DependentUpon>AddMachineMenu.vb</DependentUpon>
     </Compile>
@@ -114,8 +120,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddLaptop.resx">
+      <DependentUpon>AddLaptop.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddMachineMenu.resx">
       <DependentUpon>AddMachineMenu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditMachine.resx">
+      <DependentUpon>EditMachine.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.vb</DependentUpon>
@@ -125,6 +137,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search.resx">
+      <DependentUpon>Search.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -167,10 +182,22 @@
     <None Include="Resources\workstation_selected.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Top.png" />
+    <None Include="Resources\addMachine.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Top_selected.png" />
+    <None Include="Resources\addMachine_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editInfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editInfo_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\searchMachine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\searchMachine_selected.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

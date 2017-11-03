@@ -22,7 +22,6 @@ Partial Class MainMenu
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainMenu))
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.btnEdit = New System.Windows.Forms.Button()
         Me.btnAddMachine = New System.Windows.Forms.Button()
@@ -31,27 +30,27 @@ Partial Class MainMenu
         'btnSearch
         '
         Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSearch.Image = CType(resources.GetObject("btnSearch.Image"), System.Drawing.Image)
-        Me.btnSearch.Location = New System.Drawing.Point(0, 734)
+        Me.btnSearch.Image = Global.InventoryManager.My.Resources.Resources.searchMachine
+        Me.btnSearch.Location = New System.Drawing.Point(0, 720)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(1918, 346)
+        Me.btnSearch.Size = New System.Drawing.Size(1920, 360)
         Me.btnSearch.TabIndex = 2
         Me.btnSearch.UseVisualStyleBackColor = True
         '
         'btnEdit
         '
         Me.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEdit.Image = CType(resources.GetObject("btnEdit.Image"), System.Drawing.Image)
-        Me.btnEdit.Location = New System.Drawing.Point(0, 368)
+        Me.btnEdit.Image = Global.InventoryManager.My.Resources.Resources.editInfo
+        Me.btnEdit.Location = New System.Drawing.Point(0, 360)
         Me.btnEdit.Name = "btnEdit"
-        Me.btnEdit.Size = New System.Drawing.Size(1918, 346)
+        Me.btnEdit.Size = New System.Drawing.Size(1920, 360)
         Me.btnEdit.TabIndex = 1
         Me.btnEdit.UseVisualStyleBackColor = True
         '
         'btnAddMachine
         '
         Me.btnAddMachine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAddMachine.Image = Global.InventoryManager.My.Resources.Resources.Top
+        Me.btnAddMachine.Image = Global.InventoryManager.My.Resources.Resources.addMachine
         Me.btnAddMachine.Location = New System.Drawing.Point(0, 0)
         Me.btnAddMachine.Name = "btnAddMachine"
         Me.btnAddMachine.Size = New System.Drawing.Size(1920, 360)
