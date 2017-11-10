@@ -24,7 +24,7 @@ Public Class AddMachineMenu
     End Sub
 
     Private Sub btnWorkstation_Click(sender As Object, e As EventArgs) Handles btnWorkstation.Click
-        'TODO
+        AddWorkstation.ShowDialog()
     End Sub
 
     Private Sub btnWorkstation_MouseHover(sender As Object, e As EventArgs) Handles btnWorkstation.MouseHover

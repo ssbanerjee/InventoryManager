@@ -36,6 +36,13 @@ Partial Class AddLaptop
         Me.lblSerialNumber = New System.Windows.Forms.Label()
         Me.lblSIM = New System.Windows.Forms.Label()
         Me.lblIMEI = New System.Windows.Forms.Label()
+        Me.lblModel = New System.Windows.Forms.Label()
+        Me.cbModel = New System.Windows.Forms.ComboBox()
+        Me.chCostCenter = New System.Windows.Forms.CheckBox()
+        Me.txtCostCenter = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cbCenter = New System.Windows.Forms.ComboBox()
+        Me.lblCenter = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtMachineName
@@ -43,7 +50,7 @@ Partial Class AddLaptop
         Me.txtMachineName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMachineName.Location = New System.Drawing.Point(12, 111)
         Me.txtMachineName.Name = "txtMachineName"
-        Me.txtMachineName.Size = New System.Drawing.Size(277, 26)
+        Me.txtMachineName.Size = New System.Drawing.Size(139, 26)
         Me.txtMachineName.TabIndex = 1
         '
         'txtAssetTag
@@ -52,7 +59,7 @@ Partial Class AddLaptop
         Me.txtAssetTag.Location = New System.Drawing.Point(12, 168)
         Me.txtAssetTag.Name = "txtAssetTag"
         Me.txtAssetTag.Size = New System.Drawing.Size(117, 26)
-        Me.txtAssetTag.TabIndex = 2
+        Me.txtAssetTag.TabIndex = 3
         '
         'txtSerialNumber
         '
@@ -60,7 +67,7 @@ Partial Class AddLaptop
         Me.txtSerialNumber.Location = New System.Drawing.Point(148, 168)
         Me.txtSerialNumber.Name = "txtSerialNumber"
         Me.txtSerialNumber.Size = New System.Drawing.Size(141, 26)
-        Me.txtSerialNumber.TabIndex = 3
+        Me.txtSerialNumber.TabIndex = 4
         '
         'txtSIM
         '
@@ -68,7 +75,7 @@ Partial Class AddLaptop
         Me.txtSIM.Location = New System.Drawing.Point(12, 225)
         Me.txtSIM.Name = "txtSIM"
         Me.txtSIM.Size = New System.Drawing.Size(277, 26)
-        Me.txtSIM.TabIndex = 4
+        Me.txtSIM.TabIndex = 5
         '
         'txtIMEI
         '
@@ -76,14 +83,14 @@ Partial Class AddLaptop
         Me.txtIMEI.Location = New System.Drawing.Point(12, 286)
         Me.txtIMEI.Name = "txtIMEI"
         Me.txtIMEI.Size = New System.Drawing.Size(277, 26)
-        Me.txtIMEI.TabIndex = 5
+        Me.txtIMEI.TabIndex = 6
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(156, 337)
+        Me.btnAdd.Location = New System.Drawing.Point(156, 440)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(133, 35)
-        Me.btnAdd.TabIndex = 5
+        Me.btnAdd.TabIndex = 7
         Me.btnAdd.Text = "Add Machine"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -99,10 +106,11 @@ Partial Class AddLaptop
         '
         'btnBack
         '
-        Me.btnBack.Location = New System.Drawing.Point(12, 349)
+        Me.btnBack.Location = New System.Drawing.Point(12, 452)
         Me.btnBack.Name = "btnBack"
         Me.btnBack.Size = New System.Drawing.Size(75, 23)
-        Me.btnBack.TabIndex = 7
+        Me.btnBack.TabIndex = 8
+        Me.btnBack.TabStop = False
         Me.btnBack.Text = "Back"
         Me.btnBack.UseVisualStyleBackColor = True
         '
@@ -160,11 +168,84 @@ Partial Class AddLaptop
         Me.lblIMEI.TabIndex = 13
         Me.lblIMEI.Text = "IMEI"
         '
+        'lblModel
+        '
+        Me.lblModel.AutoSize = True
+        Me.lblModel.Location = New System.Drawing.Point(157, 92)
+        Me.lblModel.Name = "lblModel"
+        Me.lblModel.Size = New System.Drawing.Size(36, 13)
+        Me.lblModel.TabIndex = 14
+        Me.lblModel.Text = "Model"
+        '
+        'cbModel
+        '
+        Me.cbModel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbModel.FormattingEnabled = True
+        Me.cbModel.Location = New System.Drawing.Point(157, 111)
+        Me.cbModel.Name = "cbModel"
+        Me.cbModel.Size = New System.Drawing.Size(132, 26)
+        Me.cbModel.TabIndex = 2
+        '
+        'chCostCenter
+        '
+        Me.chCostCenter.AutoSize = True
+        Me.chCostCenter.Location = New System.Drawing.Point(148, 403)
+        Me.chCostCenter.Name = "chCostCenter"
+        Me.chCostCenter.Size = New System.Drawing.Size(141, 17)
+        Me.chCostCenter.TabIndex = 35
+        Me.chCostCenter.Text = "Charge different location"
+        Me.chCostCenter.UseVisualStyleBackColor = True
+        '
+        'txtCostCenter
+        '
+        Me.txtCostCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCostCenter.Location = New System.Drawing.Point(15, 396)
+        Me.txtCostCenter.Name = "txtCostCenter"
+        Me.txtCostCenter.ReadOnly = True
+        Me.txtCostCenter.Size = New System.Drawing.Size(114, 26)
+        Me.txtCostCenter.TabIndex = 34
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(12, 380)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(62, 13)
+        Me.Label1.TabIndex = 33
+        Me.Label1.Text = "Cost Center"
+        '
+        'cbCenter
+        '
+        Me.cbCenter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cbCenter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCenter.FormattingEnabled = True
+        Me.cbCenter.Location = New System.Drawing.Point(15, 341)
+        Me.cbCenter.Name = "cbCenter"
+        Me.cbCenter.Size = New System.Drawing.Size(277, 26)
+        Me.cbCenter.TabIndex = 36
+        '
+        'lblCenter
+        '
+        Me.lblCenter.AutoSize = True
+        Me.lblCenter.Location = New System.Drawing.Point(12, 325)
+        Me.lblCenter.Name = "lblCenter"
+        Me.lblCenter.Size = New System.Drawing.Size(81, 13)
+        Me.lblCenter.TabIndex = 37
+        Me.lblCenter.Text = "Center Number:"
+        '
         'AddLaptop
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(301, 384)
+        Me.ClientSize = New System.Drawing.Size(301, 487)
+        Me.Controls.Add(Me.cbCenter)
+        Me.Controls.Add(Me.lblCenter)
+        Me.Controls.Add(Me.chCostCenter)
+        Me.Controls.Add(Me.txtCostCenter)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.cbModel)
+        Me.Controls.Add(Me.lblModel)
         Me.Controls.Add(Me.lblIMEI)
         Me.Controls.Add(Me.lblSIM)
         Me.Controls.Add(Me.lblSerialNumber)
@@ -202,4 +283,11 @@ Partial Class AddLaptop
     Friend WithEvents lblSerialNumber As Label
     Friend WithEvents lblSIM As Label
     Friend WithEvents lblIMEI As Label
+    Friend WithEvents lblModel As Label
+    Friend WithEvents cbModel As ComboBox
+    Friend WithEvents chCostCenter As CheckBox
+    Friend WithEvents txtCostCenter As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents cbCenter As ComboBox
+    Friend WithEvents lblCenter As Label
 End Class

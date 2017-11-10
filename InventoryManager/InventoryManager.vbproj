@@ -84,6 +84,12 @@
     <Compile Include="AddMachineMenu.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="AddWorkstation.Designer.vb">
+      <DependentUpon>AddWorkstation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AddWorkstation.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EditMachine.Designer.vb">
       <DependentUpon>EditMachine.vb</DependentUpon>
     </Compile>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddMachineMenu.resx">
       <DependentUpon>AddMachineMenu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddWorkstation.resx">
+      <DependentUpon>AddWorkstation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditMachine.resx">
       <DependentUpon>EditMachine.vb</DependentUpon>

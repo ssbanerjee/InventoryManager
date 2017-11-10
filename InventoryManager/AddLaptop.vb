@@ -13,6 +13,8 @@ Public Class AddLaptop
         myConn.Open()
         myCmd = myConn.CreateCommand
         btnBack.Visible = False
+        loadModels()
+        loadCenters()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -22,17 +24,16 @@ Public Class AddLaptop
         Dim serialNumber As String = txtSerialNumber.Text
         Dim SIM As String = txtSIM.Text
         Dim IMEI As String = txtIMEI.Text
-        Dim category As String = "1"
-        Dim model As String = "1"
-        Dim location As String = "0"
+        Dim model As String = cbModel.Text
+        Dim centerNumber As String = cbCenter.Text.Substring(1, 3)
+        Dim costCenter As String = txtCostCenter.Text
 
         checkNulls(employee, machineName, assetTag, SIM, IMEI, serialNumber)
 
         If (checkUsername(employee)) And (serialNumber <> "") Then
             Dim command As String = ""
-            Dim subCommand As String = "(SELECT employee_id FROM Employee WHERE employee_username = " + employee + ")"
-            command = "INSERT INTO Machine VALUES (" + subCommand + ", " + machineName + ", " + assetTag + ", " +
-                serialNumber + ", " + SIM + ", " + IMEI + ", " + category + ", " + model + ", " + location + ");"
+            command = "INSERT INTO Machine VALUES ((SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
+                serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "');"
             myCmd.CommandText = command
             Try
                 myReader = myCmd.ExecuteReader
@@ -126,5 +127,68 @@ Public Class AddLaptop
             txtAssetTag.Text = character
             txtAssetTag.SelectionStart = txtAssetTag.TextLength
         End If
+    End Sub
+
+    Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
+        txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+    End Sub
+
+    Private Sub chCostCenter_CheckedChanged(sender As Object, e As EventArgs) Handles chCostCenter.CheckedChanged
+        If chCostCenter.Checked Then
+            txtCostCenter.ReadOnly = False
+        Else
+            txtCostCenter.ReadOnly = True
+            txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+        End If
+    End Sub
+
+    Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
+        Dim currentString As String = cbCenter.Text
+        Dim firstIndex As String = "null"
+        If Not cbCenter.Text.Length = 0 Then
+            firstIndex = currentString.Substring(0, 1)
+        End If
+
+        Dim num As Integer
+        If Int32.TryParse(firstIndex, num) Then
+            If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+                cbCenter.Text = "#" + currentString
+                cbCenter.SelectionStart = cbCenter.Text.Length
+            End If
+        End If
+    End Sub
+
+    Private Sub loadModels()
+        cbModel.Items.Clear()
+        myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = 1 ORDER BY model_name ASC;"
+        myReader = myCmd.ExecuteReader
+        While myReader.Read()
+            cbModel.Items.Add(myReader.GetString(0))
+        End While
+        myReader.Close()
+    End Sub
+
+    Private Sub loadCenters()
+        cbCenter.Items.Clear()
+        Dim centerNumberInt As Integer
+        Dim centerNumber As String = ""
+        Dim centerName As String = ""
+
+        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC"
+        myReader = myCmd.ExecuteReader
+        While myReader.Read()
+            centerNumberInt = myReader.GetInt32(0)
+            centerName = myReader.GetString(1)
+
+            If centerNumberInt < 100 Then
+                centerNumber = "0" + centerNumberInt.ToString
+            Else
+                centerNumber = centerNumberInt.ToString
+            End If
+
+            cbCenter.Items.Add("#" + centerNumber + ", " + centerName)
+        End While
+
+        myReader.Close()
     End Sub
 End Class

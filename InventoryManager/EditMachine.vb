@@ -25,12 +25,12 @@ Public Class EditMachine
         myConn.Open()
         myCmd = myConn.CreateCommand
         btnBack.Visible = False
-        myCmd.CommandText = "SELECT e.employee_username, m.machine_name, m.asset_tag, m.serial_number, m.SIM, m.IMEI, m.category_id, m.model_id, m.center_number " +
+        myCmd.CommandText = "SELECT e.employee_username, m.machine_name, m.asset_tag, m.serial_number, m.SIM, m.IMEI, m.model_id, m.center_number " +
                             "FROM Employee e JOIN Machine m ON m.employee_id = e.employee_id " +
                             "WHERE m.machine_id = " + machineID + ";"
         myReader = myCmd.ExecuteReader
         If myReader.Read() Then
-            For i As Integer = 0 To 8
+            For i As Integer = 0 To 7
                 If myReader.IsDBNull(i) Then
                     Select Case i
                         Case 0
@@ -47,26 +47,14 @@ Public Class EditMachine
                             IMEI = "null"
                     End Select
                 Else
-                    Select Case i
-                        Case 0
-                            employee = myReader.GetString(0)
-                        Case 1
-                            machineName = myReader.GetString(1)
-                        Case 2
-                            assetTag = myReader.GetInt32(2).ToString
-                        Case 3
-                            serialNumber = myReader.GetString(3)
-                        Case 4
-                            SIM = myReader.GetString(4)
-                        Case 5
-                            IMEI = myReader.GetString(5)
-                        Case 6
-                            category = myReader.GetInt32(6).ToString
-                        Case 7
-                            model = myReader.GetInt32(7).ToString
-                        Case 8
-                            location = myReader.GetInt32(8).ToString
-                    End Select
+                    employee = myReader.GetString(0)
+                    machineName = myReader.GetString(1)
+                    assetTag = myReader.GetInt32(2).ToString
+                    serialNumber = myReader.GetString(3)
+                    SIM = myReader.GetString(4)
+                    IMEI = myReader.GetString(5)
+                    model = myReader.GetInt32(6).ToString
+                    location = myReader.GetInt32(7).ToString
                 End If
             Next
             myReader.Close()
