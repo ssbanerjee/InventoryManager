@@ -13,8 +13,18 @@ Public Class AddWorkstation
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
+        clearLists()
         loadCenters()
         loadModels()
+    End Sub
+
+    Private Sub clearLists()
+        txtMachineName.Clear()
+        txtAssetTag.Clear()
+        txtSerialNumber.Clear()
+        cbModel.SelectedIndex = -1
+        cbCenter.SelectedIndex = -1
+        txtCostCenter.Clear()
     End Sub
 
     Private Sub loadCenters()
@@ -92,7 +102,7 @@ Public Class AddWorkstation
 
             If serialNumber <> "" Then
                 myCmd.CommandText = "INSERT INTO Machine VALUES (null, " + machineName + ", " + assetTag + ", " + serialNumber + ", null, null, " +
-                                "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter = "');"
+                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "');"
                 Try
                     myReader = myCmd.ExecuteReader
                     MsgBox("Success!")
@@ -132,7 +142,9 @@ Public Class AddWorkstation
     End Sub
 
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
-        txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+        If cbCenter.Text <> "" Then
+            txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+        End If
     End Sub
 
     Private Sub chCostCenter_CheckedChanged(sender As Object, e As EventArgs) Handles chCostCenter.CheckedChanged

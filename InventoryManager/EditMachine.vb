@@ -25,7 +25,7 @@ Public Class EditMachine
         myConn.Open()
         myCmd = myConn.CreateCommand
         btnBack.Visible = False
-        myCmd.CommandText = "SELECT e.employee_username, m.machine_name, m.asset_tag, m.serial_number, m.SIM, m.IMEI, m.model_id, m.center_number " +
+        myCmd.CommandText = "SELECT e.employee_username, m.machine_name, m.asset_tag, m.serial_number, m.SIM, m.IMEI, m.model_id, m.machine_center_number " +
                             "FROM Employee e JOIN Machine m ON m.employee_id = e.employee_id " +
                             "WHERE m.machine_id = " + machineID + ";"
         myReader = myCmd.ExecuteReader

@@ -72,6 +72,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddEMV.Designer.vb">
+      <DependentUpon>AddEMV.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AddEMV.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AddLaptop.Designer.vb">
       <DependentUpon>AddLaptop.vb</DependentUpon>
     </Compile>
@@ -126,6 +132,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddEMV.resx">
+      <DependentUpon>AddEMV.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddLaptop.resx">
       <DependentUpon>AddLaptop.vb</DependentUpon>
     </EmbeddedResource>
@@ -207,6 +216,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\searchMachine_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMV_Base.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMV_Name.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMV_SerialNumber.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\equipmentRequest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\equipmentRequest_selected.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

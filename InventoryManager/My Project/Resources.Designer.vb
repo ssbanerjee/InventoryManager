@@ -113,9 +113,59 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property EMV_Base() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("EMV_Base", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property EMV_Name() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("EMV_Name", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property EMV_selected() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("EMV_selected", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property EMV_SerialNumber() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("EMV_SerialNumber", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property equipmentRequest() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("equipmentRequest", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property equipmentRequest_selected() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("equipmentRequest_selected", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

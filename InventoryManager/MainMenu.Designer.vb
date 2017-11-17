@@ -30,7 +30,7 @@ Partial Class MainMenu
         'btnSearch
         '
         Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSearch.Image = Global.InventoryManager.My.Resources.Resources.searchMachine
+        Me.btnSearch.Image = Global.InventoryManager.My.Resources.Resources.equipmentRequest
         Me.btnSearch.Location = New System.Drawing.Point(0, 720)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(1920, 360)

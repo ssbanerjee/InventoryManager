@@ -7,6 +7,18 @@ Public Class Search
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
 
+    Private employee As String
+    Private machineName As String
+    Private assetTag As String
+    Private serialNumber As String
+    Private SIM As String
+    Private IMEI As String
+    Private category As String
+    Private model As String
+    Private location As String
+
+    Private machineID As String
+
     Private Sub Search_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         myConn = New SqlConnection(connectionString)
         myConn.Open()
@@ -37,36 +49,67 @@ Public Class Search
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        Dim search As String = txtSearch.Text
-        Dim query As String = ""
-        Dim command As String = ""
+        'Dim search As String = txtSearch.Text
+        'Dim query As String = ""
+        'Dim command As String = ""
 
-        If rdAssetTag.Checked Then
-            query = "asset_tag"
-        ElseIf rdMachineName.Checked Then
-            query = "machine_name"
-            search = "'" + search + "'"
-        ElseIf rdSerialNumber.Checked Then
-            query = "serial_number"
-            search = "'" + search + "'"
-        End If
+        'If rdAssetTag.Checked Then
+        '    query = "asset_tag"
+        'ElseIf rdMachineName.Checked Then
+        '    query = "machine_name"
+        '    search = "'" + search + "'"
+        'ElseIf rdSerialNumber.Checked Then
+        '    query = "serial_number"
+        '    search = "'" + search + "'"
+        'End If
 
-        command = "SELECT machine_name FROM Machine WHERE " + query + " = " + search + ";"
-        myCmd.CommandText = command
-        myReader = myCmd.ExecuteReader()
-        Dim results As String = ""
-        Dim count As Integer = 0
-        Do While myReader.Read()
-            count += 1
-            If myReader.IsDBNull(0) Then
-                results += count.ToString + ". " + "null" + vbCrLf
-            Else
-                results += count.ToString + ". " + myReader.GetString(0) + vbCrLf
-            End If
-        Loop
-        results = count.ToString + " result(s): " + vbCrLf + vbCrLf + results
-        myReader.Close()
-        MsgBox(results)
+        'command = "SELECT machine_name FROM Machine WHERE " + query + " = " + search + ";"
+        'myCmd.CommandText = command
+        'myReader = myCmd.ExecuteReader()
+        'Dim results As String = ""
+        'Dim count As Integer = 0
+        'Do While myReader.Read()
+        '    For i As Integer = 0 To 7
+        '        If myReader.IsDBNull(i) Then
+        '            Select Case i
+        '                Case 0
+        '                    machineName = "null"
+        '                Case 1
+        '                    assetTag = "null"
+        '                Case 2
+        '                    serialNumber = "null"
+        '                Case 5
+        '                    SIM = "null"
+        '                Case 6
+        '                    IMEI = "null"
+        '                Case 8
+        '                    employee = "null"
+        '            End Select
+        '        Else
+        '            machineName = myReader.GetString(0)
+        '            assetTag = myReader.GetInt32(1).ToString
+        '            serialNumber = myReader.GetString(2)
+        '            category = myReader.GetString(3)
+        '            model = myReader.GetInt32(4).ToString
+        '            SIM = myReader.GetString(5)
+        '            IMEI = myReader.GetString(6)
+        '            location = myReader.GetInt32(7).ToString
+        '            employee = myReader.GetString(8)
+        '        End If
+        '    Next
+        'Loop
+        'myReader.Close()
+        'loadMachineInfo()
+    End Sub
+
+    Private Sub loadMachineInfo()
+        lblMachineName.Text = machineName
+        lblAssetTag.Text = "Asset Tag: " + assetTag
+        lblSerialNumber.Text = "Serial Number: " + serialNumber
+        lblCatModel.Text = category + " -- " + model
+        lblSim.Text = "SIM: " + SIM
+        lblIMEI.Text = "IMEI: " + IMEI
+        lblSiteUser.Text = "#" + location + " -- " + employee
     End Sub
 
     Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged
@@ -96,5 +139,69 @@ Public Class Search
 
     Private Sub rdListSerialNumbers_Click(sender As Object, e As EventArgs) Handles rdListSerialNumbers.Click
         loadInformation()
+    End Sub
+
+    Private Sub lstMachines_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstMachines.SelectedValueChanged
+        Dim search As String = lstMachines.SelectedItem.ToString
+        Dim query As String = ""
+        Dim command As String = ""
+
+        If rdListMachineNames.Checked Then
+            query = "machine_name"
+        ElseIf rdListSerialNumbers.Checked Then
+            query = "serial_number"
+        End If
+
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id " +
+                    "FROM Machine m JOIN Employee e ON m.employee_ID = e.employee_ID " +
+                    "JOIN Model d ON m.model_ID = d.model_ID " +
+                    "JOIN Category c ON d.category_id = c.category_ID " +
+                    "JOIN Center t ON m.machine_center_number = t.center_number " +
+                    "WHERE " + query + " = '" + search + "';"
+        Try
+            myReader = myCmd.ExecuteReader()
+            Dim results As String = ""
+            Dim count As Integer = 0
+            Do While myReader.Read()
+                For i As Integer = 0 To 7
+                    If myReader.IsDBNull(i) Then
+                        Select Case i
+                            Case 0
+                                machineName = "null"
+                            Case 1
+                                assetTag = "null"
+                            Case 2
+                                serialNumber = "null"
+                            Case 5
+                                SIM = "null"
+                            Case 6
+                                IMEI = "null"
+                            Case 8
+                                employee = "null"
+                        End Select
+                    Else
+                        machineName = myReader.GetString(0)
+                        assetTag = myReader.GetInt32(1).ToString
+                        serialNumber = myReader.GetString(2)
+                        category = myReader.GetString(3)
+                        model = myReader.GetString(4)
+                        SIM = myReader.GetString(5)
+                        IMEI = myReader.GetString(6)
+                        location = myReader.GetInt32(7).ToString
+                        employee = myReader.GetString(8)
+                        machineID = myReader.GetInt32(9).ToString
+                    End If
+                Next
+            Loop
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+        myReader.Close()
+        loadMachineInfo()
+    End Sub
+
+    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+        EditMachine.machineID = machineID
+        EditMachine.ShowDialog()
     End Sub
 End Class

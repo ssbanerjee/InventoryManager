@@ -36,7 +36,7 @@ Public Class AddMachineMenu
     End Sub
 
     Private Sub btnEMV_Click(sender As Object, e As EventArgs) Handles btnEMV.Click
-        'TODO
+        AddEMV.ShowDialog()
     End Sub
 
     Private Sub btnEMV_MouseHover(sender As Object, e As EventArgs) Handles btnEMV.MouseHover

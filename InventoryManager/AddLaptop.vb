@@ -13,6 +13,7 @@ Public Class AddLaptop
         myConn.Open()
         myCmd = myConn.CreateCommand
         btnBack.Visible = False
+        clearLists()
         loadModels()
         loadCenters()
     End Sub
@@ -105,11 +106,11 @@ Public Class AddLaptop
             Else
                 dataReader.Close()
                 MsgBox("Username not found")
+                txtUsername.Clear()
                 Return False
             End If
         Catch ex As Exception
             MsgBox(ex.ToString)
-            MsgBox("Username not found")
             Return False
         End Try
     End Function
@@ -130,7 +131,9 @@ Public Class AddLaptop
     End Sub
 
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
-        txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+        If cbCenter.Text <> "" Then
+            txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+        End If
     End Sub
 
     Private Sub chCostCenter_CheckedChanged(sender As Object, e As EventArgs) Handles chCostCenter.CheckedChanged
@@ -190,5 +193,17 @@ Public Class AddLaptop
         End While
 
         myReader.Close()
+    End Sub
+
+    Private Sub clearLists()
+        txtUsername.Clear()
+        txtMachineName.Clear()
+        txtAssetTag.Clear()
+        txtSerialNumber.Clear()
+        txtSIM.Clear()
+        txtIMEI.Clear()
+        cbModel.SelectedIndex = -1
+        cbCenter.SelectedIndex = -1
+        txtCostCenter.Clear()
     End Sub
 End Class
