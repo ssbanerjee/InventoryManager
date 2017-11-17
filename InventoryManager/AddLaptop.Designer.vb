@@ -90,7 +90,7 @@ Partial Class AddLaptop
         Me.btnAdd.Location = New System.Drawing.Point(156, 440)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(133, 35)
-        Me.btnAdd.TabIndex = 7
+        Me.btnAdd.TabIndex = 8
         Me.btnAdd.Text = "Add Machine"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -193,6 +193,7 @@ Partial Class AddLaptop
         Me.chCostCenter.Name = "chCostCenter"
         Me.chCostCenter.Size = New System.Drawing.Size(141, 17)
         Me.chCostCenter.TabIndex = 35
+        Me.chCostCenter.TabStop = False
         Me.chCostCenter.Text = "Charge different location"
         Me.chCostCenter.UseVisualStyleBackColor = True
         '
@@ -204,6 +205,7 @@ Partial Class AddLaptop
         Me.txtCostCenter.ReadOnly = True
         Me.txtCostCenter.Size = New System.Drawing.Size(114, 26)
         Me.txtCostCenter.TabIndex = 34
+        Me.txtCostCenter.TabStop = False
         '
         'Label1
         '
@@ -223,7 +225,7 @@ Partial Class AddLaptop
         Me.cbCenter.Location = New System.Drawing.Point(15, 341)
         Me.cbCenter.Name = "cbCenter"
         Me.cbCenter.Size = New System.Drawing.Size(277, 26)
-        Me.cbCenter.TabIndex = 36
+        Me.cbCenter.TabIndex = 7
         '
         'lblCenter
         '

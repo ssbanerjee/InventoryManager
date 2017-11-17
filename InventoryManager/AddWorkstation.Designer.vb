@@ -164,6 +164,7 @@ Partial Class AddWorkstation
         Me.txtCostCenter.ReadOnly = True
         Me.txtCostCenter.Size = New System.Drawing.Size(114, 26)
         Me.txtCostCenter.TabIndex = 31
+        Me.txtCostCenter.TabStop = False
         '
         'chCostCenter
         '
@@ -172,6 +173,7 @@ Partial Class AddWorkstation
         Me.chCostCenter.Name = "chCostCenter"
         Me.chCostCenter.Size = New System.Drawing.Size(141, 17)
         Me.chCostCenter.TabIndex = 32
+        Me.chCostCenter.TabStop = False
         Me.chCostCenter.Text = "Charge different location"
         Me.chCostCenter.UseVisualStyleBackColor = True
         '

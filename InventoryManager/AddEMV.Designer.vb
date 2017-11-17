@@ -29,7 +29,6 @@ Partial Class AddEMV
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.txtSerialNumber = New System.Windows.Forms.TextBox()
         Me.txtAssetTag = New System.Windows.Forms.TextBox()
-        Me.pbEMV = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.cbCenter = New System.Windows.Forms.ComboBox()
         Me.lblCenter = New System.Windows.Forms.Label()
@@ -37,6 +36,7 @@ Partial Class AddEMV
         Me.txtCostCenter = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnAdd = New System.Windows.Forms.Button()
+        Me.pbEMV = New System.Windows.Forms.PictureBox()
         CType(Me.pbEMV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -94,17 +94,6 @@ Partial Class AddEMV
         Me.txtAssetTag.Size = New System.Drawing.Size(147, 26)
         Me.txtAssetTag.TabIndex = 6
         '
-        'pbEMV
-        '
-        Me.pbEMV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.pbEMV.Image = Global.InventoryManager.My.Resources.Resources.EMV_Base
-        Me.pbEMV.Location = New System.Drawing.Point(210, 12)
-        Me.pbEMV.Name = "pbEMV"
-        Me.pbEMV.Size = New System.Drawing.Size(495, 400)
-        Me.pbEMV.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.pbEMV.TabIndex = 0
-        Me.pbEMV.TabStop = False
-        '
         'cbCenter
         '
         Me.cbCenter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -133,6 +122,7 @@ Partial Class AddEMV
         Me.chCostCenter.Name = "chCostCenter"
         Me.chCostCenter.Size = New System.Drawing.Size(141, 17)
         Me.chCostCenter.TabIndex = 35
+        Me.chCostCenter.TabStop = False
         Me.chCostCenter.Text = "Charge different location"
         Me.chCostCenter.UseVisualStyleBackColor = True
         '
@@ -144,6 +134,7 @@ Partial Class AddEMV
         Me.txtCostCenter.ReadOnly = True
         Me.txtCostCenter.Size = New System.Drawing.Size(145, 26)
         Me.txtCostCenter.TabIndex = 34
+        Me.txtCostCenter.TabStop = False
         '
         'Label1
         '
@@ -163,6 +154,17 @@ Partial Class AddEMV
         Me.btnAdd.TabIndex = 36
         Me.btnAdd.Text = "Save"
         Me.btnAdd.UseVisualStyleBackColor = True
+        '
+        'pbEMV
+        '
+        Me.pbEMV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.pbEMV.Image = Global.InventoryManager.My.Resources.Resources.EMV_Base
+        Me.pbEMV.Location = New System.Drawing.Point(210, 12)
+        Me.pbEMV.Name = "pbEMV"
+        Me.pbEMV.Size = New System.Drawing.Size(495, 400)
+        Me.pbEMV.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.pbEMV.TabIndex = 0
+        Me.pbEMV.TabStop = False
         '
         'AddEMV
         '

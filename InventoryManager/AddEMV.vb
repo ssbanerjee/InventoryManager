@@ -130,7 +130,7 @@ Public Class AddEMV
         Dim costCenter As String = txtCostCenter.Text
 
         myCmd.CommandText = "INSERT INTO Machine VALUES (null, '" + machineName + "', " + assetTag + ", '" + serialNumber + "', null, null, " +
-                            "(SELECT model_id FROM Model WHERE model_name = 'VeriFone EMV'), " + centerNumber + ", '" + costCenter + "');"
+                            "(SELECT model_id FROM Model WHERE model_name = 'VeriFone EMV'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null);"
         Try
             myReader = myCmd.ExecuteReader
             MsgBox("Success!")

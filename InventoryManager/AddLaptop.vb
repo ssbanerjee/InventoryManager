@@ -34,7 +34,8 @@ Public Class AddLaptop
         If (checkUsername(employee)) And (serialNumber <> "") Then
             Dim command As String = ""
             command = "INSERT INTO Machine VALUES ((SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
-                serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "');"
+                serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
+                "', SYSDATETIME(), null);"
             myCmd.CommandText = command
             Try
                 myReader = myCmd.ExecuteReader
@@ -54,9 +55,7 @@ Public Class AddLaptop
     End Sub
 
     Private Sub checkNulls(ByRef employee As String, ByRef machineName As String, ByRef assetTag As String, ByRef SIM As String, ByRef IMEI As String, ByRef serialNumber As String)
-        If employee = "" Then
-            employee = "null"
-        Else
+        If employee <> "" Then
             employee = "'" + employee + "'"
         End If
 
@@ -105,7 +104,7 @@ Public Class AddLaptop
                 Return True
             Else
                 dataReader.Close()
-                MsgBox("Username not found")
+                MsgBox("Username not found." + vbCrLf + "Would you like to add this is a new username?", MsgBoxStyle.YesNoCancel)
                 txtUsername.Clear()
                 Return False
             End If

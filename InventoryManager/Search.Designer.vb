@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Search
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,98 +20,96 @@ Partial Class Search
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.rdAssetTag = New System.Windows.Forms.RadioButton()
-        Me.rdMachineName = New System.Windows.Forms.RadioButton()
-        Me.rdSerialNumber = New System.Windows.Forms.RadioButton()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Search))
         Me.gbSearchOptions = New System.Windows.Forms.GroupBox()
-        Me.txtSearch = New System.Windows.Forms.TextBox()
-        Me.btnSearch = New System.Windows.Forms.Button()
+        Me.lblFModel = New System.Windows.Forms.Label()
+        Me.lblFCategory = New System.Windows.Forms.Label()
+        Me.cbModel = New System.Windows.Forms.ComboBox()
+        Me.cbCategory = New System.Windows.Forms.ComboBox()
+        Me.txtAssetTag = New System.Windows.Forms.TextBox()
         Me.lstMachines = New System.Windows.Forms.ListBox()
         Me.txtFilter = New System.Windows.Forms.TextBox()
         Me.btnRefresh = New System.Windows.Forms.Button()
-        Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.Splitter2 = New System.Windows.Forms.Splitter()
         Me.gbListOptions = New System.Windows.Forms.GroupBox()
         Me.rdListSerialNumbers = New System.Windows.Forms.RadioButton()
         Me.rdListMachineNames = New System.Windows.Forms.RadioButton()
         Me.gbMachine = New System.Windows.Forms.GroupBox()
-        Me.lblTechnician = New System.Windows.Forms.Label()
-        Me.lblLastModified = New System.Windows.Forms.Label()
+        Me.btnEdit = New System.Windows.Forms.Button()
+        Me.lblIMEI = New System.Windows.Forms.Label()
+        Me.lblSim = New System.Windows.Forms.Label()
+        Me.lblAcquisition = New System.Windows.Forms.Label()
+        Me.lblReceived = New System.Windows.Forms.Label()
         Me.lblSiteUser = New System.Windows.Forms.Label()
         Me.lblCatModel = New System.Windows.Forms.Label()
         Me.lblSerialNumber = New System.Windows.Forms.Label()
         Me.lblAssetTag = New System.Windows.Forms.Label()
         Me.lblMachineName = New System.Windows.Forms.Label()
-        Me.lblSim = New System.Windows.Forms.Label()
-        Me.lblIMEI = New System.Windows.Forms.Label()
-        Me.btnEdit = New System.Windows.Forms.Button()
+        Me.lblFAssetTag = New System.Windows.Forms.Label()
         Me.gbSearchOptions.SuspendLayout()
         Me.gbListOptions.SuspendLayout()
         Me.gbMachine.SuspendLayout()
         Me.SuspendLayout()
         '
-        'rdAssetTag
-        '
-        Me.rdAssetTag.AutoSize = True
-        Me.rdAssetTag.Location = New System.Drawing.Point(8, 35)
-        Me.rdAssetTag.Name = "rdAssetTag"
-        Me.rdAssetTag.Size = New System.Drawing.Size(73, 17)
-        Me.rdAssetTag.TabIndex = 0
-        Me.rdAssetTag.TabStop = True
-        Me.rdAssetTag.Text = "Asset Tag"
-        Me.rdAssetTag.UseVisualStyleBackColor = True
-        '
-        'rdMachineName
-        '
-        Me.rdMachineName.AutoSize = True
-        Me.rdMachineName.Location = New System.Drawing.Point(87, 35)
-        Me.rdMachineName.Name = "rdMachineName"
-        Me.rdMachineName.Size = New System.Drawing.Size(97, 17)
-        Me.rdMachineName.TabIndex = 1
-        Me.rdMachineName.TabStop = True
-        Me.rdMachineName.Text = "Machine Name"
-        Me.rdMachineName.UseVisualStyleBackColor = True
-        '
-        'rdSerialNumber
-        '
-        Me.rdSerialNumber.AutoSize = True
-        Me.rdSerialNumber.Location = New System.Drawing.Point(190, 35)
-        Me.rdSerialNumber.Name = "rdSerialNumber"
-        Me.rdSerialNumber.Size = New System.Drawing.Size(91, 17)
-        Me.rdSerialNumber.TabIndex = 2
-        Me.rdSerialNumber.TabStop = True
-        Me.rdSerialNumber.Text = "Serial Number"
-        Me.rdSerialNumber.UseVisualStyleBackColor = True
-        '
         'gbSearchOptions
         '
-        Me.gbSearchOptions.Controls.Add(Me.rdAssetTag)
-        Me.gbSearchOptions.Controls.Add(Me.rdSerialNumber)
-        Me.gbSearchOptions.Controls.Add(Me.rdMachineName)
-        Me.gbSearchOptions.Location = New System.Drawing.Point(27, 29)
+        Me.gbSearchOptions.Controls.Add(Me.lblFModel)
+        Me.gbSearchOptions.Controls.Add(Me.lblFCategory)
+        Me.gbSearchOptions.Controls.Add(Me.cbModel)
+        Me.gbSearchOptions.Controls.Add(Me.cbCategory)
+        Me.gbSearchOptions.Location = New System.Drawing.Point(26, 25)
         Me.gbSearchOptions.Name = "gbSearchOptions"
-        Me.gbSearchOptions.Size = New System.Drawing.Size(286, 72)
+        Me.gbSearchOptions.Size = New System.Drawing.Size(373, 77)
         Me.gbSearchOptions.TabIndex = 3
         Me.gbSearchOptions.TabStop = False
-        Me.gbSearchOptions.Text = "Search By:"
+        Me.gbSearchOptions.Text = "Filters"
         '
-        'txtSearch
+        'lblFModel
         '
-        Me.txtSearch.Location = New System.Drawing.Point(27, 116)
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(100, 20)
-        Me.txtSearch.TabIndex = 4
+        Me.lblFModel.AutoSize = True
+        Me.lblFModel.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFModel.Location = New System.Drawing.Point(149, 22)
+        Me.lblFModel.Name = "lblFModel"
+        Me.lblFModel.Size = New System.Drawing.Size(42, 15)
+        Me.lblFModel.TabIndex = 3
+        Me.lblFModel.Text = "Model"
         '
-        'btnSearch
+        'lblFCategory
         '
-        Me.btnSearch.Location = New System.Drawing.Point(26, 151)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(75, 23)
-        Me.btnSearch.TabIndex = 5
-        Me.btnSearch.Text = "Search"
-        Me.btnSearch.UseVisualStyleBackColor = True
+        Me.lblFCategory.AutoSize = True
+        Me.lblFCategory.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFCategory.Location = New System.Drawing.Point(6, 22)
+        Me.lblFCategory.Name = "lblFCategory"
+        Me.lblFCategory.Size = New System.Drawing.Size(55, 15)
+        Me.lblFCategory.TabIndex = 2
+        Me.lblFCategory.Text = "Category"
+        '
+        'cbModel
+        '
+        Me.cbModel.Enabled = False
+        Me.cbModel.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbModel.FormattingEnabled = True
+        Me.cbModel.Location = New System.Drawing.Point(149, 38)
+        Me.cbModel.Name = "cbModel"
+        Me.cbModel.Size = New System.Drawing.Size(121, 23)
+        Me.cbModel.TabIndex = 1
+        '
+        'cbCategory
+        '
+        Me.cbCategory.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCategory.FormattingEnabled = True
+        Me.cbCategory.Location = New System.Drawing.Point(9, 38)
+        Me.cbCategory.Name = "cbCategory"
+        Me.cbCategory.Size = New System.Drawing.Size(121, 23)
+        Me.cbCategory.TabIndex = 0
+        '
+        'txtAssetTag
+        '
+        Me.txtAssetTag.Location = New System.Drawing.Point(151, 133)
+        Me.txtAssetTag.Name = "txtAssetTag"
+        Me.txtAssetTag.Size = New System.Drawing.Size(117, 20)
+        Me.txtAssetTag.TabIndex = 4
         '
         'lstMachines
         '
@@ -132,28 +130,12 @@ Partial Class Search
         '
         'btnRefresh
         '
-        Me.btnRefresh.Location = New System.Drawing.Point(432, 437)
+        Me.btnRefresh.Location = New System.Drawing.Point(432, 431)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(75, 23)
         Me.btnRefresh.TabIndex = 8
         Me.btnRefresh.Text = "Refresh"
         Me.btnRefresh.UseVisualStyleBackColor = True
-        '
-        'Splitter1
-        '
-        Me.Splitter1.Location = New System.Drawing.Point(0, 0)
-        Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(3, 478)
-        Me.Splitter1.TabIndex = 9
-        Me.Splitter1.TabStop = False
-        '
-        'Splitter2
-        '
-        Me.Splitter2.Location = New System.Drawing.Point(3, 0)
-        Me.Splitter2.Name = "Splitter2"
-        Me.Splitter2.Size = New System.Drawing.Size(3, 478)
-        Me.Splitter2.TabIndex = 10
-        Me.Splitter2.TabStop = False
         '
         'gbListOptions
         '
@@ -194,38 +176,68 @@ Partial Class Search
         Me.gbMachine.Controls.Add(Me.btnEdit)
         Me.gbMachine.Controls.Add(Me.lblIMEI)
         Me.gbMachine.Controls.Add(Me.lblSim)
-        Me.gbMachine.Controls.Add(Me.lblTechnician)
-        Me.gbMachine.Controls.Add(Me.lblLastModified)
+        Me.gbMachine.Controls.Add(Me.lblAcquisition)
+        Me.gbMachine.Controls.Add(Me.lblReceived)
         Me.gbMachine.Controls.Add(Me.lblSiteUser)
         Me.gbMachine.Controls.Add(Me.lblCatModel)
         Me.gbMachine.Controls.Add(Me.lblSerialNumber)
         Me.gbMachine.Controls.Add(Me.lblAssetTag)
         Me.gbMachine.Controls.Add(Me.lblMachineName)
-        Me.gbMachine.Location = New System.Drawing.Point(27, 200)
+        Me.gbMachine.Location = New System.Drawing.Point(27, 181)
         Me.gbMachine.Name = "gbMachine"
-        Me.gbMachine.Size = New System.Drawing.Size(373, 260)
+        Me.gbMachine.Size = New System.Drawing.Size(373, 279)
         Me.gbMachine.TabIndex = 12
         Me.gbMachine.TabStop = False
+        Me.gbMachine.Text = resources.GetString("gbMachine.Text")
         '
-        'lblTechnician
+        'btnEdit
         '
-        Me.lblTechnician.AutoSize = True
-        Me.lblTechnician.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTechnician.Location = New System.Drawing.Point(9, 215)
-        Me.lblTechnician.Name = "lblTechnician"
-        Me.lblTechnician.Size = New System.Drawing.Size(189, 15)
-        Me.lblTechnician.TabIndex = 6
-        Me.lblTechnician.Text = "Technician who created machine:"
+        Me.btnEdit.Location = New System.Drawing.Point(269, 250)
+        Me.btnEdit.Name = "btnEdit"
+        Me.btnEdit.Size = New System.Drawing.Size(98, 23)
+        Me.btnEdit.TabIndex = 9
+        Me.btnEdit.Text = "Edit Information"
+        Me.btnEdit.UseVisualStyleBackColor = True
         '
-        'lblLastModified
+        'lblIMEI
         '
-        Me.lblLastModified.AutoSize = True
-        Me.lblLastModified.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastModified.Location = New System.Drawing.Point(9, 196)
-        Me.lblLastModified.Name = "lblLastModified"
-        Me.lblLastModified.Size = New System.Drawing.Size(84, 15)
-        Me.lblLastModified.TabIndex = 5
-        Me.lblLastModified.Text = "Last Modified:"
+        Me.lblIMEI.AutoSize = True
+        Me.lblIMEI.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIMEI.Location = New System.Drawing.Point(9, 141)
+        Me.lblIMEI.Name = "lblIMEI"
+        Me.lblIMEI.Size = New System.Drawing.Size(35, 15)
+        Me.lblIMEI.TabIndex = 8
+        Me.lblIMEI.Text = "IMEI:"
+        '
+        'lblSim
+        '
+        Me.lblSim.AutoSize = True
+        Me.lblSim.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSim.Location = New System.Drawing.Point(9, 120)
+        Me.lblSim.Name = "lblSim"
+        Me.lblSim.Size = New System.Drawing.Size(31, 15)
+        Me.lblSim.TabIndex = 7
+        Me.lblSim.Text = "SIM:"
+        '
+        'lblAcquisition
+        '
+        Me.lblAcquisition.AutoSize = True
+        Me.lblAcquisition.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAcquisition.Location = New System.Drawing.Point(9, 215)
+        Me.lblAcquisition.Name = "lblAcquisition"
+        Me.lblAcquisition.Size = New System.Drawing.Size(100, 15)
+        Me.lblAcquisition.TabIndex = 6
+        Me.lblAcquisition.Text = "Acquisition Date:"
+        '
+        'lblReceived
+        '
+        Me.lblReceived.AutoSize = True
+        Me.lblReceived.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblReceived.Location = New System.Drawing.Point(9, 196)
+        Me.lblReceived.Name = "lblReceived"
+        Me.lblReceived.Size = New System.Drawing.Size(86, 15)
+        Me.lblReceived.TabIndex = 5
+        Me.lblReceived.Text = "Received Date:"
         '
         'lblSiteUser
         '
@@ -277,49 +289,27 @@ Partial Class Search
         Me.lblMachineName.TabIndex = 0
         Me.lblMachineName.Text = "Machine Name"
         '
-        'lblSim
+        'lblFAssetTag
         '
-        Me.lblSim.AutoSize = True
-        Me.lblSim.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSim.Location = New System.Drawing.Point(9, 120)
-        Me.lblSim.Name = "lblSim"
-        Me.lblSim.Size = New System.Drawing.Size(31, 15)
-        Me.lblSim.TabIndex = 7
-        Me.lblSim.Text = "SIM:"
-        '
-        'lblIMEI
-        '
-        Me.lblIMEI.AutoSize = True
-        Me.lblIMEI.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIMEI.Location = New System.Drawing.Point(9, 141)
-        Me.lblIMEI.Name = "lblIMEI"
-        Me.lblIMEI.Size = New System.Drawing.Size(35, 15)
-        Me.lblIMEI.TabIndex = 8
-        Me.lblIMEI.Text = "IMEI:"
-        '
-        'btnEdit
-        '
-        Me.btnEdit.Location = New System.Drawing.Point(269, 231)
-        Me.btnEdit.Name = "btnEdit"
-        Me.btnEdit.Size = New System.Drawing.Size(98, 23)
-        Me.btnEdit.TabIndex = 9
-        Me.btnEdit.Text = "Edit Information"
-        Me.btnEdit.UseVisualStyleBackColor = True
+        Me.lblFAssetTag.AutoSize = True
+        Me.lblFAssetTag.Location = New System.Drawing.Point(36, 140)
+        Me.lblFAssetTag.Name = "lblFAssetTag"
+        Me.lblFAssetTag.Size = New System.Drawing.Size(109, 13)
+        Me.lblFAssetTag.TabIndex = 13
+        Me.lblFAssetTag.Text = "Search by Asset Tag:"
         '
         'Search
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(736, 478)
+        Me.Controls.Add(Me.lblFAssetTag)
         Me.Controls.Add(Me.gbMachine)
         Me.Controls.Add(Me.gbListOptions)
-        Me.Controls.Add(Me.Splitter2)
-        Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.btnRefresh)
         Me.Controls.Add(Me.txtFilter)
         Me.Controls.Add(Me.lstMachines)
-        Me.Controls.Add(Me.btnSearch)
-        Me.Controls.Add(Me.txtSearch)
+        Me.Controls.Add(Me.txtAssetTag)
         Me.Controls.Add(Me.gbSearchOptions)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "Search"
@@ -335,25 +325,18 @@ Partial Class Search
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents rdAssetTag As RadioButton
-    Friend WithEvents rdMachineName As RadioButton
-    Friend WithEvents rdSerialNumber As RadioButton
     Friend WithEvents gbSearchOptions As GroupBox
-    Friend WithEvents txtSearch As TextBox
-    Friend WithEvents btnSearch As Button
+    Friend WithEvents txtAssetTag As TextBox
     Friend WithEvents lstMachines As ListBox
     Friend WithEvents txtFilter As TextBox
     Friend WithEvents btnRefresh As Button
-    Friend WithEvents Splitter1 As Splitter
-    Friend WithEvents Splitter2 As Splitter
     Friend WithEvents gbListOptions As GroupBox
     Friend WithEvents rdListSerialNumbers As RadioButton
     Friend WithEvents rdListMachineNames As RadioButton
     Friend WithEvents gbMachine As GroupBox
     Friend WithEvents lblMachineName As Label
-    Friend WithEvents lblTechnician As Label
-    Friend WithEvents lblLastModified As Label
+    Friend WithEvents lblAcquisition As Label
+    Friend WithEvents lblReceived As Label
     Friend WithEvents lblSiteUser As Label
     Friend WithEvents lblCatModel As Label
     Friend WithEvents lblSerialNumber As Label
@@ -361,4 +344,9 @@ Partial Class Search
     Friend WithEvents lblIMEI As Label
     Friend WithEvents lblSim As Label
     Friend WithEvents btnEdit As Button
+    Friend WithEvents lblFModel As Label
+    Friend WithEvents lblFCategory As Label
+    Friend WithEvents cbModel As ComboBox
+    Friend WithEvents cbCategory As ComboBox
+    Friend WithEvents lblFAssetTag As Label
 End Class
