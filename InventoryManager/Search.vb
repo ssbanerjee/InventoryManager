@@ -17,6 +17,7 @@ Public Class Search
     Private category As String
     Private model As String
     Private location As String
+
     Private received As String
     Private acquisition As String
 
@@ -169,6 +170,12 @@ Public Class Search
                                     employee = "null"
                                 Else
                                     employee = myReader.GetString(i)
+                                End If
+                            Case 9
+                                If myReader.IsDBNull(i) Then
+                                    machineID = "null"
+                                Else
+                                    machineID = myReader.GetInt32(i).ToString
                                 End If
                             Case 10
                                 If myReader.IsDBNull(i) Then

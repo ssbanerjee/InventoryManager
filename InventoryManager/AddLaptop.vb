@@ -104,9 +104,14 @@ Public Class AddLaptop
                 Return True
             Else
                 dataReader.Close()
-                MsgBox("Username not found." + vbCrLf + "Would you like to add this is a new username?", MsgBoxStyle.YesNoCancel)
-                txtUsername.Clear()
-                Return False
+                Dim result As MsgBoxResult = MsgBox("Username not found." + vbCrLf + "Would you like to add this is a new username?", MsgBoxStyle.YesNoCancel)
+                If result = MsgBoxResult.Yes Then
+                    AddEmployee.username = employee
+                    AddEmployee.ShowDialog()
+                    Return True
+                Else
+                    Return False
+                End If
             End If
         Catch ex As Exception
             MsgBox(ex.ToString)

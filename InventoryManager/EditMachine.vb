@@ -18,6 +18,9 @@ Public Class EditMachine
     Private model As String
     Private location As String
 
+    Private received As String
+    Private acquisition As String
+
     Public machineID As String
 
     Private Sub EditMachine_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -25,42 +28,79 @@ Public Class EditMachine
         myConn.Open()
         myCmd = myConn.CreateCommand
         btnBack.Visible = False
-        myCmd.CommandText = "SELECT e.employee_username, m.machine_name, m.asset_tag, m.serial_number, m.SIM, m.IMEI, m.model_id, m.machine_center_number " +
-                            "FROM Employee e JOIN Machine m ON m.employee_id = e.employee_id " +
-                            "WHERE m.machine_id = " + machineID + ";"
-        myReader = myCmd.ExecuteReader
-        If myReader.Read() Then
-            For i As Integer = 0 To 7
-                If myReader.IsDBNull(i) Then
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
+                        "FROM Machine m JOIN Employee e ON m.employee_ID = e.employee_ID " +
+                        "JOIN Model d ON m.model_ID = d.model_ID " +
+                        "JOIN Category c ON d.category_id = c.category_ID " +
+                        "JOIN Center t ON m.machine_center_number = t.center_number " +
+                        "WHERE m.machine_id = " + machineID + ";"
+        Try
+            myReader = myCmd.ExecuteReader()
+            Dim results As String = ""
+            Dim count As Integer = 0
+            Do While myReader.Read()
+                For i As Integer = 0 To 11
                     Select Case i
                         Case 0
-                            employee = "null"
+                            If myReader.IsDBNull(i) Then
+                                machineName = "null"
+                            Else
+                                machineName = myReader.GetString(i)
+                            End If
                         Case 1
-                            machineName = "null"
+                            If myReader.IsDBNull(i) Then
+                                assetTag = "null"
+                            Else
+                                assetTag = myReader.GetInt32(i).ToString
+                            End If
                         Case 2
-                            assetTag = "null"
-                        Case 3
-                            serialNumber = "null"
-                        Case 4
-                            SIM = "null"
+                            If myReader.IsDBNull(i) Then
+                                serialNumber = "null"
+                            Else
+                                serialNumber = myReader.GetString(i)
+                            End If
                         Case 5
-                            IMEI = "null"
+                            If myReader.IsDBNull(i) Then
+                                SIM = "null"
+                            Else
+                                SIM = myReader.GetString(i)
+                            End If
+                        Case 6
+                            If myReader.IsDBNull(i) Then
+                                IMEI = "null"
+                            Else
+                                IMEI = myReader.GetString(i)
+                            End If
+                        Case 8
+                            If myReader.IsDBNull(i) Then
+                                employee = "null"
+                            Else
+                                employee = myReader.GetString(i)
+                            End If
+                        Case 9
+                            If myReader.IsDBNull(i) Then
+                                machineID = "null"
+                            Else
+                                machineID = myReader.GetInt32(i).ToString
+                            End If
+                        Case 10
+                            If myReader.IsDBNull(i) Then
+                                received = "null"
+                            Else
+                                received = myReader.GetDateTime(i).ToString
+                            End If
+                        Case 11
+                            If myReader.IsDBNull(i) Then
+                                acquisition = "null"
+                            Else
+                                acquisition = myReader.GetDateTime(i).ToString
+                            End If
                     End Select
-                Else
-                    employee = myReader.GetString(0)
-                    machineName = myReader.GetString(1)
-                    assetTag = myReader.GetInt32(2).ToString
-                    serialNumber = myReader.GetString(3)
-                    SIM = myReader.GetString(4)
-                    IMEI = myReader.GetString(5)
-                    model = myReader.GetInt32(6).ToString
-                    location = myReader.GetInt32(7).ToString
-                End If
-            Next
-            myReader.Close()
-        Else
-            MsgBox("Machine not found")
-        End If
+                Next
+            Loop
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
 
         loadInformation()
     End Sub
@@ -72,6 +112,13 @@ Public Class EditMachine
         txtSerialNumber.Text = serialNumber
         txtSIM.Text = SIM
         txtIMEI.Text = IMEI
+        If received <> "null" And received <> "" Then
+            dteReceived.Value = received
+        End If
+        If acquisition <> "null" And acquisition <> "" Then
+            dteAcquisition.Value = acquisition
+        End If
+
     End Sub
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If (checkUsername(txtUsername.Text)) Then
@@ -159,6 +206,12 @@ Public Class EditMachine
             serialNumber = "'" + serialNumber + "'"
         Else
             MsgBox("You MUST enter a Serial Number.")
+        End If
+    End Sub
+
+    Private Sub EditMachine_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+        If e.KeyChar.Equals(Keys.F12) Then
+            MsgBox("success")
         End If
     End Sub
 End Class

@@ -66,7 +66,7 @@ Public Class MainMenu
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        'Search.ShowDialog()
+        'TODO
     End Sub
 
     Private Sub btnSearch_MouseHover(sender As Object, e As EventArgs) Handles btnSearch.MouseHover
@@ -76,5 +76,4 @@ Public Class MainMenu
     Private Sub btnSearch_MouseLeave(sender As Object, e As EventArgs) Handles btnSearch.MouseLeave
         btnSearch.Image = My.Resources.equipmentRequest
     End Sub
-
 End Class

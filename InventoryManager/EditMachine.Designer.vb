@@ -36,6 +36,10 @@ Partial Class EditMachine
         Me.txtSerialNumber = New System.Windows.Forms.TextBox()
         Me.txtAssetTag = New System.Windows.Forms.TextBox()
         Me.txtMachineName = New System.Windows.Forms.TextBox()
+        Me.lblReceived = New System.Windows.Forms.Label()
+        Me.dteReceived = New System.Windows.Forms.DateTimePicker()
+        Me.lblAcquisition = New System.Windows.Forms.Label()
+        Me.dteAcquisition = New System.Windows.Forms.DateTimePicker()
         Me.SuspendLayout()
         '
         'lblIMEI
@@ -94,7 +98,7 @@ Partial Class EditMachine
         '
         'btnBack
         '
-        Me.btnBack.Location = New System.Drawing.Point(12, 349)
+        Me.btnBack.Location = New System.Drawing.Point(12, 432)
         Me.btnBack.Name = "btnBack"
         Me.btnBack.Size = New System.Drawing.Size(75, 23)
         Me.btnBack.TabIndex = 21
@@ -113,7 +117,7 @@ Partial Class EditMachine
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(156, 337)
+        Me.btnSave.Location = New System.Drawing.Point(156, 420)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(133, 35)
         Me.btnSave.TabIndex = 19
@@ -164,11 +168,47 @@ Partial Class EditMachine
         Me.txtMachineName.Size = New System.Drawing.Size(277, 26)
         Me.txtMachineName.TabIndex = 15
         '
+        'lblReceived
+        '
+        Me.lblReceived.AutoSize = True
+        Me.lblReceived.Location = New System.Drawing.Point(12, 333)
+        Me.lblReceived.Name = "lblReceived"
+        Me.lblReceived.Size = New System.Drawing.Size(56, 13)
+        Me.lblReceived.TabIndex = 28
+        Me.lblReceived.Text = "Received:"
+        '
+        'dteReceived
+        '
+        Me.dteReceived.Location = New System.Drawing.Point(89, 327)
+        Me.dteReceived.Name = "dteReceived"
+        Me.dteReceived.Size = New System.Drawing.Size(200, 20)
+        Me.dteReceived.TabIndex = 29
+        '
+        'lblAcquisition
+        '
+        Me.lblAcquisition.AutoSize = True
+        Me.lblAcquisition.Location = New System.Drawing.Point(15, 377)
+        Me.lblAcquisition.Name = "lblAcquisition"
+        Me.lblAcquisition.Size = New System.Drawing.Size(61, 13)
+        Me.lblAcquisition.TabIndex = 30
+        Me.lblAcquisition.Text = "Acquisition:"
+        '
+        'dteAcquisition
+        '
+        Me.dteAcquisition.Location = New System.Drawing.Point(89, 371)
+        Me.dteAcquisition.Name = "dteAcquisition"
+        Me.dteAcquisition.Size = New System.Drawing.Size(200, 20)
+        Me.dteAcquisition.TabIndex = 31
+        '
         'EditMachine
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(301, 384)
+        Me.ClientSize = New System.Drawing.Size(301, 467)
+        Me.Controls.Add(Me.dteAcquisition)
+        Me.Controls.Add(Me.lblAcquisition)
+        Me.Controls.Add(Me.dteReceived)
+        Me.Controls.Add(Me.lblReceived)
         Me.Controls.Add(Me.lblIMEI)
         Me.Controls.Add(Me.lblSIM)
         Me.Controls.Add(Me.lblSerialNumber)
@@ -206,4 +246,8 @@ Partial Class EditMachine
     Friend WithEvents txtSerialNumber As TextBox
     Friend WithEvents txtAssetTag As TextBox
     Friend WithEvents txtMachineName As TextBox
+    Friend WithEvents lblReceived As Label
+    Friend WithEvents dteReceived As DateTimePicker
+    Friend WithEvents lblAcquisition As Label
+    Friend WithEvents dteAcquisition As DateTimePicker
 End Class
