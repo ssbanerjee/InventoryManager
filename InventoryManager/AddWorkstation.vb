@@ -90,6 +90,8 @@ Public Class AddWorkstation
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim centerNumber As String = ""
+
+        'Checks if a center number and a model type has been selected
         If cbCenter.Text <> "" And cbModel.Text <> "" Then
             centerNumber = cbCenter.Text.Substring(1, 3)
             Dim machineName As String = txtMachineName.Text
@@ -98,6 +100,7 @@ Public Class AddWorkstation
             Dim serialNumber As String = txtSerialNumber.Text
             Dim costCenter As String = txtCostCenter.Text
 
+            'checkNulls checks to see if any of the textboxes are empty.
             checkNulls(machineName, assetTag, serialNumber)
 
             If serialNumber <> "" Then
@@ -114,7 +117,7 @@ Public Class AddWorkstation
             End If
 
         Else
-            MsgBox("Enter a Center Number")
+            MsgBox("Enter both a Center Number and select a Model")
         End If
 
     End Sub

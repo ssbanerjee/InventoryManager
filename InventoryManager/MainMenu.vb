@@ -27,33 +27,6 @@ Public Class MainMenu
     End Sub
 
     Private Sub btnEditMachine_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
-        'EditMachine.ShowDialog()
-        'Dim result As MsgBoxResult = MsgBox("Do you have the Asset Tag number?", MsgBoxStyle.YesNoCancel)
-        'If result = MsgBoxResult.Yes Then
-        '    Dim assetTag As String = InputBox("Be sure to only use numbers", "Enter Asset Tag", "")
-        '    myCmd.CommandText = "SELECT machine_ID FROM Machine WHERE asset_tag = " + assetTag + ";"
-        '    myReader = myCmd.ExecuteReader
-        '    If myReader.Read() Then
-        '        Dim id As Integer = myReader.GetInt32(0)
-        '        EditMachine.machineID = id
-        '        EditMachine.ShowDialog()
-        '    Else
-        '        MsgBox("Not found")
-        '    End If
-        'Else
-        '    Dim serialNumber As String = InputBox("`", "Enter Serial Number", "")
-        '    myCmd.CommandText = "SELECT machine_ID FROM Machine WHERE serial_number = '" + serialNumber + "';"
-        '    myReader = myCmd.ExecuteReader
-        '    If myReader.Read() Then
-        '        Dim id As Integer = myReader.GetInt32(0)
-        '        EditMachine.machineID = id
-        '        EditMachine.ShowDialog()
-        '    Else
-        '        MsgBox("Not found")
-        '    End If
-        'End If
-        'myReader.Close()
-
         Search.ShowDialog()
     End Sub
 

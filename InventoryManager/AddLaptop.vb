@@ -8,6 +8,7 @@ Public Class AddLaptop
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
     Private results As String
+
     Private Sub AddLaptop_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         myConn = New SqlConnection(connectionString)
         myConn.Open()
@@ -29,8 +30,11 @@ Public Class AddLaptop
         Dim centerNumber As String = cbCenter.Text.Substring(1, 3)
         Dim costCenter As String = txtCostCenter.Text
 
+        'checkNulls checks to see if any of the textboxes are empty.
         checkNulls(employee, machineName, assetTag, SIM, IMEI, serialNumber)
 
+        'checkUsername will only return true if either empty, or a valid username has been inputted.
+        'the serialNumber check is a bit redundant, but it's a doublecheck to ensure it has not been left blank.
         If (checkUsername(employee)) And (serialNumber <> "") Then
             Dim command As String = ""
             command = "INSERT INTO Machine VALUES ((SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
@@ -46,12 +50,6 @@ Public Class AddLaptop
                 MsgBox(ex.ToString)
             End Try
         End If
-
-        'Dim results As String = ""
-        'Do While myReader.Read()
-        '    results += myReader.GetString(0) + " " + myReader.GetString(1) + vbCrLf
-        'Loop
-        'MsgBox(results)
     End Sub
 
     Private Sub checkNulls(ByRef employee As String, ByRef machineName As String, ByRef assetTag As String, ByRef SIM As String, ByRef IMEI As String, ByRef serialNumber As String)
@@ -88,6 +86,9 @@ Public Class AddLaptop
         End If
     End Sub
 
+    'This function checks to see if the username entered exists.
+    'If it does, it continues on. If it doesn't, it then will ask if a new username is to be created.
+    'If it finds that the value is empty, is passes true and sets the value to "null"
     Private Function checkUsername(ByVal employee As String) As Boolean
         If employee = "null" Then
             Return True
@@ -124,6 +125,7 @@ Public Class AddLaptop
     End Sub
 
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
+        'Enforces only numerical input
         Dim digitsOnly As Regex = New Regex("[^\d]")
         txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
 
@@ -135,12 +137,16 @@ Public Class AddLaptop
     End Sub
 
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
+        'This grabs the center number from the combobox and puts it into the CostCenter textbox
         If cbCenter.Text <> "" Then
             txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
         End If
     End Sub
 
     Private Sub chCostCenter_CheckedChanged(sender As Object, e As EventArgs) Handles chCostCenter.CheckedChanged
+        'By default, the CostCenter textbox is disabled.
+        'The user can enable it by cheking the checkbox next to it.
+        'If the user de-selects it once more, it grabs the center number from the combobox and fills it in.
         If chCostCenter.Checked Then
             txtCostCenter.ReadOnly = False
         Else

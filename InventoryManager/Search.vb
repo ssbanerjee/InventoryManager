@@ -16,7 +16,7 @@ Public Class Search
     Private IMEI As String
     Private category As String
     Private model As String
-    Private location As String
+    Private center_number As String
 
     Private received As String
     Private acquisition As String
@@ -34,6 +34,7 @@ Public Class Search
     Private Sub loadInformation()
         lstMachines.Items.Clear()
 
+        'Checks to see which filter option has been selected, and then changes the serach query based on that result
         Dim searchOption As String = ""
         If rdListMachineNames.Checked Then
             searchOption = "machine_name"
@@ -48,6 +49,7 @@ Public Class Search
         Dim fCategory As String = cbCategory.SelectedItem
         Dim fModel As String = cbModel.SelectedItem
 
+        'If a category and/or model has been selected, it updates the query to further narrow down the search
         If fCategory <> "" Then
             command += " WHERE c.category_name = '" + fCategory + "'"
             If fModel <> "" Then
@@ -58,6 +60,7 @@ Public Class Search
         myCmd.CommandText = command + ";"
         myReader = myCmd.ExecuteReader()
         Do While myReader.Read()
+            'If it finds a machine, but the name is null (only checks machine_name as serial_number is NOT NULL by default
             If myReader.IsDBNull(0) Then
                 lstMachines.Items.Add("No Machine Name Set")
             Else
@@ -74,7 +77,7 @@ Public Class Search
         lblCatModel.Text = category + " -- " + model
         lblSim.Text = "SIM: " + SIM
         lblIMEI.Text = "IMEI: " + IMEI
-        lblSiteUser.Text = "#" + location + " -- " + employee
+        lblSiteUser.Text = "#" + center_number + " -- " + employee
         lblReceived.Text = "Received Date: " + received
         lblAcquisition.Text = "Acquisition Date: " + acquisition
     End Sub
@@ -93,29 +96,23 @@ Public Class Search
         myReader.Close()
     End Sub
 
+    'Whenever the textbox above the list changes, it checks to see if it can find the string and highlight the value for the user
     Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged
         Dim i As Integer = lstMachines.FindString(txtFilter.Text)
         lstMachines.SelectedIndex = i
         If txtFilter.Text = "" Then
             lstMachines.SelectedIndex = -1
         End If
-        'For counter As Integer = 0 To lstMachines.Items.Count - 1
-        '    Dim item = lstMachines.Items(counter).ToString()
-        '    Dim i As Integer = item.IndexOf(lstMachines.Text, StringComparison.CurrentCultureIgnoreCase)
-        '    If i >= 0 Then
-        '        lstMachines.SelectedIndex = i
-        '    Else
-        '        lstMachines.SelectedIndex = -1
-        '    End If
-        'Next
     End Sub
 
     Private Sub lstMachines_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstMachines.SelectedValueChanged
+        'Checks if index is -1 so it doesn't try to run a null query
         If lstMachines.SelectedIndex <> -1 Then
             Dim search As String = lstMachines.SelectedItem.ToString
             Dim query As String = ""
             Dim command As String = ""
 
+            'Edits the query based on what is being displayed on the screen
             If rdListMachineNames.Checked Then
                 query = "machine_name"
             ElseIf rdListSerialNumbers.Checked Then
@@ -133,6 +130,8 @@ Public Class Search
                 Dim results As String = ""
                 Dim count As Integer = 0
                 Do While myReader.Read()
+                    'Checks every index of the query (machine_name, asset_tag, etc) for null values.
+                    'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
                     For i As Integer = 0 To 11
                         Select Case i
                             Case 0
@@ -205,6 +204,7 @@ Public Class Search
         Dim category As String = cbCategory.SelectedItem
         cbModel.Items.Clear()
 
+        'The Model combobox is disabled by default. If a Category has been selected, then it enables the Model combobox.
         If category <> "" Then
             cbModel.Enabled = True
         Else
@@ -212,6 +212,7 @@ Public Class Search
             cbModel.Enabled = False
         End If
 
+        'Grabs the category ID and then populates the Model combobox based on the category selected.
         myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = " +
             "(SELECT category_id FROM Category WHERE category_name = '" + category + "');"
         Try
@@ -228,10 +229,12 @@ Public Class Search
     End Sub
 
     Private Sub cbModel_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbModel.SelectedValueChanged
+        'sSimply reloads the information. loadInformation() is already made to check these values, no changes need to be made.
         loadInformation()
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+        'Passes the machineId to EditMachine and opens it
         EditMachine.machineID = machineID
         EditMachine.ShowDialog()
     End Sub
@@ -249,6 +252,8 @@ Public Class Search
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs)
+        'Removed as this has been deemed unneccessary
+
         'Dim search As String = txtSearch.Text
         'Dim query As String = ""
         'Dim command As String = ""
@@ -303,6 +308,7 @@ Public Class Search
     End Sub
 
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
+        'Enforces only numerical input
         Dim digitsOnly As Regex = New Regex("[^\d]")
         txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
 
@@ -352,7 +358,7 @@ Public Class Search
                         model = myReader.GetString(4)
                         SIM = myReader.GetString(5)
                         IMEI = myReader.GetString(6)
-                        location = myReader.GetInt32(7).ToString
+                        center_number = myReader.GetInt32(7).ToString
                         employee = myReader.GetString(8)
                         machineID = myReader.GetInt32(9).ToString
                     End If

@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Text.RegularExpressions
 
 Public Class EditMachine
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
@@ -16,13 +15,14 @@ Public Class EditMachine
     Private IMEI As String
     Private category As String
     Private model As String
-    Private location As String
+    Private center_number As String
 
     Private received As String
     Private acquisition As String
 
-    Public machineID As String
+    Public machineID As String 'This is the primary key value that is passed to it from the previous Form
 
+    'When loading the form, it runs a query using machineID as the primary key
     Private Sub EditMachine_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         myConn = New SqlConnection(connectionString)
         myConn.Open()
@@ -39,6 +39,8 @@ Public Class EditMachine
             Dim results As String = ""
             Dim count As Integer = 0
             Do While myReader.Read()
+                'Checks every index of the query (machine_name, asset_tag, etc) for null values.
+                'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
                 For i As Integer = 0 To 11
                     Select Case i
                         Case 0
@@ -70,6 +72,12 @@ Public Class EditMachine
                                 IMEI = "null"
                             Else
                                 IMEI = myReader.GetString(i)
+                            End If
+                        Case 7
+                            If myReader.IsDBNull(i) Then
+                                center_number = "null"
+                            Else
+                                center_number = myReader.GetInt32(i).ToString
                             End If
                         Case 8
                             If myReader.IsDBNull(i) Then
@@ -105,6 +113,7 @@ Public Class EditMachine
         loadInformation()
     End Sub
 
+    'After getting the information from the query, it then displays the information via text boxes and such on the Form
     Private Sub loadInformation()
         txtUsername.Text = employee
         txtMachineName.Text = machineName
@@ -120,6 +129,8 @@ Public Class EditMachine
         End If
 
     End Sub
+
+    'Updates the machine with the current values shown in the Form
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If (checkUsername(txtUsername.Text)) Then
             Try
@@ -147,6 +158,9 @@ Public Class EditMachine
 
     End Sub
 
+    'This function checks to see if the username entered exists.
+    'If it does, it continues on. If it doesn't, it then will ask if a new username is to be created.
+    'If it finds that the value is empty, is passes true and sets the value to "null"
     Private Function checkUsername(ByVal employee As String) As Boolean
         If employee = "null" Then
             Return True
@@ -173,42 +187,7 @@ Public Class EditMachine
         End Try
     End Function
 
-    Private Sub checkNulls(ByRef employee As String, ByRef machineName As String, ByRef assetTag As String, ByRef SIM As String, ByRef IMEI As String, ByRef serialNumber As String)
-        If employee = "" Then
-            employee = "null"
-        Else
-            employee = "'" + employee + "'"
-        End If
-
-        If machineName = "" Then
-            machineName = "null"
-        Else
-            machineName = "'" + machineName + "'"
-        End If
-
-        If assetTag = "" Then
-            assetTag = "null"
-        End If
-
-        If SIM = "" Then
-            SIM = "null"
-        Else
-            SIM = "'" + SIM + "'"
-        End If
-
-        If IMEI = "" Then
-            IMEI = "null"
-        Else
-            IMEI = "'" + IMEI + "'"
-        End If
-
-        If serialNumber <> "" Then
-            serialNumber = "'" + serialNumber + "'"
-        Else
-            MsgBox("You MUST enter a Serial Number.")
-        End If
-    End Sub
-
+    'This function is testing to see if I can get it to listen for a keypress. At the moment it is not working.
     Private Sub EditMachine_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar.Equals(Keys.F12) Then
             MsgBox("success")
