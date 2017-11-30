@@ -1,7 +1,16 @@
 ﻿Imports System.Data.SqlClient
+'Imports Oracle.ManagedDataAccess.Client
 
 Public Class MainMenu
-    'Private connectionString As String = "Server=INVSUXS-D; Database=INVENTORYSQL; User Id=SQLadmin; Password=1NV3nt0ry5uXX5"
+    'The following lines are to be substituted in for the ORACLE version
+    'Dim connectionString As String = "DATA SOURCE=HelpDeskINV.NA.AMFBowl.NET;PASSWORD=8l2ckj2cK;PERSIST SECURITY INFO=True;USER ID=system"
+    'Dim connection As New OracleConnection(connectionString)
+    'connection.Open()
+    'command.Connection = connection
+    'command.CommandText = cmd
+    'command.CommandType = CommandType.Text
+    ' Dim dataReader As OracleDataReader = Command.ExecuteReader()
+
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
