@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Text.RegularExpressions
 
 Public Class EditMachine
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
@@ -109,7 +110,7 @@ Public Class EditMachine
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-
+        myReader.Close()
         loadInformation()
     End Sub
 
@@ -135,14 +136,13 @@ Public Class EditMachine
         If (checkUsername(txtUsername.Text)) Then
             Try
                 Dim command As String = "UPDATE Machine SET employee_id = (SELECT employee_id FROM Employee WHERE employee_username = '" + txtUsername.Text + "'), " +
-                            "machine_name = '" + txtMachineName.Text + "', " +
-                            "asset_tag = " + txtAssetTag.Text + ", " +
-                            "serial_number = '" + txtSerialNumber.Text + "', " +
-                            "SIM = '" + txtSIM.Text + "', " +
-                            "IMEI = '" + txtIMEI.Text + "', " +
-                            "center_number = " + location + " " +
-                            "WHERE machine_id = " + machineID + ";"
-                MsgBox(command)
+                    "machine_name = '" + txtMachineName.Text + "', " +
+                    "asset_tag = " + txtAssetTag.Text + ", " +
+                    "serial_number = '" + txtSerialNumber.Text + "', " +
+                    "SIM = '" + txtSIM.Text + "', " +
+                    "IMEI = '" + txtIMEI.Text + "', " +
+                    "machine_center_number = " + center_number + " " +
+                    "WHERE machine_id = " + machineID + ";"
                 myCmd.CommandText = command
                 myReader = myCmd.ExecuteReader
                 myReader.Close()
@@ -162,7 +162,7 @@ Public Class EditMachine
     'If it does, it continues on. If it doesn't, it then will ask if a new username is to be created.
     'If it finds that the value is empty, is passes true and sets the value to "null"
     Private Function checkUsername(ByVal employee As String) As Boolean
-        If employee = "null" Then
+        If employee = "null" Or employee = "" Then
             Return True
         End If
         Dim dataReader As SqlDataReader
@@ -192,5 +192,53 @@ Public Class EditMachine
         If e.KeyChar.Equals(Keys.F12) Then
             MsgBox("success")
         End If
+    End Sub
+
+    'This function does a simple check against SQL Injection by removing all single quotes, double quotes, and semicolons from input
+    Private Sub checkSQLInjection(ByRef input As String)
+        input = input.Replace("""", "")
+        input = input.Replace("'", "")
+        input = input.Replace(";", "")
+    End Sub
+
+    Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
+        'Enforces only numerical input
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
+
+        If txtAssetTag.TextLength > 6 Then
+            Dim character As String = txtAssetTag.Text(6)
+            txtAssetTag.Text = character
+        End If
+        txtAssetTag.SelectionStart = txtAssetTag.TextLength
+    End Sub
+
+    Private Sub txtIMEI_TextChanged(sender As Object, e As EventArgs) Handles txtIMEI.TextChanged
+        'Enforces only numerical input
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        txtIMEI.Text = digitsOnly.Replace(txtIMEI.Text, "")
+        txtIMEI.SelectionStart = txtIMEI.TextLength
+    End Sub
+
+    Private Sub txtMachineName_TextChanged(sender As Object, e As EventArgs) Handles txtMachineName.TextChanged
+        checkSQLInjection(txtMachineName.Text)
+        txtMachineName.SelectionStart = txtMachineName.TextLength
+    End Sub
+
+    Private Sub txtSerialNumber_TextChanged(sender As Object, e As EventArgs) Handles txtSerialNumber.TextChanged
+        checkSQLInjection(txtSerialNumber.Text)
+        txtSerialNumber.SelectionStart = txtSerialNumber.TextLength
+    End Sub
+
+    Private Sub txtSIM_TextChanged(sender As Object, e As EventArgs) Handles txtSIM.TextChanged
+        'Enforces only numerical input
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        txtSIM.Text = digitsOnly.Replace(txtSIM.Text, "")
+        txtSIM.SelectionStart = txtSIM.TextLength
+    End Sub
+
+    Private Sub txtUsername_TextChanged(sender As Object, e As EventArgs) Handles txtUsername.TextChanged
+        checkSQLInjection(txtUsername.Text)
+        txtUsername.SelectionStart = txtUsername.TextLength
     End Sub
 End Class

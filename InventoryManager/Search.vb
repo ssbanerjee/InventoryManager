@@ -96,15 +96,6 @@ Public Class Search
         myReader.Close()
     End Sub
 
-    'Whenever the textbox above the list changes, it checks to see if it can find the string and highlight the value for the user
-    Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged
-        Dim i As Integer = lstMachines.FindString(txtFilter.Text)
-        lstMachines.SelectedIndex = i
-        If txtFilter.Text = "" Then
-            lstMachines.SelectedIndex = -1
-        End If
-    End Sub
-
     Private Sub lstMachines_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstMachines.SelectedValueChanged
         'Checks if index is -1 so it doesn't try to run a null query
         If lstMachines.SelectedIndex <> -1 Then
@@ -307,20 +298,6 @@ Public Class Search
         'loadMachineInfo()
     End Sub
 
-    Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
-        'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
-
-        If txtAssetTag.TextLength = 6 Then
-            checkAT(txtAssetTag.Text)
-        ElseIf txtAssetTag.TextLength > 6 Then
-            Dim character As String = txtAssetTag.Text(6)
-            txtAssetTag.Text = character
-            txtAssetTag.SelectionStart = txtAssetTag.TextLength
-        End If
-    End Sub
-
     Private Sub checkAT(ByVal assetTag As String)
         myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id " +
                     "FROM Machine m JOIN Employee e ON m.employee_ID = e.employee_ID " +
@@ -376,5 +353,35 @@ Public Class Search
 
     Private Sub txtAssetTag_Click(sender As Object, e As EventArgs) Handles txtAssetTag.Click
         txtAssetTag.SelectAll()
+    End Sub
+
+    'This function does a simple check against SQL Injection by removing all single quotes, double quotes, and semicolons from input
+    Private Sub checkSQLInjection(ByRef input As String)
+        input = input.Replace("""", "")
+        input = input.Replace("'", "")
+        input = input.Replace(";", "")
+    End Sub
+
+    Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
+        'Enforces only numerical input
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
+
+        If txtAssetTag.TextLength > 6 Then
+            Dim character As String = txtAssetTag.Text(6)
+            txtAssetTag.Text = character
+        End If
+        txtAssetTag.SelectionStart = txtAssetTag.TextLength
+    End Sub
+
+    'Whenever the textbox above the list changes, it checks to see if it can find the string and highlight the value for the user
+    Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged
+        checkSQLInjection(txtFilter.Text)
+        txtFilter.SelectionStart = txtFilter.TextLength
+        Dim i As Integer = lstMachines.FindString(txtFilter.Text)
+        lstMachines.SelectedIndex = i
+        If txtFilter.Text = "" Then
+            lstMachines.SelectedIndex = -1
+        End If
     End Sub
 End Class

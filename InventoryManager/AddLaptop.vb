@@ -124,18 +124,6 @@ Public Class AddLaptop
         Me.Close()
     End Sub
 
-    Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
-        'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
-
-        If txtAssetTag.TextLength > 6 Then
-            Dim character As String = txtAssetTag.Text(6)
-            txtAssetTag.Text = character
-            txtAssetTag.SelectionStart = txtAssetTag.TextLength
-        End If
-    End Sub
-
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
         'This grabs the center number from the combobox and puts it into the CostCenter textbox
         If cbCenter.Text <> "" Then
@@ -215,5 +203,53 @@ Public Class AddLaptop
         cbModel.SelectedIndex = -1
         cbCenter.SelectedIndex = -1
         txtCostCenter.Clear()
+    End Sub
+
+    'This function does a simple check against SQL Injection by removing all single quotes, double quotes, and semicolons from input
+    Private Sub checkSQLInjection(ByRef input As String)
+        input = input.Replace("""", "")
+        input = input.Replace("'", "")
+        input = input.Replace(";", "")
+    End Sub
+
+    Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
+        'Enforces only numerical input
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
+
+        If txtAssetTag.TextLength > 6 Then
+            Dim character As String = txtAssetTag.Text(6)
+            txtAssetTag.Text = character
+        End If
+        txtAssetTag.SelectionStart = txtAssetTag.TextLength
+    End Sub
+
+    Private Sub txtIMEI_TextChanged(sender As Object, e As EventArgs) Handles txtIMEI.TextChanged
+        'Enforces only numerical input
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        txtIMEI.Text = digitsOnly.Replace(txtIMEI.Text, "")
+        txtIMEI.SelectionStart = txtIMEI.TextLength
+    End Sub
+
+    Private Sub txtMachineName_TextChanged(sender As Object, e As EventArgs) Handles txtMachineName.TextChanged
+        checkSQLInjection(txtMachineName.Text)
+        txtMachineName.SelectionStart = txtMachineName.TextLength
+    End Sub
+
+    Private Sub txtSerialNumber_TextChanged(sender As Object, e As EventArgs) Handles txtSerialNumber.TextChanged
+        checkSQLInjection(txtSerialNumber.Text)
+        txtSerialNumber.SelectionStart = txtSerialNumber.TextLength
+    End Sub
+
+    Private Sub txtSIM_TextChanged(sender As Object, e As EventArgs) Handles txtSIM.TextChanged
+        'Enforces only numerical input
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        txtSIM.Text = digitsOnly.Replace(txtSIM.Text, "")
+        txtSIM.SelectionStart = txtSIM.TextLength
+    End Sub
+
+    Private Sub txtUsername_TextChanged(sender As Object, e As EventArgs) Handles txtUsername.TextChanged
+        checkSQLInjection(txtUsername.Text)
+        txtUsername.SelectionStart = txtUsername.TextLength
     End Sub
 End Class
