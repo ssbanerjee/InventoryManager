@@ -1,17 +1,29 @@
-﻿Imports System.Data.SqlClient
+﻿'Imports System.Data.SqlClient
+Imports System.ComponentModel
 Imports System.Text.RegularExpressions
+Imports Oracle.ManagedDataAccess.Client
 
 Public Class AddEMV
-    'Private connectionString As String = "Server=INVSUXS-D; Database=INVENTORYSQL; User Id=SQLadmin; Password=1NV3nt0ry5uXX5"
-    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
-    Private myConn As SqlConnection
-    Private myCmd As SqlCommand
-    Private myReader As SqlDataReader
-    Private results As String
+    'The following lines are to be substituted in for the ORACLE version
+    Private connectionString As String = "DATA SOURCE=jasmine.cs.vcu.edu:20037/XE;PASSWORD=V00673996;PERSIST SECURITY INFO=True;USER ID=BANERJEES2"
+    Private myConn As New OracleConnection(connectionString)
+    Private myCmd As New OracleCommand
+    Private myReader As OracleDataReader
+    'command.CommandText = cmd
+    'command.CommandType = CommandType.Text
+
+
+    'The following lines are to be substituted in for the MYSQL version
+    'Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
+    'Private myConn As SqlConnection
+    'Private myCmd As SqlCommand
+    'Private myReader As SqlDataReader
 
     Private Sub AddEMV_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        myConn = New SqlConnection(connectionString)
+        'myConn = New SqlConnection(connectionString)
+        myCmd.Connection = myConn
         myConn.Open()
+        myCmd.CommandType = CommandType.Text
         myCmd = myConn.CreateCommand
         clearLists()
         loadCenters()
@@ -119,7 +131,7 @@ Public Class AddEMV
         Dim costCenter As String = txtCostCenter.Text
 
         myCmd.CommandText = "INSERT INTO Machine VALUES (null, '" + machineName + "', " + assetTag + ", '" + serialNumber + "', null, null, " +
-                            "(SELECT model_id FROM Model WHERE model_name = 'VeriFone EMV'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null);"
+                            "(SELECT model_id FROM Model WHERE model_name = 'VeriFone EMV'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null)"
         Try
             myReader = myCmd.ExecuteReader
             MsgBox("Success!")
@@ -162,5 +174,9 @@ Public Class AddEMV
     Private Sub txtName_TextChanged(sender As Object, e As EventArgs) Handles txtName.TextChanged
         checkSQLInjection(txtName.Text)
         txtName.SelectionStart = txtName.TextLength
+    End Sub
+
+    Private Sub AddEMV_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        myConn.Close()
     End Sub
 End Class
