@@ -85,4 +85,31 @@ Public Class AddEmployee
         End If
     End Sub
 
+    Private Function getID() As String
+        Dim ID As Integer = 1
+        Dim list As New ArrayList
+        Dim dataReader As OracleDataReader
+        Dim SQLCommand As New OracleCommand
+        SQLCommand.CommandType = CommandType.Text
+        SQLCommand = myConn.CreateCommand
+        Dim command As String = "SELECT employee_id FROM Employee"
+        SQLCommand.CommandText = command
+        Try
+            dataReader = SQLCommand.ExecuteReader
+            Do While (dataReader.Read())
+                list.Add(dataReader.GetInt32(0))
+            Loop
+            dataReader.Close()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+
+        For Each e As Int32 In list
+            If e = ID Then
+                ID += 1
+            End If
+        Next
+
+        Return ID.ToString
+    End Function
 End Class
