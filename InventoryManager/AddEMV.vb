@@ -127,7 +127,14 @@ Public Class AddEMV
         Dim machineName As String = txtName.Text
         Dim assetTag As String = txtAssetTag.Text
         Dim serialNumber As String = txtSerialNumber.Text
-        Dim centerNumber As String = cbCenter.Text.Substring(1, 3)
+
+        Dim centerNumber As String = cbCenter.Text
+        If centerNumber <> "" Then
+            centerNumber = centerNumber.Substring(1, 3)
+        Else
+            centerNumber = "0"
+        End If
+
         Dim costCenter As String = txtCostCenter.Text
 
         myCmd.CommandText = "INSERT INTO Machine VALUES (0, null, '" + machineName + "', " + assetTag + ", '" + serialNumber + "', null, null, " +
