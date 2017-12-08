@@ -1,4 +1,5 @@
 ﻿'Imports System.Data.SqlClient
+Imports System.ComponentModel
 Imports Oracle.ManagedDataAccess.Client
 
 Public Class AddEmployee
@@ -54,18 +55,24 @@ Public Class AddEmployee
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        myCmd.CommandText = "INSERT INTO Employee VALUES ('" + txtFirstName.Text + "', '" + txtLastName.Text + "', " + username + ", 'USER', " +
+        If cbCenter.Text <> "" Then
+            myCmd.CommandText = "INSERT INTO Employee VALUES (0,'" + txtFirstName.Text + "', '" + txtLastName.Text + "', " + username + ", 'USER', " +
                             cbCenter.Text.Substring(1, 3) + ")"
-        Try
-            myReader = myCmd.ExecuteReader
-            If myReader.Read() Then
-                MsgBox("Success!")
-            End If
-            myReader.Close()
-            Me.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
+            Try
+                myReader = myCmd.ExecuteReader
+                If myReader.Read() Then
+                    MsgBox("Success!")
+                End If
+                myReader.Close()
+                Me.Close()
+            Catch ex As Exception
+                MsgBox(ex.ToString)
+                myReader.Close()
+            End Try
+        Else
+            MsgBox("Please enter a valid Center Number")
+        End If
+
         myReader.Close()
     End Sub
 
@@ -112,4 +119,8 @@ Public Class AddEmployee
 
         Return ID.ToString
     End Function
+
+    Private Sub AddEmployee_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        myReader.Close()
+    End Sub
 End Class

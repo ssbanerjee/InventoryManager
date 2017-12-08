@@ -105,7 +105,7 @@ Public Class AddWorkstation
             checkNulls(machineName, assetTag, serialNumber)
 
             If serialNumber <> "" Then
-                myCmd.CommandText = "INSERT INTO Machine VALUES (" + getID() + ", null, " + machineName + ", " + assetTag + ", " + serialNumber + ", null, null, " +
+                myCmd.CommandText = "INSERT INTO Machine VALUES (0, null, " + machineName + ", " + assetTag + ", " + serialNumber + ", null, null, " +
                  "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null);"
                 Try
                     myReader = myCmd.ExecuteReader
@@ -192,32 +192,4 @@ Public Class AddWorkstation
     Private Sub AddWorkstation_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         myConn.Close()
     End Sub
-
-    Private Function getID() As String
-        Dim ID As Integer = 1
-        Dim list As New ArrayList
-        Dim dataReader As OracleDataReader
-        Dim SQLCommand As New OracleCommand
-        SQLCommand.CommandType = CommandType.Text
-        SQLCommand = myConn.CreateCommand
-        Dim command As String = "SELECT machine_id FROM Machine"
-        SQLCommand.CommandText = command
-        Try
-            dataReader = SQLCommand.ExecuteReader
-            Do While (dataReader.Read())
-                list.Add(dataReader.GetInt32(0))
-            Loop
-            dataReader.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-
-        For Each e As Int32 In list
-            If e = ID Then
-                ID += 1
-            End If
-        Next
-
-        Return ID.ToString
-    End Function
 End Class

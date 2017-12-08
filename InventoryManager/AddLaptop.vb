@@ -39,7 +39,13 @@ Public Class AddLaptop
         Dim SIM As String = txtSIM.Text
         Dim IMEI As String = txtIMEI.Text
         Dim model As String = cbModel.Text
-        Dim centerNumber As String = cbCenter.Text.Substring(1, 3)
+        Dim centerNumber As String = cbCenter.Text
+        If centerNumber <> "" Then
+            centerNumber = centerNumber.Substring(1, 3)
+        Else
+            centerNumber = "0"
+        End If
+
         Dim costCenter As String = txtCostCenter.Text
 
         'checkNulls checks to see if any of the textboxes are empty.
@@ -49,10 +55,11 @@ Public Class AddLaptop
         'the serialNumber check is a bit redundant, but it's a doublecheck to ensure it has not been left blank.
         If (checkUsername(employee)) And (serialNumber <> "") Then
             Dim command As String = ""
-            command = "INSERT INTO Machine VALUES (" + getID() + ", (SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
+            command = "INSERT INTO Machine VALUES (0, (SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
                 serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
                 "', SYSDATE, null)"
             myCmd.CommandText = command
+            MsgBox(command)
             Try
                 myReader = myCmd.ExecuteReader
                 MsgBox("Success!")
@@ -272,31 +279,5 @@ Public Class AddLaptop
         myConn.Close()
     End Sub
 
-    Private Function getID() As String
-        Dim ID As Integer = 1
-        Dim list As New ArrayList
-        Dim dataReader As OracleDataReader
-        Dim SQLCommand As New OracleCommand
-        SQLCommand.CommandType = CommandType.Text
-        SQLCommand = myConn.CreateCommand
-        Dim command As String = "SELECT machine_id FROM Machine"
-        SQLCommand.CommandText = command
-        Try
-            dataReader = SQLCommand.ExecuteReader
-            Do While (dataReader.Read())
-                list.Add(dataReader.GetInt32(0))
-            Loop
-            dataReader.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
 
-        For Each e As Int32 In list
-            If e = ID Then
-                ID += 1
-            End If
-        Next
-
-        Return ID.ToString
-    End Function
 End Class
