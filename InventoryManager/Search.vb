@@ -211,6 +211,7 @@ Public Class Search
         'The Model combobox is disabled by default. If a Category has been selected, then it enables the Model combobox.
         If category <> "" Then
             cbModel.Enabled = True
+            cbModel.Items.Add("")
         Else
             cbModel.Text = ""
             cbModel.Enabled = False
@@ -400,5 +401,15 @@ Public Class Search
 
     Private Sub Search_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         myConn.Close()
+    End Sub
+
+    Private Sub cbCategory_TextChanged(sender As Object, e As EventArgs) Handles cbCategory.TextChanged
+        checkSQLInjection(cbCategory.Text)
+        cbCategory.SelectionStart = cbCategory.Text.Length
+    End Sub
+
+    Private Sub cbModel_TextChanged(sender As Object, e As EventArgs) Handles cbModel.TextChanged
+        checkSQLInjection(cbModel.Text)
+        cbModel.SelectionStart = cbModel.Text.Length
     End Sub
 End Class

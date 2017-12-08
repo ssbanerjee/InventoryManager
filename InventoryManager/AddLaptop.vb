@@ -109,7 +109,7 @@ Public Class AddLaptop
     'If it does, it continues on. If it doesn't, it then will ask if a new username is to be created.
     'If it finds that the value is empty, is passes true and sets the value to "null"
     Private Function checkUsername(ByVal employee As String) As Boolean
-        If employee = "null" Then
+        If employee = "" Then
             Return True
         End If
         'Dim dataReader As SqlDataReader
@@ -166,6 +166,9 @@ Public Class AddLaptop
     End Sub
 
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
+        checkSQLInjection(cbCenter.Text)
+        cbCenter.SelectionStart = cbCenter.Text.Length
+
         Dim currentString As String = cbCenter.Text
         Dim firstIndex As String = "null"
         If Not cbCenter.Text.Length = 0 Then
@@ -279,5 +282,8 @@ Public Class AddLaptop
         myConn.Close()
     End Sub
 
-
+    Private Sub cbModel_TextChanged(sender As Object, e As EventArgs) Handles cbModel.TextChanged
+        checkSQLInjection(cbModel.Text)
+        cbModel.SelectionStart = cbModel.Text.Length
+    End Sub
 End Class
