@@ -126,10 +126,10 @@ Public Class Search
             End If
 
             myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
-                        "FROM Machine m JOIN Employee e ON m.employee_ID = e.employee_ID " +
-                        "JOIN Model d ON m.model_ID = d.model_ID " +
-                        "JOIN Category c ON d.category_id = c.category_ID " +
-                        "JOIN Center t ON m.machine_center_number = t.center_number " +
+                        "FROM Machine m LEFT JOIN Employee e ON m.employee_ID = e.employee_ID " +
+                        "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
+                        "LEFT JOIN Category c ON d.category_id = c.category_ID " +
+                        "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
                         "WHERE " + query + " = '" + search + "'"
             Try
                 myReader = myCmd.ExecuteReader()
@@ -315,49 +315,80 @@ Public Class Search
     End Sub
 
     Private Sub checkAT(ByVal assetTag As String)
-        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id " +
-                    "FROM Machine m JOIN Employee e ON m.employee_ID = e.employee_ID " +
-                    "JOIN Model d ON m.model_ID = d.model_ID " +
-                    "JOIN Category c ON d.category_id = c.category_ID " +
-                    "JOIN Center t ON m.machine_center_number = t.center_number " +
-                    "WHERE m.asset_tag = " + assetTag + ""
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
+                        "FROM Machine m LEFT JOIN Employee e ON m.employee_ID = e.employee_ID " +
+                        "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
+                        "LEFT JOIN Category c ON d.category_id = c.category_ID " +
+                        "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
+                        "WHERE m.asset_tag = " + assetTag + ""
         Try
             myReader = myCmd.ExecuteReader()
             Dim results As String = ""
             Dim count As Integer = 0
             If myReader.Read() Then
-
-                For i As Integer = 0 To 7
-                    If myReader.IsDBNull(i) Then
-                        Select Case i
-                            Case 0
+                'Checks every index of the query (machine_name, asset_tag, etc) for null values.
+                'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
+                'Checks every index of the query (machine_name, asset_tag, etc) for null values.
+                'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
+                For i As Integer = 0 To 11
+                    Select Case i
+                        Case 0
+                            If myReader.IsDBNull(i) Then
                                 machineName = "null"
-                            Case 1
+                            Else
+                                machineName = myReader.GetString(i)
+                            End If
+                        Case 1
+                            If myReader.IsDBNull(i) Then
                                 assetTag = "null"
-                            Case 2
+                            Else
+                                assetTag = myReader.GetInt32(i).ToString
+                            End If
+                        Case 2
+                            If myReader.IsDBNull(i) Then
                                 serialNumber = "null"
-                            Case 5
+                            Else
+                                serialNumber = myReader.GetString(i)
+                            End If
+                        Case 5
+                            If myReader.IsDBNull(i) Then
                                 SIM = "null"
-                            Case 6
+                            Else
+                                SIM = myReader.GetString(i)
+                            End If
+                        Case 6
+                            If myReader.IsDBNull(i) Then
                                 IMEI = "null"
-                            Case 8
+                            Else
+                                IMEI = myReader.GetString(i)
+                            End If
+                        Case 8
+                            If myReader.IsDBNull(i) Then
                                 employee = "null"
-                        End Select
-                    Else
-                        machineName = myReader.GetString(0)
-                        assetTag = myReader.GetInt32(1).ToString
-                        serialNumber = myReader.GetString(2)
-                        category = myReader.GetString(3)
-                        model = myReader.GetString(4)
-                        SIM = myReader.GetString(5)
-                        IMEI = myReader.GetString(6)
-                        center_number = myReader.GetInt32(7).ToString
-                        employee = myReader.GetString(8)
-                        machineID = myReader.GetInt32(9).ToString
-                    End If
+                            Else
+                                employee = myReader.GetString(i)
+                            End If
+                        Case 9
+                            If myReader.IsDBNull(i) Then
+                                machineID = "null"
+                            Else
+                                machineID = myReader.GetInt32(i).ToString
+                            End If
+                        Case 10
+                            If myReader.IsDBNull(i) Then
+                                received = "null"
+                            Else
+                                received = myReader.GetDateTime(i).ToString
+                            End If
+                        Case 11
+                            If myReader.IsDBNull(i) Then
+                                acquisition = "null"
+                            Else
+                                acquisition = myReader.GetDateTime(i).ToString
+                            End If
+                    End Select
                 Next
-            Else
-                MsgBox("Machine not found")
+
             End If
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -388,6 +419,11 @@ Public Class Search
             txtAssetTag.Text = character
         End If
         txtAssetTag.SelectionStart = txtAssetTag.TextLength
+
+        If txtAssetTag.Text <> "" Then
+            checkAT(txtAssetTag.Text)
+        End If
+
     End Sub
 
     'Whenever the textbox above the list changes, it checks to see if it can find the string and highlight the value for the user
