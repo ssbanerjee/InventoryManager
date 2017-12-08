@@ -55,10 +55,10 @@ Public Class Search
             searchOption = "serial_number"
         End If
 
-        Dim command As String = "SELECT " + searchOption + " FROM Machine m JOIN Employee e ON m.employee_ID = e.employee_ID " +
-                    "JOIN Model d ON m.model_ID = d.model_ID " +
-                    "JOIN Category c ON d.category_id = c.category_ID " +
-                    "JOIN Center t ON m.machine_center_number = t.center_number"
+        Dim command As String = "SELECT " + searchOption + " FROM Machine m LEFT JOIN Employee e ON m.employee_ID = e.employee_ID " +
+                    "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
+                    "LEFT JOIN Category c ON d.category_id = c.category_ID " +
+                    "LEFT JOIN Center t ON m.machine_center_number = t.center_number"
         Dim fCategory As String = cbCategory.SelectedItem
         Dim fModel As String = cbModel.SelectedItem
 
