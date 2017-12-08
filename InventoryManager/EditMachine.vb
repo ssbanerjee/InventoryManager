@@ -120,10 +120,11 @@ Public Class EditMachine
                     End Select
                 Next
             Loop
+            myReader.Close()
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-        myReader.Close()
+
         loadInformation()
     End Sub
 

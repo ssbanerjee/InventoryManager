@@ -192,6 +192,7 @@ Partial Class Search
         '
         'btnEdit
         '
+        Me.btnEdit.Enabled = False
         Me.btnEdit.Location = New System.Drawing.Point(269, 250)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(98, 23)

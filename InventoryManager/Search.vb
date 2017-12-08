@@ -75,7 +75,7 @@ Public Class Search
         Do While myReader.Read()
             'If it finds a machine, but the name is null (only checks machine_name as serial_number is NOT NULL by default
             If myReader.IsDBNull(0) Then
-                lstMachines.Items.Add("No Machine Name Set")
+                'lstMachines.Items.Add("No Machine Name Set")
             Else
                 lstMachines.Items.Add(myReader.GetString(0))
             End If
@@ -110,6 +110,8 @@ Public Class Search
     End Sub
 
     Private Sub lstMachines_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstMachines.SelectedValueChanged
+        btnEdit.Enabled = True
+
         'Checks if index is -1 so it doesn't try to run a null query
         If lstMachines.SelectedIndex <> -1 Then
             Dim search As String = lstMachines.SelectedItem.ToString
