@@ -177,11 +177,11 @@ Public Class Search
                                     employee = myReader.GetString(i)
                                 End If
                             Case 9
-                                If myReader.IsDBNull(i) Then
-                                    machineID = "null"
-                                Else
-                                    machineID = myReader.GetInt32(i).ToString
-                                End If
+                                'If myReader.IsDBNull(i) Then
+                                '    machineID = "null"
+                                'Else
+                                machineID = myReader.GetInt32(i).ToString
+                                'End If
                             Case 10
                                 If myReader.IsDBNull(i) Then
                                     received = "null"
