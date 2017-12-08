@@ -53,13 +53,13 @@ Public Class AddLaptop
 
         'checkUsername will only return true if either empty, or a valid username has been inputted.
         'the serialNumber check is a bit redundant, but it's a doublecheck to ensure it has not been left blank.
+
         If (checkUsername(employee)) And (serialNumber <> "") Then
             Dim command As String = ""
             command = "INSERT INTO Machine VALUES (0, (SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
                 serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
                 "', SYSDATE, null)"
             myCmd.CommandText = command
-            MsgBox(command)
             Try
                 myReader = myCmd.ExecuteReader
                 MsgBox("Success!")
@@ -127,11 +127,11 @@ Public Class AddLaptop
                 Return True
             Else
                 dataReader.Close()
-                Dim result As MsgBoxResult = MsgBox("Username not found." + vbCrLf + "Would you like to add this is a new username?", MsgBoxStyle.YesNoCancel)
+                Dim result As MsgBoxResult = MsgBox("Username not found." + vbCrLf + "Would you like to add this is a new username?", MsgBoxStyle.YesNo)
                 If result = MsgBoxResult.Yes Then
                     AddEmployee.username = employee
                     AddEmployee.ShowDialog()
-                    Return True
+                    Return False
                 Else
                     Return False
                 End If

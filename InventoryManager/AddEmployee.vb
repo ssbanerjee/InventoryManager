@@ -55,7 +55,7 @@ Public Class AddEmployee
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        If cbCenter.Text <> "" Then
+        If cbCenter.Text <> "" And txtFirstName.Text <> "" And txtLastName.Text <> "" Then
             myCmd.CommandText = "INSERT INTO Employee VALUES (0,'" + txtFirstName.Text + "', '" + txtLastName.Text + "', " + username + ", 'USER', " +
                             cbCenter.Text.Substring(1, 3) + ")"
             Try
@@ -70,13 +70,16 @@ Public Class AddEmployee
                 myReader.Close()
             End Try
         Else
-            MsgBox("Please enter a valid Center Number")
+            MsgBox("Please fill out all fields.")
         End If
 
         myReader.Close()
     End Sub
 
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
+        checkSQLInjection(cbCenter.Text)
+        cbCenter.SelectionStart = cbCenter.Text.Length
+
         Dim currentString As String = cbCenter.Text
         Dim firstIndex As String = "null"
         If Not cbCenter.Text.Length = 0 Then
@@ -121,6 +124,23 @@ Public Class AddEmployee
     End Function
 
     Private Sub AddEmployee_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        myReader.Close()
+        myConn.Close()
+    End Sub
+
+    'This function does a simple check against SQL Injection by removing all single quotes, double quotes, and semicolons from input
+    Private Sub checkSQLInjection(ByRef input As String)
+        input = input.Replace("""", "")
+        input = input.Replace("'", "")
+        input = input.Replace(";", "")
+    End Sub
+
+    Private Sub txtFirstName_TextChanged(sender As Object, e As EventArgs) Handles txtFirstName.TextChanged
+        checkSQLInjection(txtFirstName.Text)
+        txtFirstName.SelectionStart = txtFirstName.TextLength
+    End Sub
+
+    Private Sub txtLastName_TextChanged(sender As Object, e As EventArgs) Handles txtLastName.TextChanged
+        checkSQLInjection(txtLastName.Text)
+        txtLastName.SelectionStart = txtLastName.TextLength
     End Sub
 End Class
