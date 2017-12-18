@@ -1,23 +1,12 @@
-﻿'Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
 Imports System.Text.RegularExpressions
-Imports Oracle.ManagedDataAccess.Client
 
 Public Class EditMachine
-    'The following lines are to be substituted in for the ORACLE version
-    Private connectionString As String = "DATA SOURCE=jasmine.cs.vcu.edu:20037/XE;PASSWORD=V00673996;PERSIST SECURITY INFO=True;USER ID=BANERJEES2"
-    Private myConn As New OracleConnection(connectionString)
-    Private myCmd As New OracleCommand
-    Private myReader As OracleDataReader
-    'command.CommandText = cmd
-    'command.CommandType = CommandType.Text
-
-
-    'The following lines are to be substituted in for the MYSQL version
-    'Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
-    'Private myConn As SqlConnection
-    'Private myCmd As SqlCommand
-    'Private myReader As SqlDataReader
+    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
+    Private myConn As SqlConnection
+    Private myCmd As SqlCommand
+    Private myReader As SqlDataReader
 
     Private employee As String
     Private machineName As String
@@ -36,10 +25,8 @@ Public Class EditMachine
 
     'When loading the form, it runs a query using machineID as the primary key
     Private Sub EditMachine_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'myConn = New SqlConnection(connectionString)
-        myCmd.Connection = myConn
+        myConn = New SqlConnection(connectionString)
         myConn.Open()
-        myCmd.CommandType = CommandType.Text
         myCmd = myConn.CreateCommand
         btnBack.Visible = False
         myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
@@ -47,7 +34,7 @@ Public Class EditMachine
                         "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
-                        "WHERE m.machine_id = " + machineID + ""
+                        "WHERE m.machine_id = " + machineID + ";"
         Try
             myReader = myCmd.ExecuteReader()
             Dim results As String = ""
@@ -156,7 +143,7 @@ Public Class EditMachine
                     "SIM = '" + txtSIM.Text + "', " +
                     "IMEI = '" + txtIMEI.Text + "', " +
                     "machine_center_number = " + center_number + " " +
-                    "WHERE machine_id = " + machineID + ""
+                    "WHERE machine_id = " + machineID + ";"
                 myCmd.CommandText = command
                 myReader = myCmd.ExecuteReader
                 myReader.Close()
@@ -179,14 +166,12 @@ Public Class EditMachine
         If employee = "null" Or employee = "" Then
             Return True
         End If
-        'Dim dataReader As SqlDataReader
-        'Dim SQLCommand As SqlCommand
-        Dim dataReader As OracleDataReader
-        Dim SQLCommand As New OracleCommand
+        Dim dataReader As SqlDataReader
+        Dim SQLCommand As SqlCommand
         SQLCommand.CommandType = CommandType.Text
 
         SQLCommand = myConn.CreateCommand
-        Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = '" + employee + "'"
+        Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = '" + employee + "';"
         SQLCommand.CommandText = command
         Try
             dataReader = SQLCommand.ExecuteReader

@@ -199,6 +199,7 @@ Partial Class AddWorkstation
         Me.Controls.Add(Me.txtMachineName)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "AddWorkstation"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Add Workstation"
         Me.ResumeLayout(False)
         Me.PerformLayout()

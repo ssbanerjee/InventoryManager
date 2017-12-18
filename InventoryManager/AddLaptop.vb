@@ -1,29 +1,16 @@
-﻿'Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
 Imports System.Text.RegularExpressions
-Imports Oracle.ManagedDataAccess.Client
 
 Public Class AddLaptop
-    'The following lines are to be substituted in for the ORACLE version
-    Private connectionString As String = "DATA SOURCE=jasmine.cs.vcu.edu:20037/XE;PASSWORD=V00673996;PERSIST SECURITY INFO=True;USER ID=BANERJEES2"
-    Private myConn As New OracleConnection(connectionString)
-    Private myCmd As New OracleCommand
-    Private myReader As OracleDataReader
-    'command.CommandText = cmd
-    'command.CommandType = CommandType.Text
-
-
-    'The following lines are to be substituted in for the MYSQL version
-    'Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
-    'Private myConn As SqlConnection
-    'Private myCmd As SqlCommand
-    'Private myReader As SqlDataReader
+    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
+    Private myConn As SqlConnection
+    Private myCmd As SqlCommand
+    Private myReader As SqlDataReader
 
     Private Sub AddLaptop_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'myConn = New SqlConnection(connectionString)
-        myCmd.Connection = myConn
+        myConn = New SqlConnection(connectionString)
         myConn.Open()
-        myCmd.CommandType = CommandType.Text
         myCmd = myConn.CreateCommand
         btnBack.Visible = False
         clearLists()
@@ -56,9 +43,9 @@ Public Class AddLaptop
 
         If (checkUsername(employee)) And (serialNumber <> "") Then
             Dim command As String = ""
-            command = "INSERT INTO Machine VALUES (0, (SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
+            command = "INSERT INTO Machine VALUES ((SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
                 serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
-                "', SYSDATE, null)"
+                "', SYSDATE, null);"
             myCmd.CommandText = command
             Try
                 myReader = myCmd.ExecuteReader
@@ -112,13 +99,11 @@ Public Class AddLaptop
         If employee = "" Then
             Return True
         End If
-        'Dim dataReader As SqlDataReader
-        'Dim SQLCommand As SqlCommand
-        Dim dataReader As OracleDataReader
-        Dim SQLCommand As New OracleCommand
+        Dim dataReader As SqlDataReader
+        Dim SQLCommand As SqlCommand
         SQLCommand.CommandType = CommandType.Text
         SQLCommand = myConn.CreateCommand
-        Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = " + employee + ""
+        Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = " + employee + ";"
         SQLCommand.CommandText = command
         Try
             dataReader = SQLCommand.ExecuteReader
@@ -186,7 +171,7 @@ Public Class AddLaptop
 
     Private Sub loadModels()
         cbModel.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = 1 ORDER BY model_name ASC"
+        myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = 1 ORDER BY model_name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             cbModel.Items.Add(myReader.GetString(0))
@@ -200,7 +185,7 @@ Public Class AddLaptop
         Dim centerNumber As String = ""
         Dim centerName As String = ""
 
-        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC"
+        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             centerNumberInt = myReader.GetInt32(0)

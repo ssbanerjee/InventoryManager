@@ -1,29 +1,26 @@
-﻿'Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
 Imports System.Text.RegularExpressions
-Imports Oracle.ManagedDataAccess.Client
 
 Public Class AddWorkstation
     'The following lines are to be substituted in for the ORACLE version
-    Private connectionString As String = "DATA SOURCE=jasmine.cs.vcu.edu:20037/XE;PASSWORD=V00673996;PERSIST SECURITY INFO=True;USER ID=BANERJEES2"
-    Private myConn As New OracleConnection(connectionString)
-    Private myCmd As New OracleCommand
-    Private myReader As OracleDataReader
+    'Private connectionString As String = "DATA SOURCE=jasmine.cs.vcu.edu:20037/XE;PASSWORD=V00673996;PERSIST SECURITY INFO=True;USER ID=BANERJEES2"
+    'Private myConn As New OracleConnection(connectionString)
+    'Private myCmd As New OracleCommand
+    'Private myReader As OracleDataReader
     'command.CommandText = cmd
     'command.CommandType = CommandType.Text
 
 
     'The following lines are to be substituted in for the MYSQL version
-    'Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
-    'Private myConn As SqlConnection
-    'Private myCmd As SqlCommand
-    'Private myReader As SqlDataReader
+    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
+    Private myConn As SqlConnection
+    Private myCmd As SqlCommand
+    Private myReader As SqlDataReader
 
     Private Sub AddWorkstation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'myConn = New SqlConnection(connectionString)
-        myCmd.Connection = myConn
+        myConn = New SqlConnection(connectionString)
         myConn.Open()
-        myCmd.CommandType = CommandType.Text
         myCmd = myConn.CreateCommand
         clearLists()
         loadCenters()
@@ -45,7 +42,7 @@ Public Class AddWorkstation
         Dim centerNumber As String = ""
         Dim centerName As String = ""
 
-        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC"
+        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             centerNumberInt = myReader.GetInt32(0)
@@ -65,7 +62,7 @@ Public Class AddWorkstation
 
     Private Sub loadModels()
         cbModel.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = 2 ORDER BY model_name ASC"
+        myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = 2 ORDER BY model_name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             cbModel.Items.Add(myReader.GetString(0))
@@ -105,8 +102,8 @@ Public Class AddWorkstation
             checkNulls(machineName, assetTag, serialNumber)
 
             If serialNumber <> "" Then
-                myCmd.CommandText = "INSERT INTO Machine VALUES (0, null, " + machineName + ", " + assetTag + ", " + serialNumber + ", null, null, " +
-                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATE, null)"
+                myCmd.CommandText = "INSERT INTO Machine VALUES (null, " + machineName + ", " + assetTag + ", " + serialNumber + ", null, null, " +
+                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATE, null);"
                 Try
                     myReader = myCmd.ExecuteReader
                     MsgBox("Success!")

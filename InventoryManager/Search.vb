@@ -1,23 +1,12 @@
-﻿'Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
 Imports System.Text.RegularExpressions
-Imports Oracle.ManagedDataAccess.Client
 
 Public Class Search
-    'The following lines are to be substituted in for the ORACLE version
-    Private connectionString As String = "DATA SOURCE=jasmine.cs.vcu.edu:20037/XE;PASSWORD=V00673996;PERSIST SECURITY INFO=True;USER ID=BANERJEES2"
-    Private myConn As New OracleConnection(connectionString)
-    Private myCmd As New OracleCommand
-    Private myReader As OracleDataReader
-    'command.CommandText = cmd
-    'command.CommandType = CommandType.Text
-
-
-    'The following lines are to be substituted in for the MYSQL version
-    'Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
-    'Private myConn As SqlConnection
-    'Private myCmd As SqlCommand
-    'Private myReader As SqlDataReader
+    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
+    Private myConn As SqlConnection
+    Private myCmd As SqlCommand
+    Private myReader As SqlDataReader
 
     Private employee As String
     Private machineName As String
@@ -35,10 +24,8 @@ Public Class Search
     Private machineID As String
 
     Private Sub Search_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'myConn = New SqlConnection(connectionString)
-        myCmd.Connection = myConn
+        myConn = New SqlConnection(connectionString)
         myConn.Open()
-        myCmd.CommandType = CommandType.Text
         myCmd = myConn.CreateCommand
         loadInformation()
         loadCategories()
@@ -70,7 +57,7 @@ Public Class Search
             End If
         End If
 
-        myCmd.CommandText = command
+        myCmd.CommandText = command + ";"
         myReader = myCmd.ExecuteReader()
         Do While myReader.Read()
             'If it finds a machine, but the name is null (only checks machine_name as serial_number is NOT NULL by default
@@ -96,7 +83,7 @@ Public Class Search
     End Sub
 
     Private Sub loadCategories()
-        myCmd.CommandText = "SELECT DISTINCT category_name FROM Category"
+        myCmd.CommandText = "SELECT DISTINCT category_name FROM Category;"
         cbCategory.Items.Add("")
         Try
             myReader = myCmd.ExecuteReader
@@ -130,7 +117,7 @@ Public Class Search
                         "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
-                        "WHERE " + query + " = '" + search + "'"
+                        "WHERE " + query + " = '" + search + "';"
             Try
                 myReader = myCmd.ExecuteReader()
                 Dim results As String = ""
@@ -221,7 +208,7 @@ Public Class Search
 
         'Grabs the category ID and then populates the Model combobox based on the category selected.
         myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = " +
-            "(SELECT category_id FROM Category WHERE category_name = '" + category + "')"
+            "(SELECT category_id FROM Category WHERE category_name = '" + category + "');"
         Try
             myReader = myCmd.ExecuteReader
             Do While myReader.Read
@@ -320,7 +307,7 @@ Public Class Search
                         "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
-                        "WHERE m.asset_tag = " + assetTag + ""
+                        "WHERE m.asset_tag = " + assetTag + ";"
         Try
             myReader = myCmd.ExecuteReader()
             Dim results As String = ""
