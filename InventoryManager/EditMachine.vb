@@ -142,7 +142,9 @@ Public Class EditMachine
                     "serial_number = '" + txtSerialNumber.Text + "', " +
                     "SIM = '" + txtSIM.Text + "', " +
                     "IMEI = '" + txtIMEI.Text + "', " +
-                    "machine_center_number = " + center_number + " " +
+                    "machine_center_number = " + center_number + ", " +
+                    "acquisition_date = '" + dteAcquisition.Value + "', " +
+                    "received_date = '" + dteReceived.Value + "' " +
                     "WHERE machine_id = " + machineID + ";"
                 myCmd.CommandText = command
                 myReader = myCmd.ExecuteReader
@@ -168,7 +170,6 @@ Public Class EditMachine
         End If
         Dim dataReader As SqlDataReader
         Dim SQLCommand As SqlCommand
-        SQLCommand.CommandType = CommandType.Text
 
         SQLCommand = myConn.CreateCommand
         Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = '" + employee + "';"

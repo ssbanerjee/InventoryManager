@@ -45,7 +45,7 @@ Public Class AddLaptop
             Dim command As String = ""
             command = "INSERT INTO Machine VALUES ((SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
                 serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
-                "', SYSDATE, null);"
+                "', SYSDATETIME(), null);"
             myCmd.CommandText = command
             Try
                 myReader = myCmd.ExecuteReader
@@ -101,7 +101,6 @@ Public Class AddLaptop
         End If
         Dim dataReader As SqlDataReader
         Dim SQLCommand As SqlCommand
-        SQLCommand.CommandType = CommandType.Text
         SQLCommand = myConn.CreateCommand
         Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = " + employee + ";"
         SQLCommand.CommandText = command

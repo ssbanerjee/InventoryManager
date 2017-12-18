@@ -2,7 +2,6 @@
 Imports System.ComponentModel
 
 Public Class AddEmployee
-    'The following lines are to be substituted in for the MYSQL version
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
     Private myConn As SqlConnection
     Private myCmd As SqlCommand

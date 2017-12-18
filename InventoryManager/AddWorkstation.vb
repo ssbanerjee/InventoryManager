@@ -3,16 +3,6 @@ Imports System.ComponentModel
 Imports System.Text.RegularExpressions
 
 Public Class AddWorkstation
-    'The following lines are to be substituted in for the ORACLE version
-    'Private connectionString As String = "DATA SOURCE=jasmine.cs.vcu.edu:20037/XE;PASSWORD=V00673996;PERSIST SECURITY INFO=True;USER ID=BANERJEES2"
-    'Private myConn As New OracleConnection(connectionString)
-    'Private myCmd As New OracleCommand
-    'Private myReader As OracleDataReader
-    'command.CommandText = cmd
-    'command.CommandType = CommandType.Text
-
-
-    'The following lines are to be substituted in for the MYSQL version
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
@@ -103,7 +93,7 @@ Public Class AddWorkstation
 
             If serialNumber <> "" Then
                 myCmd.CommandText = "INSERT INTO Machine VALUES (null, " + machineName + ", " + assetTag + ", " + serialNumber + ", null, null, " +
-                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATE, null);"
+                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null);"
                 Try
                     myReader = myCmd.ExecuteReader
                     MsgBox("Success!")
