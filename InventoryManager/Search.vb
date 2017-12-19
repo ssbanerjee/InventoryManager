@@ -245,62 +245,6 @@ Public Class Search
         loadInformation()
     End Sub
 
-    Private Sub btnSearch_Click(sender As Object, e As EventArgs)
-        'Removed as this has been deemed unneccessary
-
-        'Dim search As String = txtSearch.Text
-        'Dim query As String = ""
-        'Dim command As String = ""
-
-        'If rdAssetTag.Checked Then
-        '    query = "asset_tag"
-        'ElseIf rdMachineName.Checked Then
-        '    query = "machine_name"
-        '    search = "'" + search + "'"
-        'ElseIf rdSerialNumber.Checked Then
-        '    query = "serial_number"
-        '    search = "'" + search + "'"
-        'End If
-
-        'command = "SELECT machine_name FROM Machine WHERE " + query + " = " + search + ";"
-        'myCmd.CommandText = command
-        'myReader = myCmd.ExecuteReader()
-        'Dim results As String = ""
-        'Dim count As Integer = 0
-        'Do While myReader.Read()
-        '    For i As Integer = 0 To 7
-        '        If myReader.IsDBNull(i) Then
-        '            Select Case i
-        '                Case 0
-        '                    machineName = "null"
-        '                Case 1
-        '                    assetTag = "null"
-        '                Case 2
-        '                    serialNumber = "null"
-        '                Case 5
-        '                    SIM = "null"
-        '                Case 6
-        '                    IMEI = "null"
-        '                Case 8
-        '                    employee = "null"
-        '            End Select
-        '        Else
-        '            machineName = myReader.GetString(0)
-        '            assetTag = myReader.GetInt32(1).ToString
-        '            serialNumber = myReader.GetString(2)
-        '            category = myReader.GetString(3)
-        '            model = myReader.GetInt32(4).ToString
-        '            SIM = myReader.GetString(5)
-        '            IMEI = myReader.GetString(6)
-        '            location = myReader.GetInt32(7).ToString
-        '            employee = myReader.GetString(8)
-        '        End If
-        '    Next
-        'Loop
-        'myReader.Close()
-        'loadMachineInfo()
-    End Sub
-
     Private Sub checkAT(ByVal assetTag As String)
         myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
                         "FROM Machine m LEFT JOIN Employee e ON m.employee_ID = e.employee_ID " +

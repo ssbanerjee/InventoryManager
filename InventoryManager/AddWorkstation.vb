@@ -143,7 +143,9 @@ Public Class AddWorkstation
             txtCostCenter.ReadOnly = False
         Else
             txtCostCenter.ReadOnly = True
-            txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+            If cbCenter.Text <> "" Then
+                txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+            End If
         End If
     End Sub
 

@@ -41,7 +41,7 @@ Public Class EditMachine
             Dim count As Integer = 0
             Do While myReader.Read()
                 'Checks every index of the query (machine_name, asset_tag, etc) for null values.
-                'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
+                'If it finds a null, it replaces the value with "null", otherwise it stores value into the corresponding variables.
                 For i As Integer = 0 To 11
                     Select Case i
                         Case 0
@@ -165,14 +165,15 @@ Public Class EditMachine
     'If it does, it continues on. If it doesn't, it then will ask if a new username is to be created.
     'If it finds that the value is empty, is passes true and sets the value to "null"
     Private Function checkUsername(ByVal employee As String) As Boolean
-        If employee = "null" Or employee = "" Then
+        If employee = "" Then
             Return True
+        Else
+            employee = "'" + employee + "'"
         End If
         Dim dataReader As SqlDataReader
         Dim SQLCommand As SqlCommand
-
         SQLCommand = myConn.CreateCommand
-        Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = '" + employee + "';"
+        Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = " + employee + ";"
         SQLCommand.CommandText = command
         Try
             dataReader = SQLCommand.ExecuteReader
@@ -181,12 +182,17 @@ Public Class EditMachine
                 Return True
             Else
                 dataReader.Close()
-                MsgBox("Username not found")
-                Return False
+                Dim result As MsgBoxResult = MsgBox("Username not found." + vbCrLf + "Would you like to add this is a new username?", MsgBoxStyle.YesNo)
+                If result = MsgBoxResult.Yes Then
+                    AddEmployee.username = employee
+                    AddEmployee.ShowDialog()
+                    Return False
+                Else
+                    Return False
+                End If
             End If
         Catch ex As Exception
             MsgBox(ex.ToString)
-            MsgBox("Username not found")
             Return False
         End Try
     End Function

@@ -128,9 +128,9 @@ Partial Class EditMachine
         '
         Me.txtIMEI.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtIMEI.Location = New System.Drawing.Point(12, 286)
+        Me.txtIMEI.Multiline = True
         Me.txtIMEI.Name = "txtIMEI"
-        Me.txtIMEI.ReadOnly = True
-        Me.txtIMEI.Size = New System.Drawing.Size(277, 26)
+        Me.txtIMEI.Size = New System.Drawing.Size(277, 20)
         Me.txtIMEI.TabIndex = 20
         '
         'txtSIM
@@ -138,7 +138,6 @@ Partial Class EditMachine
         Me.txtSIM.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSIM.Location = New System.Drawing.Point(12, 225)
         Me.txtSIM.Name = "txtSIM"
-        Me.txtSIM.ReadOnly = True
         Me.txtSIM.Size = New System.Drawing.Size(277, 26)
         Me.txtSIM.TabIndex = 18
         '
@@ -147,7 +146,6 @@ Partial Class EditMachine
         Me.txtSerialNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSerialNumber.Location = New System.Drawing.Point(148, 168)
         Me.txtSerialNumber.Name = "txtSerialNumber"
-        Me.txtSerialNumber.ReadOnly = True
         Me.txtSerialNumber.Size = New System.Drawing.Size(141, 26)
         Me.txtSerialNumber.TabIndex = 17
         '
@@ -156,7 +154,6 @@ Partial Class EditMachine
         Me.txtAssetTag.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAssetTag.Location = New System.Drawing.Point(12, 168)
         Me.txtAssetTag.Name = "txtAssetTag"
-        Me.txtAssetTag.ReadOnly = True
         Me.txtAssetTag.Size = New System.Drawing.Size(117, 26)
         Me.txtAssetTag.TabIndex = 16
         '
@@ -180,6 +177,7 @@ Partial Class EditMachine
         'dteReceived
         '
         Me.dteReceived.Location = New System.Drawing.Point(89, 327)
+        Me.dteReceived.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dteReceived.Name = "dteReceived"
         Me.dteReceived.Size = New System.Drawing.Size(200, 20)
         Me.dteReceived.TabIndex = 29
@@ -196,6 +194,7 @@ Partial Class EditMachine
         'dteAcquisition
         '
         Me.dteAcquisition.Location = New System.Drawing.Point(89, 371)
+        Me.dteAcquisition.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
         Me.dteAcquisition.Name = "dteAcquisition"
         Me.dteAcquisition.Size = New System.Drawing.Size(200, 20)
         Me.dteAcquisition.TabIndex = 31
