@@ -45,7 +45,7 @@ Public Class AddLaptop
             Dim command As String = ""
             command = "INSERT INTO Machine VALUES ((SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
                 serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
-                "', SYSDATETIME(), null);"
+                "', SYSDATETIME(), null, SYSDATETIME(), 2);"
             myCmd.CommandText = command
             Try
                 myReader = myCmd.ExecuteReader

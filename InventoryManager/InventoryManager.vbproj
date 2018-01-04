@@ -102,6 +102,12 @@
     <Compile Include="AddWorkstation.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CSVMenu.Designer.vb">
+      <DependentUpon>CSVMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CSVMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EditMachine.Designer.vb">
       <DependentUpon>EditMachine.vb</DependentUpon>
     </Compile>
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddWorkstation.resx">
       <DependentUpon>AddWorkstation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CSVMenu.resx">
+      <DependentUpon>CSVMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditMachine.resx">
       <DependentUpon>EditMachine.vb</DependentUpon>

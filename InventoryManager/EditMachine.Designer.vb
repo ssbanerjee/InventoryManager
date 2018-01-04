@@ -40,12 +40,14 @@ Partial Class EditMachine
         Me.dteReceived = New System.Windows.Forms.DateTimePicker()
         Me.lblAcquisition = New System.Windows.Forms.Label()
         Me.dteAcquisition = New System.Windows.Forms.DateTimePicker()
+        Me.lblCondition = New System.Windows.Forms.Label()
+        Me.cbCondition = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'lblIMEI
         '
         Me.lblIMEI.AutoSize = True
-        Me.lblIMEI.Location = New System.Drawing.Point(12, 267)
+        Me.lblIMEI.Location = New System.Drawing.Point(328, 90)
         Me.lblIMEI.Name = "lblIMEI"
         Me.lblIMEI.Size = New System.Drawing.Size(29, 13)
         Me.lblIMEI.TabIndex = 27
@@ -54,7 +56,7 @@ Partial Class EditMachine
         'lblSIM
         '
         Me.lblSIM.AutoSize = True
-        Me.lblSIM.Location = New System.Drawing.Point(12, 206)
+        Me.lblSIM.Location = New System.Drawing.Point(328, 29)
         Me.lblSIM.Name = "lblSIM"
         Me.lblSIM.Size = New System.Drawing.Size(26, 13)
         Me.lblSIM.TabIndex = 26
@@ -98,7 +100,7 @@ Partial Class EditMachine
         '
         'btnBack
         '
-        Me.btnBack.Location = New System.Drawing.Point(12, 432)
+        Me.btnBack.Location = New System.Drawing.Point(12, 269)
         Me.btnBack.Name = "btnBack"
         Me.btnBack.Size = New System.Drawing.Size(75, 23)
         Me.btnBack.TabIndex = 21
@@ -117,7 +119,7 @@ Partial Class EditMachine
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(156, 420)
+        Me.btnSave.Location = New System.Drawing.Point(472, 257)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(133, 35)
         Me.btnSave.TabIndex = 19
@@ -127,16 +129,16 @@ Partial Class EditMachine
         'txtIMEI
         '
         Me.txtIMEI.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIMEI.Location = New System.Drawing.Point(12, 286)
+        Me.txtIMEI.Location = New System.Drawing.Point(328, 109)
         Me.txtIMEI.Multiline = True
         Me.txtIMEI.Name = "txtIMEI"
-        Me.txtIMEI.Size = New System.Drawing.Size(277, 20)
+        Me.txtIMEI.Size = New System.Drawing.Size(277, 28)
         Me.txtIMEI.TabIndex = 20
         '
         'txtSIM
         '
         Me.txtSIM.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSIM.Location = New System.Drawing.Point(12, 225)
+        Me.txtSIM.Location = New System.Drawing.Point(328, 48)
         Me.txtSIM.Name = "txtSIM"
         Me.txtSIM.Size = New System.Drawing.Size(277, 26)
         Me.txtSIM.TabIndex = 18
@@ -168,7 +170,7 @@ Partial Class EditMachine
         'lblReceived
         '
         Me.lblReceived.AutoSize = True
-        Me.lblReceived.Location = New System.Drawing.Point(12, 333)
+        Me.lblReceived.Location = New System.Drawing.Point(328, 174)
         Me.lblReceived.Name = "lblReceived"
         Me.lblReceived.Size = New System.Drawing.Size(56, 13)
         Me.lblReceived.TabIndex = 28
@@ -176,7 +178,7 @@ Partial Class EditMachine
         '
         'dteReceived
         '
-        Me.dteReceived.Location = New System.Drawing.Point(89, 327)
+        Me.dteReceived.Location = New System.Drawing.Point(405, 168)
         Me.dteReceived.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dteReceived.Name = "dteReceived"
         Me.dteReceived.Size = New System.Drawing.Size(200, 20)
@@ -185,7 +187,7 @@ Partial Class EditMachine
         'lblAcquisition
         '
         Me.lblAcquisition.AutoSize = True
-        Me.lblAcquisition.Location = New System.Drawing.Point(15, 377)
+        Me.lblAcquisition.Location = New System.Drawing.Point(328, 212)
         Me.lblAcquisition.Name = "lblAcquisition"
         Me.lblAcquisition.Size = New System.Drawing.Size(61, 13)
         Me.lblAcquisition.TabIndex = 30
@@ -193,17 +195,37 @@ Partial Class EditMachine
         '
         'dteAcquisition
         '
-        Me.dteAcquisition.Location = New System.Drawing.Point(89, 371)
+        Me.dteAcquisition.Location = New System.Drawing.Point(405, 212)
         Me.dteAcquisition.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
         Me.dteAcquisition.Name = "dteAcquisition"
         Me.dteAcquisition.Size = New System.Drawing.Size(200, 20)
         Me.dteAcquisition.TabIndex = 31
         '
+        'lblCondition
+        '
+        Me.lblCondition.AutoSize = True
+        Me.lblCondition.Location = New System.Drawing.Point(12, 212)
+        Me.lblCondition.Name = "lblCondition"
+        Me.lblCondition.Size = New System.Drawing.Size(54, 13)
+        Me.lblCondition.TabIndex = 32
+        Me.lblCondition.Text = "Condition:"
+        '
+        'cbCondition
+        '
+        Me.cbCondition.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCondition.FormattingEnabled = True
+        Me.cbCondition.Location = New System.Drawing.Point(89, 209)
+        Me.cbCondition.Name = "cbCondition"
+        Me.cbCondition.Size = New System.Drawing.Size(200, 23)
+        Me.cbCondition.TabIndex = 33
+        '
         'EditMachine
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(301, 467)
+        Me.ClientSize = New System.Drawing.Size(617, 304)
+        Me.Controls.Add(Me.cbCondition)
+        Me.Controls.Add(Me.lblCondition)
         Me.Controls.Add(Me.dteAcquisition)
         Me.Controls.Add(Me.lblAcquisition)
         Me.Controls.Add(Me.dteReceived)
@@ -249,4 +271,6 @@ Partial Class EditMachine
     Friend WithEvents dteReceived As DateTimePicker
     Friend WithEvents lblAcquisition As Label
     Friend WithEvents dteAcquisition As DateTimePicker
+    Friend WithEvents lblCondition As Label
+    Friend WithEvents cbCondition As ComboBox
 End Class

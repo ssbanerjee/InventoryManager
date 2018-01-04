@@ -27,7 +27,7 @@
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        'TODO
+        CSVMenu.ShowDialog()
     End Sub
 
     Private Sub btnSearch_MouseHover(sender As Object, e As EventArgs) Handles btnSearch.MouseHover

@@ -93,7 +93,7 @@ Public Class AddWorkstation
 
             If serialNumber <> "" Then
                 myCmd.CommandText = "INSERT INTO Machine VALUES (null, " + machineName + ", " + assetTag + ", " + serialNumber + ", null, null, " +
-                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null);"
+                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null, SYSDATETIME(), 2);"
                 Try
                     myReader = myCmd.ExecuteReader
                     MsgBox("Success!")

@@ -113,6 +113,7 @@ Public Class EditMachine
         End Try
 
         loadInformation()
+        loadConditions()
     End Sub
 
     'After getting the information from the query, it then displays the information via text boxes and such on the Form
@@ -130,6 +131,16 @@ Public Class EditMachine
             dteAcquisition.Value = acquisition
         End If
 
+    End Sub
+
+    Private Sub loadConditions()
+        cbCondition.Items.Clear()
+        myCmd.CommandText = "SELECT DISTINCT asset_state_condition FROM AssetState ORDER BY asset_state_condition ASC;"
+        myReader = myCmd.ExecuteReader
+        While myReader.Read()
+            cbCondition.Items.Add(myReader.GetString(0))
+        End While
+        myReader.Close()
     End Sub
 
     'Updates the machine with the current values shown in the Form
