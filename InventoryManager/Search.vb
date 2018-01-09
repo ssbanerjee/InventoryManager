@@ -145,6 +145,18 @@ Public Class Search
                                 Else
                                     serialNumber = myReader.GetString(i)
                                 End If
+                            Case 3
+                                If myReader.IsDBNull(i) Then
+                                    category = "null"
+                                Else
+                                    category = myReader.GetString(i)
+                                End If
+                            Case 4
+                                If myReader.IsDBNull(i) Then
+                                    model = "null"
+                                Else
+                                    model = myReader.GetString(i)
+                                End If
                             Case 5
                                 If myReader.IsDBNull(i) Then
                                     SIM = "null"
@@ -157,6 +169,12 @@ Public Class Search
                                 Else
                                     IMEI = myReader.GetString(i)
                                 End If
+                            Case 7
+                                If myReader.IsDBNull(i) Then
+                                    center_number = "null"
+                                Else
+                                    center_number = myReader.GetInt32(i).ToString
+                                End If
                             Case 8
                                 If myReader.IsDBNull(i) Then
                                     employee = "null"
@@ -164,22 +182,18 @@ Public Class Search
                                     employee = myReader.GetString(i)
                                 End If
                             Case 9
-                                'If myReader.IsDBNull(i) Then
-                                '    machineID = "null"
-                                'Else
                                 machineID = myReader.GetInt32(i).ToString
-                                'End If
                             Case 10
                                 If myReader.IsDBNull(i) Then
                                     received = "null"
                                 Else
-                                    received = myReader.GetDateTime(i).ToString
+                                    received = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                                 End If
                             Case 11
                                 If myReader.IsDBNull(i) Then
                                     acquisition = "null"
                                 Else
-                                    acquisition = myReader.GetDateTime(i).ToString
+                                    acquisition = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                                 End If
                         End Select
                     Next

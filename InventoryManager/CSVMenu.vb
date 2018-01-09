@@ -19,7 +19,7 @@ Public Class CSVMenu
     Private Sub loadMachines()
         lstMachines.Items.Clear()
 
-        Dim str As String = "machineName,model,location,assetTag,serialNumber,condition,costCenter,SIM,IMEI,acquisitionDate,receivedDate"
+        Dim str As String = "machineName,model,location,assetTag,serialNumber,assetState,costCenter,SIM,IMEI,acquisitionDate,receivedDate"
         machines.Add(str)
         str = str.Replace(",", vbTab)
         lstMachines.Items.Add(str)
@@ -30,14 +30,14 @@ Public Class CSVMenu
         Dim location As String = ""
         Dim assetTag As String = ""
         Dim serialNumber As String = ""
-        Dim condition As String = ""
+        Dim assetState As String = ""
         Dim costCenter As String = ""
         Dim SIM As String = ""
         Dim IMEI As String = ""
         Dim acquisitionDate As String = ""
         Dim receivedDate As String = ""
         'name 0, model 1, location 2, asset tag 3, serial 4, condition 5, cost center 6, sim 7, imei 8, aqc 9, rec 10
-        myCmd.CommandText = "SELECT m.machine_name, d.model_name, m.machine_center_number, m.asset_tag, m.serial_number, a.asset_state_condition, m.machine_cost_center, " +
+        myCmd.CommandText = "SELECT m.machine_name, d.model_name, m.machine_center_number, m.asset_tag, m.serial_number, a.asset_state_name, m.machine_cost_center, " +
         "m.SIM, m.IMEI, m.acquisition_date, m.received_date " +
         "FROM Machine m JOIN Model d ON m.model_ID = d.model_ID " +
         "JOIN AssetState a ON m.asset_state = a.asset_state_id " +
@@ -81,9 +81,9 @@ Public Class CSVMenu
                             End If
                         Case 5
                             If myReader.IsDBNull(i) Then
-                                condition = "null"
+                                assetState = "null"
                             Else
-                                condition = myReader.GetString(i)
+                                assetState = myReader.GetString(i)
                             End If
                         Case 6
                             If myReader.IsDBNull(i) Then
@@ -107,18 +107,18 @@ Public Class CSVMenu
                             If myReader.IsDBNull(i) Then
                                 acquisitionDate = "null"
                             Else
-                                acquisitionDate = myReader.GetDateTime(i).ToString
+                                acquisitionDate = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                             End If
                         Case 10
                             If myReader.IsDBNull(i) Then
                                 receivedDate = "null"
                             Else
-                                receivedDate = myReader.GetDateTime(i).ToString
+                                receivedDate = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                             End If
                     End Select
                 Next
                 Dim m As String = machineName + "," + model + "," + location + "," + assetTag + "," + serialNumber + "," +
-                                          condition + "," + costCenter + "," + SIM + "," + IMEI + "," + acquisitionDate + "," + receivedDate
+                                          assetState + "," + costCenter + "," + SIM + "," + IMEI + "," + acquisitionDate + "," + receivedDate
                 machines.Add(m)
                 m = m.Replace(",", vbTab)
                 lstMachines.Items.Add(m)
@@ -159,7 +159,7 @@ Public Class CSVMenu
         Dim location As String = ""
         Dim assetTag As String = ""
         Dim serialNumber As String = ""
-        Dim condition As String = ""
+        Dim assetState As String = ""
         Dim costCenter As String = ""
         Dim SIM As String = ""
         Dim IMEI As String = ""
@@ -196,7 +196,7 @@ Public Class CSVMenu
                                 Case 4
                                     serialNumber = currentField
                                 Case 5
-                                    condition = currentField
+                                    assetState = currentField
                                 Case 6
                                     costCenter = currentField
                                 Case 7
@@ -214,7 +214,8 @@ Public Class CSVMenu
                             End If
                         Next
                         myCmd.CommandText = "INSERT INTO Machine VALUES (null, '" + machineName + "', " + assetTag + ", '" + serialNumber + "', null, null, " +
-                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + location + ", '" + costCenter + "', SYSDATETIME(), null, SYSDATETIME(), 2);"
+                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + location + ", '" + costCenter + "', SYSDATETIME(), null, SYSDATETIME(), " +
+                 "(SELECT asset_state_id FROM AssetState WHERE asset_state_name = '" + assetState + "'), 1);"
                         Try
                             myReader = myCmd.ExecuteReader
                             MsgBox("Success!")

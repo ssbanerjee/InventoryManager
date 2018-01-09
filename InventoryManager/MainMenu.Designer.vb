@@ -22,20 +22,20 @@ Partial Class MainMenu
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnSearch = New System.Windows.Forms.Button()
+        Me.btnTransfer = New System.Windows.Forms.Button()
         Me.btnEdit = New System.Windows.Forms.Button()
         Me.btnAddMachine = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'btnSearch
+        'btnTransfer
         '
-        Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSearch.Image = Global.InventoryManager.My.Resources.Resources.equipmentRequest
-        Me.btnSearch.Location = New System.Drawing.Point(0, 720)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(1920, 360)
-        Me.btnSearch.TabIndex = 2
-        Me.btnSearch.UseVisualStyleBackColor = True
+        Me.btnTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnTransfer.Image = Global.InventoryManager.My.Resources.Resources.transferData
+        Me.btnTransfer.Location = New System.Drawing.Point(0, 720)
+        Me.btnTransfer.Name = "btnTransfer"
+        Me.btnTransfer.Size = New System.Drawing.Size(1920, 360)
+        Me.btnTransfer.TabIndex = 2
+        Me.btnTransfer.UseVisualStyleBackColor = True
         '
         'btnEdit
         '
@@ -62,7 +62,7 @@ Partial Class MainMenu
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1920, 1080)
-        Me.Controls.Add(Me.btnSearch)
+        Me.Controls.Add(Me.btnTransfer)
         Me.Controls.Add(Me.btnEdit)
         Me.Controls.Add(Me.btnAddMachine)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -76,5 +76,5 @@ Partial Class MainMenu
 
     Friend WithEvents btnAddMachine As Button
     Friend WithEvents btnEdit As Button
-    Friend WithEvents btnSearch As Button
+    Friend WithEvents btnTransfer As Button
 End Class

@@ -26,15 +26,15 @@
         btnEdit.Image = My.Resources.editInfo
     End Sub
 
-    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnTransfer.Click
         CSVMenu.ShowDialog()
     End Sub
 
-    Private Sub btnSearch_MouseHover(sender As Object, e As EventArgs) Handles btnSearch.MouseHover
-        btnSearch.Image = My.Resources.equipmentRequest_selected
+    Private Sub btnTransfer_MouseHover(sender As Object, e As EventArgs) Handles btnTransfer.MouseHover
+        btnTransfer.Image = My.Resources.transferdata_selected
     End Sub
 
-    Private Sub btnSearch_MouseLeave(sender As Object, e As EventArgs) Handles btnSearch.MouseLeave
-        btnSearch.Image = My.Resources.equipmentRequest
+    Private Sub btnTransfer_MouseLeave(sender As Object, e As EventArgs) Handles btnTransfer.MouseLeave
+        btnTransfer.Image = My.Resources.transferData
     End Sub
 End Class

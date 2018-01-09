@@ -28,7 +28,6 @@ Partial Class EditMachine
         Me.lblAssetTag = New System.Windows.Forms.Label()
         Me.lblMachineName = New System.Windows.Forms.Label()
         Me.lblUsername = New System.Windows.Forms.Label()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.txtUsername = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.txtIMEI = New System.Windows.Forms.TextBox()
@@ -40,14 +39,20 @@ Partial Class EditMachine
         Me.dteReceived = New System.Windows.Forms.DateTimePicker()
         Me.lblAcquisition = New System.Windows.Forms.Label()
         Me.dteAcquisition = New System.Windows.Forms.DateTimePicker()
-        Me.lblCondition = New System.Windows.Forms.Label()
-        Me.cbCondition = New System.Windows.Forms.ComboBox()
+        Me.lblAssetState = New System.Windows.Forms.Label()
+        Me.cbAssetState = New System.Windows.Forms.ComboBox()
+        Me.cbCenter = New System.Windows.Forms.ComboBox()
+        Me.lblCenter = New System.Windows.Forms.Label()
+        Me.chCostCenter = New System.Windows.Forms.CheckBox()
+        Me.txtCostCenter = New System.Windows.Forms.TextBox()
+        Me.lblCostCenter = New System.Windows.Forms.Label()
+        Me.lblTitle = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblIMEI
         '
         Me.lblIMEI.AutoSize = True
-        Me.lblIMEI.Location = New System.Drawing.Point(328, 90)
+        Me.lblIMEI.Location = New System.Drawing.Point(328, 117)
         Me.lblIMEI.Name = "lblIMEI"
         Me.lblIMEI.Size = New System.Drawing.Size(29, 13)
         Me.lblIMEI.TabIndex = 27
@@ -56,7 +61,7 @@ Partial Class EditMachine
         'lblSIM
         '
         Me.lblSIM.AutoSize = True
-        Me.lblSIM.Location = New System.Drawing.Point(328, 29)
+        Me.lblSIM.Location = New System.Drawing.Point(328, 56)
         Me.lblSIM.Name = "lblSIM"
         Me.lblSIM.Size = New System.Drawing.Size(26, 13)
         Me.lblSIM.TabIndex = 26
@@ -65,7 +70,7 @@ Partial Class EditMachine
         'lblSerialNumber
         '
         Me.lblSerialNumber.AutoSize = True
-        Me.lblSerialNumber.Location = New System.Drawing.Point(148, 149)
+        Me.lblSerialNumber.Location = New System.Drawing.Point(152, 175)
         Me.lblSerialNumber.Name = "lblSerialNumber"
         Me.lblSerialNumber.Size = New System.Drawing.Size(73, 13)
         Me.lblSerialNumber.TabIndex = 25
@@ -74,7 +79,7 @@ Partial Class EditMachine
         'lblAssetTag
         '
         Me.lblAssetTag.AutoSize = True
-        Me.lblAssetTag.Location = New System.Drawing.Point(12, 149)
+        Me.lblAssetTag.Location = New System.Drawing.Point(16, 175)
         Me.lblAssetTag.Name = "lblAssetTag"
         Me.lblAssetTag.Size = New System.Drawing.Size(117, 13)
         Me.lblAssetTag.TabIndex = 24
@@ -83,7 +88,7 @@ Partial Class EditMachine
         'lblMachineName
         '
         Me.lblMachineName.AutoSize = True
-        Me.lblMachineName.Location = New System.Drawing.Point(12, 92)
+        Me.lblMachineName.Location = New System.Drawing.Point(16, 118)
         Me.lblMachineName.Name = "lblMachineName"
         Me.lblMachineName.Size = New System.Drawing.Size(139, 13)
         Me.lblMachineName.TabIndex = 23
@@ -92,34 +97,25 @@ Partial Class EditMachine
         'lblUsername
         '
         Me.lblUsername.AutoSize = True
-        Me.lblUsername.Location = New System.Drawing.Point(12, 30)
+        Me.lblUsername.Location = New System.Drawing.Point(16, 56)
         Me.lblUsername.Name = "lblUsername"
         Me.lblUsername.Size = New System.Drawing.Size(106, 13)
         Me.lblUsername.TabIndex = 22
         Me.lblUsername.Text = "Username (ex: JDoe)"
-        '
-        'btnBack
-        '
-        Me.btnBack.Location = New System.Drawing.Point(12, 269)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(75, 23)
-        Me.btnBack.TabIndex = 21
-        Me.btnBack.Text = "Back"
-        Me.btnBack.UseVisualStyleBackColor = True
         '
         'txtUsername
         '
         Me.txtUsername.BackColor = System.Drawing.SystemColors.Window
         Me.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtUsername.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUsername.Location = New System.Drawing.Point(12, 49)
+        Me.txtUsername.Location = New System.Drawing.Point(16, 75)
         Me.txtUsername.Name = "txtUsername"
         Me.txtUsername.Size = New System.Drawing.Size(277, 26)
         Me.txtUsername.TabIndex = 14
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(472, 257)
+        Me.btnSave.Location = New System.Drawing.Point(472, 316)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(133, 35)
         Me.btnSave.TabIndex = 19
@@ -129,7 +125,7 @@ Partial Class EditMachine
         'txtIMEI
         '
         Me.txtIMEI.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIMEI.Location = New System.Drawing.Point(328, 109)
+        Me.txtIMEI.Location = New System.Drawing.Point(328, 136)
         Me.txtIMEI.Multiline = True
         Me.txtIMEI.Name = "txtIMEI"
         Me.txtIMEI.Size = New System.Drawing.Size(277, 28)
@@ -138,7 +134,7 @@ Partial Class EditMachine
         'txtSIM
         '
         Me.txtSIM.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSIM.Location = New System.Drawing.Point(328, 48)
+        Me.txtSIM.Location = New System.Drawing.Point(328, 75)
         Me.txtSIM.Name = "txtSIM"
         Me.txtSIM.Size = New System.Drawing.Size(277, 26)
         Me.txtSIM.TabIndex = 18
@@ -146,7 +142,7 @@ Partial Class EditMachine
         'txtSerialNumber
         '
         Me.txtSerialNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSerialNumber.Location = New System.Drawing.Point(148, 168)
+        Me.txtSerialNumber.Location = New System.Drawing.Point(152, 194)
         Me.txtSerialNumber.Name = "txtSerialNumber"
         Me.txtSerialNumber.Size = New System.Drawing.Size(141, 26)
         Me.txtSerialNumber.TabIndex = 17
@@ -154,7 +150,7 @@ Partial Class EditMachine
         'txtAssetTag
         '
         Me.txtAssetTag.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAssetTag.Location = New System.Drawing.Point(12, 168)
+        Me.txtAssetTag.Location = New System.Drawing.Point(16, 194)
         Me.txtAssetTag.Name = "txtAssetTag"
         Me.txtAssetTag.Size = New System.Drawing.Size(117, 26)
         Me.txtAssetTag.TabIndex = 16
@@ -162,7 +158,7 @@ Partial Class EditMachine
         'txtMachineName
         '
         Me.txtMachineName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMachineName.Location = New System.Drawing.Point(12, 111)
+        Me.txtMachineName.Location = New System.Drawing.Point(16, 137)
         Me.txtMachineName.Name = "txtMachineName"
         Me.txtMachineName.Size = New System.Drawing.Size(277, 26)
         Me.txtMachineName.TabIndex = 15
@@ -170,7 +166,7 @@ Partial Class EditMachine
         'lblReceived
         '
         Me.lblReceived.AutoSize = True
-        Me.lblReceived.Location = New System.Drawing.Point(328, 174)
+        Me.lblReceived.Location = New System.Drawing.Point(328, 201)
         Me.lblReceived.Name = "lblReceived"
         Me.lblReceived.Size = New System.Drawing.Size(56, 13)
         Me.lblReceived.TabIndex = 28
@@ -178,7 +174,7 @@ Partial Class EditMachine
         '
         'dteReceived
         '
-        Me.dteReceived.Location = New System.Drawing.Point(405, 168)
+        Me.dteReceived.Location = New System.Drawing.Point(405, 195)
         Me.dteReceived.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dteReceived.Name = "dteReceived"
         Me.dteReceived.Size = New System.Drawing.Size(200, 20)
@@ -187,7 +183,7 @@ Partial Class EditMachine
         'lblAcquisition
         '
         Me.lblAcquisition.AutoSize = True
-        Me.lblAcquisition.Location = New System.Drawing.Point(328, 212)
+        Me.lblAcquisition.Location = New System.Drawing.Point(328, 239)
         Me.lblAcquisition.Name = "lblAcquisition"
         Me.lblAcquisition.Size = New System.Drawing.Size(61, 13)
         Me.lblAcquisition.TabIndex = 30
@@ -195,37 +191,103 @@ Partial Class EditMachine
         '
         'dteAcquisition
         '
-        Me.dteAcquisition.Location = New System.Drawing.Point(405, 212)
+        Me.dteAcquisition.Location = New System.Drawing.Point(405, 239)
         Me.dteAcquisition.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
         Me.dteAcquisition.Name = "dteAcquisition"
         Me.dteAcquisition.Size = New System.Drawing.Size(200, 20)
         Me.dteAcquisition.TabIndex = 31
         '
-        'lblCondition
+        'lblAssetState
         '
-        Me.lblCondition.AutoSize = True
-        Me.lblCondition.Location = New System.Drawing.Point(12, 212)
-        Me.lblCondition.Name = "lblCondition"
-        Me.lblCondition.Size = New System.Drawing.Size(54, 13)
-        Me.lblCondition.TabIndex = 32
-        Me.lblCondition.Text = "Condition:"
+        Me.lblAssetState.AutoSize = True
+        Me.lblAssetState.Location = New System.Drawing.Point(16, 238)
+        Me.lblAssetState.Name = "lblAssetState"
+        Me.lblAssetState.Size = New System.Drawing.Size(64, 13)
+        Me.lblAssetState.TabIndex = 32
+        Me.lblAssetState.Text = "Asset State:"
         '
-        'cbCondition
+        'cbAssetState
         '
-        Me.cbCondition.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbCondition.FormattingEnabled = True
-        Me.cbCondition.Location = New System.Drawing.Point(89, 209)
-        Me.cbCondition.Name = "cbCondition"
-        Me.cbCondition.Size = New System.Drawing.Size(200, 23)
-        Me.cbCondition.TabIndex = 33
+        Me.cbAssetState.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbAssetState.FormattingEnabled = True
+        Me.cbAssetState.Location = New System.Drawing.Point(103, 235)
+        Me.cbAssetState.Name = "cbAssetState"
+        Me.cbAssetState.Size = New System.Drawing.Size(190, 26)
+        Me.cbAssetState.TabIndex = 33
+        '
+        'cbCenter
+        '
+        Me.cbCenter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cbCenter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCenter.FormattingEnabled = True
+        Me.cbCenter.Location = New System.Drawing.Point(103, 267)
+        Me.cbCenter.Name = "cbCenter"
+        Me.cbCenter.Size = New System.Drawing.Size(190, 26)
+        Me.cbCenter.TabIndex = 38
+        '
+        'lblCenter
+        '
+        Me.lblCenter.AutoSize = True
+        Me.lblCenter.Location = New System.Drawing.Point(16, 274)
+        Me.lblCenter.Name = "lblCenter"
+        Me.lblCenter.Size = New System.Drawing.Size(81, 13)
+        Me.lblCenter.TabIndex = 39
+        Me.lblCenter.Text = "Center Number:"
+        '
+        'chCostCenter
+        '
+        Me.chCostCenter.AutoSize = True
+        Me.chCostCenter.Location = New System.Drawing.Point(223, 309)
+        Me.chCostCenter.Name = "chCostCenter"
+        Me.chCostCenter.Size = New System.Drawing.Size(141, 17)
+        Me.chCostCenter.TabIndex = 42
+        Me.chCostCenter.TabStop = False
+        Me.chCostCenter.Text = "Charge different location"
+        Me.chCostCenter.UseVisualStyleBackColor = True
+        '
+        'txtCostCenter
+        '
+        Me.txtCostCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCostCenter.Location = New System.Drawing.Point(103, 302)
+        Me.txtCostCenter.Name = "txtCostCenter"
+        Me.txtCostCenter.ReadOnly = True
+        Me.txtCostCenter.Size = New System.Drawing.Size(114, 26)
+        Me.txtCostCenter.TabIndex = 41
+        Me.txtCostCenter.TabStop = False
+        '
+        'lblCostCenter
+        '
+        Me.lblCostCenter.AutoSize = True
+        Me.lblCostCenter.Location = New System.Drawing.Point(16, 315)
+        Me.lblCostCenter.Name = "lblCostCenter"
+        Me.lblCostCenter.Size = New System.Drawing.Size(62, 13)
+        Me.lblCostCenter.TabIndex = 40
+        Me.lblCostCenter.Text = "Cost Center"
+        '
+        'lblTitle
+        '
+        Me.lblTitle.AutoSize = True
+        Me.lblTitle.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTitle.Location = New System.Drawing.Point(15, 13)
+        Me.lblTitle.Name = "lblTitle"
+        Me.lblTitle.Size = New System.Drawing.Size(69, 23)
+        Me.lblTitle.TabIndex = 43
+        Me.lblTitle.Text = "MODEL"
         '
         'EditMachine
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(617, 304)
-        Me.Controls.Add(Me.cbCondition)
-        Me.Controls.Add(Me.lblCondition)
+        Me.ClientSize = New System.Drawing.Size(617, 363)
+        Me.Controls.Add(Me.lblTitle)
+        Me.Controls.Add(Me.chCostCenter)
+        Me.Controls.Add(Me.txtCostCenter)
+        Me.Controls.Add(Me.lblCostCenter)
+        Me.Controls.Add(Me.cbCenter)
+        Me.Controls.Add(Me.lblCenter)
+        Me.Controls.Add(Me.cbAssetState)
+        Me.Controls.Add(Me.lblAssetState)
         Me.Controls.Add(Me.dteAcquisition)
         Me.Controls.Add(Me.lblAcquisition)
         Me.Controls.Add(Me.dteReceived)
@@ -236,7 +298,6 @@ Partial Class EditMachine
         Me.Controls.Add(Me.lblAssetTag)
         Me.Controls.Add(Me.lblMachineName)
         Me.Controls.Add(Me.lblUsername)
-        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.txtUsername)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.txtIMEI)
@@ -259,7 +320,6 @@ Partial Class EditMachine
     Friend WithEvents lblAssetTag As Label
     Friend WithEvents lblMachineName As Label
     Friend WithEvents lblUsername As Label
-    Friend WithEvents btnBack As Button
     Friend WithEvents txtUsername As TextBox
     Friend WithEvents btnSave As Button
     Friend WithEvents txtIMEI As TextBox
@@ -271,6 +331,12 @@ Partial Class EditMachine
     Friend WithEvents dteReceived As DateTimePicker
     Friend WithEvents lblAcquisition As Label
     Friend WithEvents dteAcquisition As DateTimePicker
-    Friend WithEvents lblCondition As Label
-    Friend WithEvents cbCondition As ComboBox
+    Friend WithEvents lblAssetState As Label
+    Friend WithEvents cbAssetState As ComboBox
+    Friend WithEvents cbCenter As ComboBox
+    Friend WithEvents lblCenter As Label
+    Friend WithEvents chCostCenter As CheckBox
+    Friend WithEvents txtCostCenter As TextBox
+    Friend WithEvents lblCostCenter As Label
+    Friend WithEvents lblTitle As Label
 End Class

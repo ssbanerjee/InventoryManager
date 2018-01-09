@@ -17,6 +17,8 @@ Public Class EditMachine
     Private category As String
     Private model As String
     Private center_number As String
+    Private assetState As String
+    Private costCenter As String
 
     Private received As String
     Private acquisition As String
@@ -28,12 +30,12 @@ Public Class EditMachine
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
-        btnBack.Visible = False
-        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date, a.asset_state_name, m.machine_cost_center " +
                         "FROM Machine m LEFT JOIN Employee e ON m.employee_ID = e.employee_ID " +
                         "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
+                        "LEFT JOIN AssetState a ON m.asset_state = a.asset_state_id " +
                         "WHERE m.machine_id = " + machineID + ";"
         Try
             myReader = myCmd.ExecuteReader()
@@ -42,7 +44,7 @@ Public Class EditMachine
             Do While myReader.Read()
                 'Checks every index of the query (machine_name, asset_tag, etc) for null values.
                 'If it finds a null, it replaces the value with "null", otherwise it stores value into the corresponding variables.
-                For i As Integer = 0 To 11
+                For i As Integer = 0 To 13
                     Select Case i
                         Case 0
                             If myReader.IsDBNull(i) Then
@@ -61,6 +63,12 @@ Public Class EditMachine
                                 serialNumber = "null"
                             Else
                                 serialNumber = myReader.GetString(i)
+                            End If
+                        Case 3
+                            If myReader.IsDBNull(i) Then
+                                category = "null"
+                            Else
+                                category = myReader.GetString(i)
                             End If
                         Case 5
                             If myReader.IsDBNull(i) Then
@@ -96,13 +104,25 @@ Public Class EditMachine
                             If myReader.IsDBNull(i) Then
                                 received = "null"
                             Else
-                                received = myReader.GetDateTime(i).ToString
+                                received = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                             End If
                         Case 11
                             If myReader.IsDBNull(i) Then
                                 acquisition = "null"
                             Else
-                                acquisition = myReader.GetDateTime(i).ToString
+                                acquisition = myReader.GetDateTime(i).ToString("MM/dd/yyy")
+                            End If
+                        Case 12
+                            If myReader.IsDBNull(i) Then
+                                assetState = "null"
+                            Else
+                                assetState = myReader.GetString(i)
+                            End If
+                        Case 13
+                            If myReader.IsDBNull(i) Then
+                                costCenter = "null"
+                            Else
+                                costCenter = myReader.GetString(i)
                             End If
                     End Select
                 Next
@@ -113,17 +133,22 @@ Public Class EditMachine
         End Try
 
         loadInformation()
-        loadConditions()
+        loadAssetState()
+        loadCenters()
     End Sub
 
     'After getting the information from the query, it then displays the information via text boxes and such on the Form
     Private Sub loadInformation()
+        lblTitle.Text = category
         txtUsername.Text = employee
         txtMachineName.Text = machineName
         txtAssetTag.Text = assetTag
         txtSerialNumber.Text = serialNumber
         txtSIM.Text = SIM
         txtIMEI.Text = IMEI
+        cbAssetState.Text = assetState
+        cbCenter.Text = center_number.ToString
+        txtCostCenter.Text = costCenter
         If received <> "null" And received <> "" Then
             dteReceived.Value = received
         End If
@@ -133,13 +158,37 @@ Public Class EditMachine
 
     End Sub
 
-    Private Sub loadConditions()
-        cbCondition.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT asset_state_condition FROM AssetState ORDER BY asset_state_condition ASC;"
+    Private Sub loadAssetState()
+        cbAssetState.Items.Clear()
+        myCmd.CommandText = "SELECT DISTINCT asset_state_name FROM AssetState ORDER BY asset_state_name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
-            cbCondition.Items.Add(myReader.GetString(0))
+            cbAssetState.Items.Add(myReader.GetString(0))
         End While
+        myReader.Close()
+    End Sub
+
+    Private Sub loadCenters()
+        cbCenter.Items.Clear()
+        Dim centerNumberInt As Integer
+        Dim centerNumber As String = ""
+        Dim centerName As String = ""
+
+        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC;"
+        myReader = myCmd.ExecuteReader
+        While myReader.Read()
+            centerNumberInt = myReader.GetInt32(0)
+            centerName = myReader.GetString(1)
+
+            If centerNumberInt < 100 Then
+                centerNumber = "0" + centerNumberInt.ToString
+            Else
+                centerNumber = centerNumberInt.ToString
+            End If
+
+            cbCenter.Items.Add("#" + centerNumber + ", " + centerName)
+        End While
+
         myReader.Close()
     End Sub
 
@@ -154,8 +203,10 @@ Public Class EditMachine
                     "SIM = '" + txtSIM.Text + "', " +
                     "IMEI = '" + txtIMEI.Text + "', " +
                     "machine_center_number = " + center_number + ", " +
+                    "asset_state_id = (SELECT asset_state_id WHERE asset_state_name = '" + cbAssetState.Text + "'), " +
                     "acquisition_date = '" + dteAcquisition.Value + "', " +
-                    "received_date = '" + dteReceived.Value + "' " +
+                    "received_date = '" + dteReceived.Value + "', " +
+                    "last_modified = SYSDATETIME() " +
                     "WHERE machine_id = " + machineID + ";"
                 myCmd.CommandText = command
                 myReader = myCmd.ExecuteReader
@@ -207,6 +258,46 @@ Public Class EditMachine
             Return False
         End Try
     End Function
+
+    Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
+        'This grabs the center number from the combobox and puts it into the CostCenter textbox
+        If cbCenter.Text <> "" Then
+            txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+        End If
+    End Sub
+
+    Private Sub chCostCenter_CheckedChanged(sender As Object, e As EventArgs) Handles chCostCenter.CheckedChanged
+        'By default, the CostCenter textbox is disabled.
+        'The user can enable it by cheking the checkbox next to it.
+        'If the user de-selects it once more, it grabs the center number from the combobox and fills it in.
+        If chCostCenter.Checked Then
+            txtCostCenter.ReadOnly = False
+        Else
+            txtCostCenter.ReadOnly = True
+            If cbCenter.Text <> "" Then
+                txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
+            End If
+        End If
+    End Sub
+
+    Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
+        checkSQLInjection(cbCenter.Text)
+        cbCenter.SelectionStart = cbCenter.Text.Length
+
+        Dim currentString As String = cbCenter.Text
+        Dim firstIndex As String = "null"
+        If Not cbCenter.Text.Length = 0 Then
+            firstIndex = currentString.Substring(0, 1)
+        End If
+
+        Dim num As Integer
+        If Int32.TryParse(firstIndex, num) Then
+            If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+                cbCenter.Text = "#" + currentString
+                cbCenter.SelectionStart = cbCenter.Text.Length
+            End If
+        End If
+    End Sub
 
     'This function is testing to see if I can get it to listen for a keypress. At the moment it is not working.
     Private Sub EditMachine_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
@@ -265,5 +356,12 @@ Public Class EditMachine
 
     Private Sub EditMachine_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         myConn.Close()
+    End Sub
+
+    Private Sub cbCondition_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbAssetState.SelectedValueChanged
+        If cbAssetState.SelectedItem = "IN STORE" Then
+            cbCenter.Text = "#000"
+            txtCostCenter.Text = ""
+        End If
     End Sub
 End Class

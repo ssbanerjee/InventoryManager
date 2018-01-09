@@ -233,6 +233,26 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property transferData() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("transferData", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property transferdata_selected() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("transferdata_selected", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property workstation() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("workstation", resourceCulture)
