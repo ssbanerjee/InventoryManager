@@ -102,6 +102,12 @@
     <Compile Include="AddWorkstation.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CenterInfoMenu.Designer.vb">
+      <DependentUpon>CenterInfoMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CenterInfoMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CSVMenu.Designer.vb">
       <DependentUpon>CSVMenu.vb</DependentUpon>
     </Compile>
@@ -114,11 +120,23 @@
     <Compile Include="EditMachine.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainMenu.vb">
+    <Compile Include="Login.Designer.vb">
+      <DependentUpon>Login.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Login.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryMenu.Designer.vb">
+      <DependentUpon>InventoryMenu.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainMenu.Designer.vb">
       <DependentUpon>MainMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -159,11 +177,20 @@
     <EmbeddedResource Include="AddWorkstation.resx">
       <DependentUpon>AddWorkstation.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CenterInfoMenu.resx">
+      <DependentUpon>CenterInfoMenu.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CSVMenu.resx">
       <DependentUpon>CSVMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditMachine.resx">
       <DependentUpon>EditMachine.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryMenu.resx">
+      <DependentUpon>InventoryMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.vb</DependentUpon>

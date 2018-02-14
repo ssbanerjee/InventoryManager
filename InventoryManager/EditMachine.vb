@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
 Imports System.Text.RegularExpressions
+Imports System.IO
 
 Public Class EditMachine
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
@@ -19,23 +20,26 @@ Public Class EditMachine
     Private center_number As String
     Private assetState As String
     Private costCenter As String
+    Property condition As String
 
     Private received As String
     Private acquisition As String
 
     Public machineID As String 'This is the primary key value that is passed to it from the previous Form
 
+    Private currentUser As String = Login.currentUser
+
     'When loading the form, it runs a query using machineID as the primary key
     Private Sub EditMachine_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
-        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date, a.asset_state_name, m.machine_cost_center " +
-                        "FROM Machine m LEFT JOIN Employee e ON m.employee_ID = e.employee_ID " +
-                        "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date, a.asset_state_name, m.machine_cost_center, s.condition_name " +
+                        "FROM Machine m LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
-                        "LEFT JOIN AssetState a ON m.asset_state = a.asset_state_id " +
+                        "LEFT JOIN AssetState a ON m.asset_state_id = a.asset_state_id " +
+                        "LEFT JOIN Condition s ON m.condition = s.condition_id " +
                         "WHERE m.machine_id = " + machineID + ";"
         Try
             myReader = myCmd.ExecuteReader()
@@ -44,7 +48,7 @@ Public Class EditMachine
             Do While myReader.Read()
                 'Checks every index of the query (machine_name, asset_tag, etc) for null values.
                 'If it finds a null, it replaces the value with "null", otherwise it stores value into the corresponding variables.
-                For i As Integer = 0 To 13
+                For i As Integer = 0 To 14
                     Select Case i
                         Case 0
                             If myReader.IsDBNull(i) Then
@@ -69,6 +73,12 @@ Public Class EditMachine
                                 category = "null"
                             Else
                                 category = myReader.GetString(i)
+                            End If
+                        Case 4
+                            If myReader.IsDBNull(i) Then
+                                model = "null"
+                            Else
+                                model = myReader.GetString(i)
                             End If
                         Case 5
                             If myReader.IsDBNull(i) Then
@@ -124,6 +134,12 @@ Public Class EditMachine
                             Else
                                 costCenter = myReader.GetString(i)
                             End If
+                        Case 14
+                            If myReader.IsDBNull(i) Then
+                                condition = "null"
+                            Else
+                                condition = myReader.GetString(i)
+                            End If
                     End Select
                 Next
             Loop
@@ -134,12 +150,13 @@ Public Class EditMachine
 
         loadInformation()
         loadAssetState()
+        loadConditions()
         loadCenters()
     End Sub
 
     'After getting the information from the query, it then displays the information via text boxes and such on the Form
     Private Sub loadInformation()
-        lblTitle.Text = category
+        lblTitle.Text = category + " -- " + model
         txtUsername.Text = employee
         txtMachineName.Text = machineName
         txtAssetTag.Text = assetTag
@@ -149,6 +166,7 @@ Public Class EditMachine
         cbAssetState.Text = assetState
         cbCenter.Text = center_number.ToString
         txtCostCenter.Text = costCenter
+        cbCondition.Text = condition
         If received <> "null" And received <> "" Then
             dteReceived.Value = received
         End If
@@ -164,6 +182,16 @@ Public Class EditMachine
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             cbAssetState.Items.Add(myReader.GetString(0))
+        End While
+        myReader.Close()
+    End Sub
+
+    Private Sub loadConditions()
+        cbCondition.Items.Clear()
+        myCmd.CommandText = "SELECT DISTINCT condition_name FROM Condition ORDER BY condition_name ASC;"
+        myReader = myCmd.ExecuteReader
+        While myReader.Read()
+            cbCondition.Items.Add(myReader.GetString(0))
         End While
         myReader.Close()
     End Sub
@@ -194,33 +222,29 @@ Public Class EditMachine
 
     'Updates the machine with the current values shown in the Form
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        If (checkUsername(txtUsername.Text)) Then
-            Try
-                Dim command As String = "UPDATE Machine SET employee_id = (SELECT employee_id FROM Employee WHERE employee_username = '" + txtUsername.Text + "'), " +
-                    "machine_name = '" + txtMachineName.Text + "', " +
-                    "asset_tag = " + txtAssetTag.Text + ", " +
-                    "serial_number = '" + txtSerialNumber.Text + "', " +
-                    "SIM = '" + txtSIM.Text + "', " +
-                    "IMEI = '" + txtIMEI.Text + "', " +
-                    "machine_center_number = " + center_number + ", " +
-                    "asset_state_id = (SELECT asset_state_id WHERE asset_state_name = '" + cbAssetState.Text + "'), " +
-                    "acquisition_date = '" + dteAcquisition.Value + "', " +
-                    "received_date = '" + dteReceived.Value + "', " +
-                    "last_modified = SYSDATETIME() " +
-                    "WHERE machine_id = " + machineID + ";"
-                myCmd.CommandText = command
-                myReader = myCmd.ExecuteReader
-                myReader.Close()
-                MsgBox("Success!")
-                Me.Close()
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
-        Else
-            MsgBox("Username not found")
-        End If
-
-
+        Try
+            Dim command As String = "UPDATE Machine SET employee_username = '" + txtUsername.Text + "', " +
+                "machine_name = '" + txtMachineName.Text + "', " +
+                "asset_tag = " + txtAssetTag.Text + ", " +
+                "serial_number = '" + txtSerialNumber.Text + "', " +
+                "SIM = '" + txtSIM.Text + "', " +
+                "IMEI = '" + txtIMEI.Text + "', " +
+                "machine_center_number = " + center_number + ", " +
+                "asset_state_id = (SELECT asset_state_id FROM AssetState WHERE asset_state_name = '" + cbAssetState.Text + "'), " +
+                "condition = (SELECT condition_id FROM Condition WHERE condition_name = '" + cbCondition.Text + "'), " +
+                "acquisition_date = '" + dteAcquisition.Value + "', " +
+                "received_date = '" + dteReceived.Value + "', " +
+                "last_modified = SYSDATETIME() " +
+                "WHERE machine_id = " + machineID + ";"
+            myCmd.CommandText = command
+            myReader = myCmd.ExecuteReader
+            myReader.Close()
+            MsgBox("Success!")
+            Log("Machine Edited; MachineName: " + machineName + ". By ")
+            Me.Close()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
     End Sub
 
     'This function checks to see if the username entered exists.
@@ -258,6 +282,11 @@ Public Class EditMachine
             Return False
         End Try
     End Function
+
+    Private Sub Log(ByVal logMessage)
+        Dim filePath As String = "C:\Users\sbanerjee\Desktop\Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
+        File.AppendAllText(filePath, logMessage + currentUser + " on " + DateTime.Now + vbNewLine)
+    End Sub
 
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
         'This grabs the center number from the combobox and puts it into the CostCenter textbox

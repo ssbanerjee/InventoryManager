@@ -22,59 +22,42 @@ Partial Class MainMenu
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnTransfer = New System.Windows.Forms.Button()
-        Me.btnEdit = New System.Windows.Forms.Button()
-        Me.btnAddMachine = New System.Windows.Forms.Button()
+        Me.btnInvMenu = New System.Windows.Forms.Button()
+        Me.btnCntMenu = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'btnTransfer
+        'btnInvMenu
         '
-        Me.btnTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnTransfer.Image = Global.InventoryManager.My.Resources.Resources.transferData
-        Me.btnTransfer.Location = New System.Drawing.Point(0, 720)
-        Me.btnTransfer.Name = "btnTransfer"
-        Me.btnTransfer.Size = New System.Drawing.Size(1920, 360)
-        Me.btnTransfer.TabIndex = 2
-        Me.btnTransfer.UseVisualStyleBackColor = True
+        Me.btnInvMenu.Location = New System.Drawing.Point(62, 57)
+        Me.btnInvMenu.Name = "btnInvMenu"
+        Me.btnInvMenu.Size = New System.Drawing.Size(75, 34)
+        Me.btnInvMenu.TabIndex = 0
+        Me.btnInvMenu.Text = "Inventory Manager"
+        Me.btnInvMenu.UseVisualStyleBackColor = True
         '
-        'btnEdit
+        'btnCntMenu
         '
-        Me.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEdit.Image = Global.InventoryManager.My.Resources.Resources.editInfo
-        Me.btnEdit.Location = New System.Drawing.Point(0, 360)
-        Me.btnEdit.Name = "btnEdit"
-        Me.btnEdit.Size = New System.Drawing.Size(1920, 360)
-        Me.btnEdit.TabIndex = 1
-        Me.btnEdit.UseVisualStyleBackColor = True
-        '
-        'btnAddMachine
-        '
-        Me.btnAddMachine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAddMachine.Image = Global.InventoryManager.My.Resources.Resources.addMachine
-        Me.btnAddMachine.Location = New System.Drawing.Point(0, 0)
-        Me.btnAddMachine.Name = "btnAddMachine"
-        Me.btnAddMachine.Size = New System.Drawing.Size(1920, 360)
-        Me.btnAddMachine.TabIndex = 0
-        Me.btnAddMachine.UseVisualStyleBackColor = True
+        Me.btnCntMenu.Location = New System.Drawing.Point(246, 57)
+        Me.btnCntMenu.Name = "btnCntMenu"
+        Me.btnCntMenu.Size = New System.Drawing.Size(75, 34)
+        Me.btnCntMenu.TabIndex = 1
+        Me.btnCntMenu.Text = "Center Information"
+        Me.btnCntMenu.UseVisualStyleBackColor = True
         '
         'MainMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1920, 1080)
-        Me.Controls.Add(Me.btnTransfer)
-        Me.Controls.Add(Me.btnEdit)
-        Me.Controls.Add(Me.btnAddMachine)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ClientSize = New System.Drawing.Size(398, 135)
+        Me.Controls.Add(Me.btnCntMenu)
+        Me.Controls.Add(Me.btnInvMenu)
         Me.Name = "MainMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Main Menu"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
+        Me.Text = "MainMenu"
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents btnAddMachine As Button
-    Friend WithEvents btnEdit As Button
-    Friend WithEvents btnTransfer As Button
+    Friend WithEvents btnInvMenu As Button
+    Friend WithEvents btnCntMenu As Button
 End Class

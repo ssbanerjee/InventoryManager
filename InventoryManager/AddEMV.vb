@@ -1,12 +1,15 @@
 ﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
 Imports System.Text.RegularExpressions
+Imports System.IO
 
 Public Class AddEMV
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
+
+    Private currentUser As String = Login.currentUser
 
     Private Sub AddEMV_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         myConn = New SqlConnection(connectionString)
@@ -45,6 +48,11 @@ Public Class AddEMV
         End While
 
         myReader.Close()
+    End Sub
+
+    Private Sub Log(ByVal logMessage)
+        Dim filePath As String = "C:\Users\sbanerjee\Desktop\Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
+        File.AppendAllText(filePath, logMessage + currentUser + " on " + DateTime.Now + vbNewLine)
     End Sub
 
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
@@ -127,10 +135,11 @@ Public Class AddEMV
         Dim costCenter As String = txtCostCenter.Text
 
         myCmd.CommandText = "INSERT INTO Machine VALUES (null, '" + machineName + "', " + assetTag + ", '" + serialNumber + "', null, null, " +
-                            "(SELECT model_id FROM Model WHERE model_name = 'VeriFone EMV'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null, SYSDATETIME(), 2);"
+                            "(SELECT model_id FROM Model WHERE model_name = 'VeriFone EMV'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null, SYSDATETIME(), 2, 1);"
         Try
             myReader = myCmd.ExecuteReader
             MsgBox("Success!")
+            Log("EMV Added; MachineName: " + machineName + ". By ")
             myReader.Close()
             Me.Close()
         Catch ex As Exception

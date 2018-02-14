@@ -18,11 +18,9 @@ Public Class CSVMenu
 
     Private Sub loadMachines()
         lstMachines.Items.Clear()
-
+        machines.Clear()
         Dim str As String = "machineName,model,location,assetTag,serialNumber,assetState,costCenter,SIM,IMEI,acquisitionDate,receivedDate"
         machines.Add(str)
-        str = str.Replace(",", vbTab)
-        lstMachines.Items.Add(str)
 
         Dim result As String = ""
         Dim machineName As String = ""
@@ -40,7 +38,7 @@ Public Class CSVMenu
         myCmd.CommandText = "SELECT m.machine_name, d.model_name, m.machine_center_number, m.asset_tag, m.serial_number, a.asset_state_name, m.machine_cost_center, " +
         "m.SIM, m.IMEI, m.acquisition_date, m.received_date " +
         "FROM Machine m JOIN Model d ON m.model_ID = d.model_ID " +
-        "JOIN AssetState a ON m.asset_state = a.asset_state_id " +
+        "JOIN AssetState a ON m.asset_state_id = a.asset_state_id " +
         "WHERE m.last_modified = CONVERT (date, SYSDATETIME());"
         Try
             myReader = myCmd.ExecuteReader
@@ -178,7 +176,7 @@ Public Class CSVMenu
                 csvReader.SetDelimiters(",")
                 Dim currentRow As String()
                 currentRow = csvReader.ReadFields
-                While Not csvReader.EndOfData
+                Do
                     Try
                         currentRow = csvReader.ReadFields
                         Dim currentField As String
@@ -228,7 +226,7 @@ Public Class CSVMenu
                     Catch ex As Exception
                         MsgBox(ex.ToString)
                     End Try
-                End While
+                Loop While Not csvReader.EndOfData
             End Using
 
         End If

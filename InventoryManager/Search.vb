@@ -42,8 +42,7 @@ Public Class Search
             searchOption = "serial_number"
         End If
 
-        Dim command As String = "SELECT " + searchOption + " FROM Machine m LEFT JOIN Employee e ON m.employee_ID = e.employee_ID " +
-                    "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
+        Dim command As String = "SELECT " + searchOption + " FROM Model d JOIN Machine m ON m.model_ID = d.model_ID " +
                     "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                     "LEFT JOIN Center t ON m.machine_center_number = t.center_number"
         Dim fCategory As String = cbCategory.SelectedItem
@@ -83,6 +82,7 @@ Public Class Search
     End Sub
 
     Private Sub loadCategories()
+        cbCategory.Items.Clear()
         myCmd.CommandText = "SELECT DISTINCT category_name FROM Category;"
         cbCategory.Items.Add("")
         Try
@@ -112,9 +112,8 @@ Public Class Search
                 query = "serial_number"
             End If
 
-            myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
-                        "FROM Machine m LEFT JOIN Employee e ON m.employee_ID = e.employee_ID " +
-                        "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
+            myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
+                        "FROM Machine m LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
                         "WHERE " + query + " = '" + search + "';"
@@ -260,9 +259,8 @@ Public Class Search
     End Sub
 
     Private Sub checkAT(ByVal assetTag As String)
-        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, e.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
-                        "FROM Machine m LEFT JOIN Employee e ON m.employee_ID = e.employee_ID " +
-                        "LEFT JOIN Model d ON m.model_ID = d.model_ID " +
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
+                        "FROM Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
                         "WHERE m.asset_tag = " + assetTag + ";"

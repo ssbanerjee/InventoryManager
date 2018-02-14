@@ -47,6 +47,8 @@ Partial Class EditMachine
         Me.txtCostCenter = New System.Windows.Forms.TextBox()
         Me.lblCostCenter = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
+        Me.lblCondition = New System.Windows.Forms.Label()
+        Me.cbCondition = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'lblIMEI
@@ -166,7 +168,7 @@ Partial Class EditMachine
         'lblReceived
         '
         Me.lblReceived.AutoSize = True
-        Me.lblReceived.Location = New System.Drawing.Point(328, 201)
+        Me.lblReceived.Location = New System.Drawing.Point(328, 190)
         Me.lblReceived.Name = "lblReceived"
         Me.lblReceived.Size = New System.Drawing.Size(56, 13)
         Me.lblReceived.TabIndex = 28
@@ -174,7 +176,7 @@ Partial Class EditMachine
         '
         'dteReceived
         '
-        Me.dteReceived.Location = New System.Drawing.Point(405, 195)
+        Me.dteReceived.Location = New System.Drawing.Point(405, 184)
         Me.dteReceived.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dteReceived.Name = "dteReceived"
         Me.dteReceived.Size = New System.Drawing.Size(200, 20)
@@ -183,7 +185,7 @@ Partial Class EditMachine
         'lblAcquisition
         '
         Me.lblAcquisition.AutoSize = True
-        Me.lblAcquisition.Location = New System.Drawing.Point(328, 239)
+        Me.lblAcquisition.Location = New System.Drawing.Point(328, 228)
         Me.lblAcquisition.Name = "lblAcquisition"
         Me.lblAcquisition.Size = New System.Drawing.Size(61, 13)
         Me.lblAcquisition.TabIndex = 30
@@ -191,7 +193,7 @@ Partial Class EditMachine
         '
         'dteAcquisition
         '
-        Me.dteAcquisition.Location = New System.Drawing.Point(405, 239)
+        Me.dteAcquisition.Location = New System.Drawing.Point(405, 228)
         Me.dteAcquisition.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
         Me.dteAcquisition.Name = "dteAcquisition"
         Me.dteAcquisition.Size = New System.Drawing.Size(200, 20)
@@ -275,11 +277,31 @@ Partial Class EditMachine
         Me.lblTitle.TabIndex = 43
         Me.lblTitle.Text = "MODEL"
         '
+        'lblCondition
+        '
+        Me.lblCondition.AutoSize = True
+        Me.lblCondition.Location = New System.Drawing.Point(331, 267)
+        Me.lblCondition.Name = "lblCondition"
+        Me.lblCondition.Size = New System.Drawing.Size(54, 13)
+        Me.lblCondition.TabIndex = 44
+        Me.lblCondition.Text = "Condition:"
+        '
+        'cbCondition
+        '
+        Me.cbCondition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCondition.FormattingEnabled = True
+        Me.cbCondition.Location = New System.Drawing.Point(405, 258)
+        Me.cbCondition.Name = "cbCondition"
+        Me.cbCondition.Size = New System.Drawing.Size(200, 28)
+        Me.cbCondition.TabIndex = 45
+        '
         'EditMachine
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(617, 363)
+        Me.Controls.Add(Me.cbCondition)
+        Me.Controls.Add(Me.lblCondition)
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.chCostCenter)
         Me.Controls.Add(Me.txtCostCenter)
@@ -339,4 +361,6 @@ Partial Class EditMachine
     Friend WithEvents txtCostCenter As TextBox
     Friend WithEvents lblCostCenter As Label
     Friend WithEvents lblTitle As Label
+    Friend WithEvents lblCondition As Label
+    Friend WithEvents cbCondition As ComboBox
 End Class

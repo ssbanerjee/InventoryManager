@@ -1,12 +1,15 @@
 ﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
 Imports System.Text.RegularExpressions
+Imports System.IO
 
 Public Class AddLaptop
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
+
+    Private currentUser As String = Login.currentUser
 
     Private Sub AddLaptop_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         myConn = New SqlConnection(connectionString)
@@ -41,15 +44,16 @@ Public Class AddLaptop
         'checkUsername will only return true if either empty, or a valid username has been inputted.
         'the serialNumber check is a bit redundant, but it's a doublecheck to ensure it has not been left blank.
 
-        If (checkUsername(employee)) And (serialNumber <> "") Then
+        If (serialNumber <> "") Then
             Dim command As String = ""
-            command = "INSERT INTO Machine VALUES ((SELECT employee_id FROM Employee WHERE employee_username = " + employee + "), " + machineName + ", " + assetTag + ", " +
+            command = "INSERT INTO Machine VALUES (" + employee + ", " + machineName + ", " + assetTag + ", " +
                 serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
-                "', SYSDATETIME(), null, SYSDATETIME(), 2);"
+                "', SYSDATETIME(), null, SYSDATETIME(), 2, 1);"
             myCmd.CommandText = command
             Try
                 myReader = myCmd.ExecuteReader
                 MsgBox("Success!")
+                Log("Laptop Added; MachineName: " + machineName + ". By ")
                 myReader.Close()
                 Me.Close()
             Catch ex As Exception
@@ -223,6 +227,11 @@ Public Class AddLaptop
         input = input.Replace(";", "")
     End Sub
 
+    Private Sub Log(ByVal logMessage)
+        Dim filePath As String = "C:\Users\sbanerjee\Desktop\Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
+        File.AppendAllText(filePath, logMessage + currentUser + " on " + DateTime.Now + vbNewLine)
+    End Sub
+
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
         'Enforces only numerical input
         Dim digitsOnly As Regex = New Regex("[^\d]")
@@ -271,5 +280,10 @@ Public Class AddLaptop
     Private Sub cbModel_TextChanged(sender As Object, e As EventArgs) Handles cbModel.TextChanged
         checkSQLInjection(cbModel.Text)
         cbModel.SelectionStart = cbModel.Text.Length
+    End Sub
+
+    Private Sub txtUsername_Leave(sender As Object, e As EventArgs) Handles txtUsername.Leave
+        txtMachineName.Text = txtUsername.Text + "-L"
+        txtMachineName.SelectionStart = txtMachineName.TextLength
     End Sub
 End Class
