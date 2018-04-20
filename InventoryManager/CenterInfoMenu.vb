@@ -159,7 +159,7 @@ Public Class CenterInfoMenu
 
         'Next, collect phone number information and clear the existing list
         lblPhoneNumbers.Text = ""
-        myCmd.CommandText = "SELECT role, name, phone_number " +
+        myCmd.CommandText = "SELECT role, employee_name, phone_number " +
                             "FROM PhoneNumber " +
                             "WHERE center_number = " + centerNumber + ";"
         Try
@@ -191,7 +191,7 @@ Public Class CenterInfoMenu
                             End If
                     End Select
                 Next
-                lblPhoneNumbers.Text += role + ": " + Name + ". Phone Number: " + phoneNum + vbNewLine
+                lblPhoneNumbers.Text += role + ": " + empName + ". Phone Number: " + phoneNum + vbNewLine
             Loop
             myReader.Close()
         Catch ex As Exception

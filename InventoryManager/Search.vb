@@ -260,7 +260,7 @@ Public Class Search
 
     Private Sub checkAT(ByVal assetTag As String)
         myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
-                        "FROM Model d ON m.model_ID = d.model_ID " +
+                        "FROM Machine m LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
                         "WHERE m.asset_tag = " + assetTag + ";"
@@ -269,8 +269,6 @@ Public Class Search
             Dim results As String = ""
             Dim count As Integer = 0
             If myReader.Read() Then
-                'Checks every index of the query (machine_name, asset_tag, etc) for null values.
-                'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
                 'Checks every index of the query (machine_name, asset_tag, etc) for null values.
                 'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
                 For i As Integer = 0 To 11

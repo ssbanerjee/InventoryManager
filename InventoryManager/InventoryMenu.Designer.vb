@@ -69,17 +69,19 @@ Partial Class InventoryMenu
         Me.btnExit.Text = "Exit"
         Me.btnExit.UseVisualStyleBackColor = False
         '
-        'MainMenu
+        'InventoryMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoSize = True
+        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ClientSize = New System.Drawing.Size(1920, 1080)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnTransfer)
         Me.Controls.Add(Me.btnEdit)
         Me.Controls.Add(Me.btnAddMachine)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "MainMenu"
+        Me.Name = "InventoryMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Main Menu"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

@@ -46,6 +46,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>kim.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -282,6 +285,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\transferdata_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CenterDirectory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InventoryManager.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CenterDirectory_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InventoryManager_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="kim.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

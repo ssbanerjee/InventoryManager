@@ -28,29 +28,32 @@ Partial Class MainMenu
         '
         'btnInvMenu
         '
-        Me.btnInvMenu.Location = New System.Drawing.Point(62, 57)
+        Me.btnInvMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnInvMenu.Image = Global.InventoryManager.My.Resources.Resources.InventoryManager
+        Me.btnInvMenu.Location = New System.Drawing.Point(0, 0)
         Me.btnInvMenu.Name = "btnInvMenu"
-        Me.btnInvMenu.Size = New System.Drawing.Size(75, 34)
+        Me.btnInvMenu.Size = New System.Drawing.Size(320, 400)
         Me.btnInvMenu.TabIndex = 0
-        Me.btnInvMenu.Text = "Inventory Manager"
         Me.btnInvMenu.UseVisualStyleBackColor = True
         '
         'btnCntMenu
         '
-        Me.btnCntMenu.Location = New System.Drawing.Point(246, 57)
+        Me.btnCntMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCntMenu.Image = Global.InventoryManager.My.Resources.Resources.CenterDirectory
+        Me.btnCntMenu.Location = New System.Drawing.Point(320, 0)
         Me.btnCntMenu.Name = "btnCntMenu"
-        Me.btnCntMenu.Size = New System.Drawing.Size(75, 34)
+        Me.btnCntMenu.Size = New System.Drawing.Size(320, 400)
         Me.btnCntMenu.TabIndex = 1
-        Me.btnCntMenu.Text = "Center Information"
         Me.btnCntMenu.UseVisualStyleBackColor = True
         '
         'MainMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(398, 135)
+        Me.ClientSize = New System.Drawing.Size(638, 398)
         Me.Controls.Add(Me.btnCntMenu)
         Me.Controls.Add(Me.btnInvMenu)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "MainMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MainMenu"
