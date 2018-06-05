@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.IO
 
 Public Class CenterInfoMenu
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
@@ -204,5 +203,14 @@ Public Class CenterInfoMenu
         lblAddress.Text = address + vbNewLine + city + " " + state + ", " + zip
         lblCircuitInfo.Text = "Circuit Provider: " + circuitProvider + vbNewLine + "CircuitID: " + circuitID
         lblRegDist.Text = "Region: " + region + vbNewLine + "District: " + district
+    End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        updateInfo()
+    End Sub
+
+    Private Sub updateInfo()
+        Dim fileName As String = "\\rich-srv-pf04\Information Systems\Network Services\Telecom\5_Inventory\MASTER SITE INVENTORY 4_10_18.xlsx"
+
     End Sub
 End Class
