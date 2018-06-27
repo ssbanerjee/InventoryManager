@@ -1,5 +1,6 @@
 ﻿Public Class InventoryMenu
     Private Sub MainMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        resetTimer()
     End Sub
 
     Private Sub btnAddMachine_Click(sender As Object, e As EventArgs) Handles btnAddMachine.Click
@@ -27,7 +28,8 @@
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnTransfer.Click
-        CSVMenu.ShowDialog()
+        'CSVMenu.ShowDialog()
+        ShippingMenu.ShowDialog()
     End Sub
 
     Private Sub btnTransfer_MouseHover(sender As Object, e As EventArgs) Handles btnTransfer.MouseHover
@@ -41,4 +43,5 @@
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         Me.Close()
     End Sub
+
 End Class

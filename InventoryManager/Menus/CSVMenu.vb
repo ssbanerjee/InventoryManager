@@ -10,6 +10,7 @@ Public Class CSVMenu
     Dim machines As New ArrayList()
 
     Private Sub CSVMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        resetTimer()
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
@@ -122,7 +123,8 @@ Public Class CSVMenu
                 lstMachines.Items.Add(m)
             End While
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            LogError(ex.ToString)
+            MsgBox("Error, check logs")
         End Try
         myReader.Close()
     End Sub
@@ -144,8 +146,8 @@ Public Class CSVMenu
                 My.Computer.FileSystem.WriteAllText(path + "\TEST.csv", str.ToString, False)
                 MsgBox("Success!")
             Catch ex As Exception
-                MsgBox(ex.ToString)
-                MsgBox("Failed to write.")
+                LogError(ex.ToString)
+                MsgBox("Error, check logs")
             End Try
         End If
     End Sub
@@ -220,11 +222,13 @@ Public Class CSVMenu
                             myReader.Close()
                             loadMachines()
                         Catch ex As Exception
-                            MsgBox(ex.ToString)
+                            LogError(ex.ToString)
+                            MsgBox("Error, check logs")
                             myReader.Close()
                         End Try
                     Catch ex As Exception
-                        MsgBox(ex.ToString)
+                        LogError(ex.ToString)
+                        MsgBox("Error, check logs")
                     End Try
                 Loop While Not csvReader.EndOfData
             End Using

@@ -24,6 +24,7 @@ Public Class Search
     Private machineID As String
 
     Private Sub Search_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        resetTimer()
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
@@ -91,7 +92,8 @@ Public Class Search
                 cbCategory.Items.Add(myReader.GetString(0))
             Loop
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            LogError(ex.ToString)
+            MsgBox("Error, check logs")
         End Try
         myReader.Close()
     End Sub
@@ -198,7 +200,8 @@ Public Class Search
                     Next
                 Loop
             Catch ex As Exception
-                MsgBox(ex.ToString)
+                LogError(ex.ToString)
+                MsgBox("Error, check logs")
             End Try
             txtAssetTag.Clear()
             myReader.Close()
@@ -228,7 +231,8 @@ Public Class Search
                 cbModel.Items.Add(myReader.GetString(0))
             Loop
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            LogError(ex.ToString)
+            MsgBox("Error, check logs")
         End Try
 
         myReader.Close()
@@ -258,12 +262,12 @@ Public Class Search
         loadInformation()
     End Sub
 
-    Private Sub checkAT(ByVal assetTag As String)
+    Private Sub checkAT(ByVal input As String)
         myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
                         "FROM Machine m LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
-                        "WHERE m.asset_tag = " + assetTag + ";"
+                        "WHERE m.asset_tag = " + input + ";"
         Try
             myReader = myCmd.ExecuteReader()
             Dim results As String = ""
@@ -291,6 +295,18 @@ Public Class Search
                             Else
                                 serialNumber = myReader.GetString(i)
                             End If
+                        Case 3
+                            If myReader.IsDBNull(i) Then
+                                category = "null"
+                            Else
+                                category = myReader.GetString(i)
+                            End If
+                        Case 4
+                            If myReader.IsDBNull(i) Then
+                                model = "null"
+                            Else
+                                model = myReader.GetString(i)
+                            End If
                         Case 5
                             If myReader.IsDBNull(i) Then
                                 SIM = "null"
@@ -302,6 +318,12 @@ Public Class Search
                                 IMEI = "null"
                             Else
                                 IMEI = myReader.GetString(i)
+                            End If
+                        Case 7
+                            If myReader.IsDBNull(i) Then
+                                center_number = "null"
+                            Else
+                                center_number = myReader.GetInt32(i).ToString
                             End If
                         Case 8
                             If myReader.IsDBNull(i) Then
@@ -319,20 +341,21 @@ Public Class Search
                             If myReader.IsDBNull(i) Then
                                 received = "null"
                             Else
-                                received = myReader.GetDateTime(i).ToString
+                                received = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                             End If
                         Case 11
                             If myReader.IsDBNull(i) Then
                                 acquisition = "null"
                             Else
-                                acquisition = myReader.GetDateTime(i).ToString
+                                acquisition = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                             End If
                     End Select
                 Next
 
             End If
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            LogError(ex.ToString)
+            MsgBox("Error, check logs")
         End Try
         lstMachines.SelectedIndex = -1
         myReader.Close()
@@ -343,17 +366,9 @@ Public Class Search
         txtAssetTag.SelectAll()
     End Sub
 
-    'This function does a simple check against SQL Injection by removing all single quotes, double quotes, and semicolons from input
-    Private Sub checkSQLInjection(ByRef input As String)
-        input = input.Replace("""", "")
-        input = input.Replace("'", "")
-        input = input.Replace(";", "")
-    End Sub
-
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
         'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
+        checkNum(txtAssetTag.Text)
 
         If txtAssetTag.TextLength > 6 Then
             Dim character As String = txtAssetTag.Text(6)

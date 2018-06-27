@@ -18,6 +18,7 @@ Public Class CenterInfoMenu
     Private circuitID As String
 
     Private Sub CenterInfoMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        resetTimer()
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
@@ -25,33 +26,14 @@ Public Class CenterInfoMenu
     End Sub
 
     Private Sub loadCenters()
+        Dim centers As New List(Of String)
+
         cbCenter.Items.Clear()
-        Dim centerNumberInt As Integer
-        Dim centerNumber As String = ""
-        Dim centerName As String = ""
+        centers = LoadCentersFromSQL()
 
-        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC;"
-        myReader = myCmd.ExecuteReader
-        While myReader.Read()
-            centerNumberInt = myReader.GetInt32(0)
-            centerName = myReader.GetString(1)
-
-            If centerNumberInt < 100 Then
-                centerNumber = "0" + centerNumberInt.ToString
-            Else
-                centerNumber = centerNumberInt.ToString
-            End If
-
-            cbCenter.Items.Add("#" + centerNumber + ", " + centerName)
-        End While
-
-        myReader.Close()
-    End Sub
-
-    Private Sub checkSQLInjection(ByRef input As String)
-        input = input.Replace("""", "")
-        input = input.Replace("'", "")
-        input = input.Replace(";", "")
+        For Each center As String In centers
+            cbCenter.Items.Add(center)
+        Next
     End Sub
 
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
@@ -152,7 +134,8 @@ Public Class CenterInfoMenu
             loadInfo()
             myReader.Close()
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            LogError(ex.ToString)
+            MsgBox("Error, check logs")
             myReader.Close()
         End Try
 
@@ -194,7 +177,8 @@ Public Class CenterInfoMenu
             Loop
             myReader.Close()
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            LogError(ex.ToString)
+            MsgBox("Error, check logs")
             myReader.Close()
         End Try
     End Sub

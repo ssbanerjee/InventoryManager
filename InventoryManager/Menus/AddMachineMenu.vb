@@ -4,7 +4,7 @@ Public Class AddMachineMenu
 
 
     Private Sub AddMachine_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        resetTimer()
     End Sub
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click

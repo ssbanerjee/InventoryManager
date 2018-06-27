@@ -26,4 +26,8 @@
     Private Sub btnCntMenu_MouseLeave(sender As Object, e As EventArgs) Handles btnCntMenu.MouseLeave
         btnCntMenu.Image = My.Resources.CenterDirectory
     End Sub
+
+    Private Sub MainMenu_Load(sender As Object, e As EventArgs) Handles Me.Load
+        resetTimer()
+    End Sub
 End Class

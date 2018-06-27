@@ -27,7 +27,6 @@ Partial Class AddWorkstation
         Me.lblSerialNumber = New System.Windows.Forms.Label()
         Me.lblAssetTag = New System.Windows.Forms.Label()
         Me.lblMachineName = New System.Windows.Forms.Label()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.txtSerialNumber = New System.Windows.Forms.TextBox()
         Me.txtAssetTag = New System.Windows.Forms.TextBox()
@@ -37,6 +36,8 @@ Partial Class AddWorkstation
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCostCenter = New System.Windows.Forms.TextBox()
         Me.chCostCenter = New System.Windows.Forms.CheckBox()
+        Me.txtMESD = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'cbModel
@@ -60,7 +61,7 @@ Partial Class AddWorkstation
         'lblSerialNumber
         '
         Me.lblSerialNumber.AutoSize = True
-        Me.lblSerialNumber.Location = New System.Drawing.Point(142, 138)
+        Me.lblSerialNumber.Location = New System.Drawing.Point(139, 138)
         Me.lblSerialNumber.Name = "lblSerialNumber"
         Me.lblSerialNumber.Size = New System.Drawing.Size(73, 13)
         Me.lblSerialNumber.TabIndex = 25
@@ -84,19 +85,9 @@ Partial Class AddWorkstation
         Me.lblMachineName.TabIndex = 23
         Me.lblMachineName.Text = "Machine Name (ex: JDoe-L)"
         '
-        'btnBack
-        '
-        Me.btnBack.Location = New System.Drawing.Point(12, 259)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(75, 23)
-        Me.btnBack.TabIndex = 22
-        Me.btnBack.TabStop = False
-        Me.btnBack.Text = "Back"
-        Me.btnBack.UseVisualStyleBackColor = True
-        '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(156, 247)
+        Me.btnAdd.Location = New System.Drawing.Point(156, 255)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(133, 35)
         Me.btnAdd.TabIndex = 21
@@ -169,7 +160,7 @@ Partial Class AddWorkstation
         'chCostCenter
         '
         Me.chCostCenter.AutoSize = True
-        Me.chCostCenter.Location = New System.Drawing.Point(142, 219)
+        Me.chCostCenter.Location = New System.Drawing.Point(9, 244)
         Me.chCostCenter.Name = "chCostCenter"
         Me.chCostCenter.Size = New System.Drawing.Size(141, 17)
         Me.chCostCenter.TabIndex = 32
@@ -177,11 +168,30 @@ Partial Class AddWorkstation
         Me.chCostCenter.Text = "Charge different location"
         Me.chCostCenter.UseVisualStyleBackColor = True
         '
+        'txtMESD
+        '
+        Me.txtMESD.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMESD.Location = New System.Drawing.Point(142, 212)
+        Me.txtMESD.Name = "txtMESD"
+        Me.txtMESD.Size = New System.Drawing.Size(141, 26)
+        Me.txtMESD.TabIndex = 49
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(139, 196)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(41, 13)
+        Me.Label2.TabIndex = 50
+        Me.Label2.Text = "MESD:"
+        '
         'AddWorkstation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(301, 294)
+        Me.ClientSize = New System.Drawing.Size(301, 302)
+        Me.Controls.Add(Me.txtMESD)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.chCostCenter)
         Me.Controls.Add(Me.txtCostCenter)
         Me.Controls.Add(Me.Label1)
@@ -192,7 +202,6 @@ Partial Class AddWorkstation
         Me.Controls.Add(Me.lblSerialNumber)
         Me.Controls.Add(Me.lblAssetTag)
         Me.Controls.Add(Me.lblMachineName)
-        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.txtSerialNumber)
         Me.Controls.Add(Me.txtAssetTag)
@@ -211,7 +220,6 @@ Partial Class AddWorkstation
     Friend WithEvents lblSerialNumber As Label
     Friend WithEvents lblAssetTag As Label
     Friend WithEvents lblMachineName As Label
-    Friend WithEvents btnBack As Button
     Friend WithEvents btnAdd As Button
     Friend WithEvents txtSerialNumber As TextBox
     Friend WithEvents txtAssetTag As TextBox
@@ -221,4 +229,6 @@ Partial Class AddWorkstation
     Friend WithEvents Label1 As Label
     Friend WithEvents txtCostCenter As TextBox
     Friend WithEvents chCostCenter As CheckBox
+    Friend WithEvents txtMESD As TextBox
+    Friend WithEvents Label2 As Label
 End Class

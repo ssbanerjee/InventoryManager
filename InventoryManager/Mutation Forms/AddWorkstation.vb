@@ -9,9 +9,8 @@ Public Class AddWorkstation
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
 
-    Private currentUser As String = Login.currentUser
-
     Private Sub AddWorkstation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        resetTimer()
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
@@ -30,42 +29,25 @@ Public Class AddWorkstation
     End Sub
 
     Private Sub loadCenters()
+        Dim centers As New List(Of String)
+
         cbCenter.Items.Clear()
-        Dim centerNumberInt As Integer
-        Dim centerNumber As String = ""
-        Dim centerName As String = ""
+        centers = LoadCentersFromSQL()
 
-        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC;"
-        myReader = myCmd.ExecuteReader
-        While myReader.Read()
-            centerNumberInt = myReader.GetInt32(0)
-            centerName = myReader.GetString(1)
-
-            If centerNumberInt < 100 Then
-                centerNumber = "0" + centerNumberInt.ToString
-            Else
-                centerNumber = centerNumberInt.ToString
-            End If
-
-            cbCenter.Items.Add("#" + centerNumber + ", " + centerName)
-        End While
-
-        myReader.Close()
+        For Each center As String In centers
+            cbCenter.Items.Add(center)
+        Next
     End Sub
 
     Private Sub loadModels()
-        cbModel.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = 2 ORDER BY model_name ASC;"
-        myReader = myCmd.ExecuteReader
-        While myReader.Read()
-            cbModel.Items.Add(myReader.GetString(0))
-        End While
-        myReader.Close()
-    End Sub
+        Dim models As New List(Of String)
 
-    Private Sub Log(ByVal logMessage)
-        Dim filePath As String = "C:\Users\sbanerjee\Desktop\Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
-        File.AppendAllText(filePath, logMessage + currentUser + " on " + DateTime.Now + vbNewLine)
+        cbModel.Items.Clear()
+        models = LoadModelsFromSQL("Workstation")
+
+        For Each model As String In models
+            cbModel.Items.Add(model)
+        Next
     End Sub
 
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
@@ -95,32 +77,30 @@ Public Class AddWorkstation
             Dim assetTag As String = txtAssetTag.Text
             Dim serialNumber As String = txtSerialNumber.Text
             Dim costCenter As String = txtCostCenter.Text
+            Dim MESD As String = txtMESD.Text
 
             'checkNulls checks to see if any of the textboxes are empty.
             checkNulls(machineName, assetTag, serialNumber)
 
             If serialNumber <> "" Then
                 myCmd.CommandText = "INSERT INTO Machine VALUES (null, " + machineName + ", " + assetTag + ", " + serialNumber + ", null, null, " +
-                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null, SYSDATETIME(), 2, 1);"
+                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null, SYSDATETIME(), 2, 1, " + MESD + ", '" + getInitials() + "');"
                 Try
                     myReader = myCmd.ExecuteReader
                     MsgBox("Success!")
-                    Log("Workstation Added; MachineName: " + machineName + ". By ")
+                    LogMachineAdd("Workstation", machineName)
                     myReader.Close()
                     Me.Close()
                 Catch ex As Exception
-                    MsgBox(ex.ToString)
+                    LogError(ex.ToString)
+                    MsgBox("Error, check logs")
                 End Try
             End If
 
         Else
-            MsgBox("Enter both a Center Number and select a Model")
+            MsgBox("Enter a Center Number and select a Model")
         End If
 
-    End Sub
-
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
-        Me.Close()
     End Sub
 
     Private Sub checkNulls(ByRef machineName As String, ByRef assetTag As String, ByRef serialNumber As String)
@@ -158,17 +138,9 @@ Public Class AddWorkstation
         End If
     End Sub
 
-    'This function does a simple check against SQL Injection by removing all single quotes, double quotes, and semicolons from input
-    Private Sub checkSQLInjection(ByRef input As String)
-        input = input.Replace("""", "")
-        input = input.Replace("'", "")
-        input = input.Replace(";", "")
-    End Sub
-
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
         'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
+        checkNum(txtAssetTag.Text)
 
         If txtAssetTag.TextLength > 6 Then
             Dim character As String = txtAssetTag.Text(6)

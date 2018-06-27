@@ -20,21 +20,21 @@ Public Class EditMachine
     Private center_number As String
     Private assetState As String
     Private costCenter As String
-    Property condition As String
+    Private condition As String
+    Private MESD As String
 
     Private received As String
     Private acquisition As String
 
     Public machineID As String 'This is the primary key value that is passed to it from the previous Form
 
-    Private currentUser As String = Login.currentUser
-
     'When loading the form, it runs a query using machineID as the primary key
     Private Sub EditMachine_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        resetTimer()
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
-        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date, a.asset_state_name, m.machine_cost_center, s.condition_name " +
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date, a.asset_state_name, m.machine_cost_center, s.condition_name, m.machine_ticket_number " +
                         "FROM Machine m LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
@@ -48,7 +48,7 @@ Public Class EditMachine
             Do While myReader.Read()
                 'Checks every index of the query (machine_name, asset_tag, etc) for null values.
                 'If it finds a null, it replaces the value with "null", otherwise it stores value into the corresponding variables.
-                For i As Integer = 0 To 14
+                For i As Integer = 0 To 15
                     Select Case i
                         Case 0
                             If myReader.IsDBNull(i) Then
@@ -140,12 +140,19 @@ Public Class EditMachine
                             Else
                                 condition = myReader.GetString(i)
                             End If
+                        Case 15
+                            If myReader.IsDBNull(i) Then
+                                MESD = "null"
+                            Else
+                                MESD = myReader.GetInt32(i).ToString
+                            End If
                     End Select
                 Next
             Loop
             myReader.Close()
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            LogError(ex.ToString)
+            MsgBox("Error, check logs")
         End Try
 
         loadInformation()
@@ -167,6 +174,8 @@ Public Class EditMachine
         cbCenter.Text = center_number.ToString
         txtCostCenter.Text = costCenter
         cbCondition.Text = condition
+        txtMESD.Text = MESD
+
         If received <> "null" And received <> "" Then
             dteReceived.Value = received
         End If
@@ -197,27 +206,14 @@ Public Class EditMachine
     End Sub
 
     Private Sub loadCenters()
+        Dim centers As New List(Of String)
+
         cbCenter.Items.Clear()
-        Dim centerNumberInt As Integer
-        Dim centerNumber As String = ""
-        Dim centerName As String = ""
+        centers = LoadCentersFromSQL()
 
-        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC;"
-        myReader = myCmd.ExecuteReader
-        While myReader.Read()
-            centerNumberInt = myReader.GetInt32(0)
-            centerName = myReader.GetString(1)
-
-            If centerNumberInt < 100 Then
-                centerNumber = "0" + centerNumberInt.ToString
-            Else
-                centerNumber = centerNumberInt.ToString
-            End If
-
-            cbCenter.Items.Add("#" + centerNumber + ", " + centerName)
-        End While
-
-        myReader.Close()
+        For Each center As String In centers
+            cbCenter.Items.Add(center)
+        Next
     End Sub
 
     'Updates the machine with the current values shown in the Form
@@ -234,58 +230,19 @@ Public Class EditMachine
                 "condition = (SELECT condition_id FROM Condition WHERE condition_name = '" + cbCondition.Text + "'), " +
                 "acquisition_date = '" + dteAcquisition.Value + "', " +
                 "received_date = '" + dteReceived.Value + "', " +
-                "last_modified = SYSDATETIME() " +
+                "last_modified = SYSDATETIME(), " +
+                "machine_ticket_number = " + txtMESD.Text + " " +
                 "WHERE machine_id = " + machineID + ";"
             myCmd.CommandText = command
             myReader = myCmd.ExecuteReader
             myReader.Close()
             MsgBox("Success!")
-            Log("Machine Edited; MachineName: " + machineName + ". By ")
+            LogMachineEdit(machineName)
             Me.Close()
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            LogError(ex.ToString)
+            MsgBox("Error, check logs")
         End Try
-    End Sub
-
-    'This function checks to see if the username entered exists.
-    'If it does, it continues on. If it doesn't, it then will ask if a new username is to be created.
-    'If it finds that the value is empty, is passes true and sets the value to "null"
-    Private Function checkUsername(ByVal employee As String) As Boolean
-        If employee = "" Then
-            Return True
-        Else
-            employee = "'" + employee + "'"
-        End If
-        Dim dataReader As SqlDataReader
-        Dim SQLCommand As SqlCommand
-        SQLCommand = myConn.CreateCommand
-        Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = " + employee + ";"
-        SQLCommand.CommandText = command
-        Try
-            dataReader = SQLCommand.ExecuteReader
-            If (dataReader.Read()) Then
-                dataReader.Close()
-                Return True
-            Else
-                dataReader.Close()
-                Dim result As MsgBoxResult = MsgBox("Username not found." + vbCrLf + "Would you like to add this is a new username?", MsgBoxStyle.YesNo)
-                If result = MsgBoxResult.Yes Then
-                    AddEmployee.username = employee
-                    AddEmployee.ShowDialog()
-                    Return False
-                Else
-                    Return False
-                End If
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            Return False
-        End Try
-    End Function
-
-    Private Sub Log(ByVal logMessage)
-        Dim filePath As String = "C:\Users\sbanerjee\Desktop\Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
-        File.AppendAllText(filePath, logMessage + currentUser + " on " + DateTime.Now + vbNewLine)
     End Sub
 
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
@@ -335,17 +292,9 @@ Public Class EditMachine
         End If
     End Sub
 
-    'This function does a simple check against SQL Injection by removing all single quotes, double quotes, and semicolons from input
-    Private Sub checkSQLInjection(ByRef input As String)
-        input = input.Replace("""", "")
-        input = input.Replace("'", "")
-        input = input.Replace(";", "")
-    End Sub
-
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
         'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
+        checkNum(txtAssetTag.Text)
 
         If txtAssetTag.TextLength > 6 Then
             Dim character As String = txtAssetTag.Text(6)
@@ -356,8 +305,7 @@ Public Class EditMachine
 
     Private Sub txtIMEI_TextChanged(sender As Object, e As EventArgs) Handles txtIMEI.TextChanged
         'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtIMEI.Text = digitsOnly.Replace(txtIMEI.Text, "")
+        checkNum(txtAssetTag.Text)
         txtIMEI.SelectionStart = txtIMEI.TextLength
     End Sub
 
@@ -373,8 +321,7 @@ Public Class EditMachine
 
     Private Sub txtSIM_TextChanged(sender As Object, e As EventArgs) Handles txtSIM.TextChanged
         'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtSIM.Text = digitsOnly.Replace(txtSIM.Text, "")
+        checkNum(txtAssetTag.Text)
         txtSIM.SelectionStart = txtSIM.TextLength
     End Sub
 

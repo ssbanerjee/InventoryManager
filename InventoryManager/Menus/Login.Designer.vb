@@ -22,7 +22,12 @@ Partial Class Login
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.txtPIN = New System.Windows.Forms.TextBox()
+        Me.tmrInactive = New System.Windows.Forms.Timer(Me.components)
+        Me.bgwUpdate = New System.ComponentModel.BackgroundWorker()
+        Me.lblUpdate = New System.Windows.Forms.Label()
+        Me.tmrUpdateLabel = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'txtPIN
@@ -37,11 +42,33 @@ Partial Class Login
         Me.txtPIN.TabIndex = 0
         Me.txtPIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'tmrInactive
+        '
+        Me.tmrInactive.Interval = 150000
+        '
+        'bgwUpdate
+        '
+        '
+        'lblUpdate
+        '
+        Me.lblUpdate.AutoSize = True
+        Me.lblUpdate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblUpdate.Location = New System.Drawing.Point(12, 224)
+        Me.lblUpdate.Name = "lblUpdate"
+        Me.lblUpdate.Size = New System.Drawing.Size(150, 16)
+        Me.lblUpdate.TabIndex = 1
+        Me.lblUpdate.Text = "Updating Inventory..."
+        '
+        'tmrUpdateLabel
+        '
+        Me.tmrUpdateLabel.Enabled = True
+        '
         'Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(488, 249)
+        Me.Controls.Add(Me.lblUpdate)
         Me.Controls.Add(Me.txtPIN)
         Me.Name = "Login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -52,4 +79,8 @@ Partial Class Login
     End Sub
 
     Friend WithEvents txtPIN As TextBox
+    Friend WithEvents tmrInactive As Timer
+    Friend WithEvents bgwUpdate As System.ComponentModel.BackgroundWorker
+    Friend WithEvents lblUpdate As Label
+    Friend WithEvents tmrUpdateLabel As Timer
 End Class

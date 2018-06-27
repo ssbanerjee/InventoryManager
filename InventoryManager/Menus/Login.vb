@@ -1,4 +1,5 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.ComponentModel
+Imports System.Data.SqlClient
 Imports System.IO
 
 Public Class Login
@@ -7,9 +8,9 @@ Public Class Login
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
 
-    Public currentUser As String
-
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        bgwUpdate.RunWorkerAsync()
+        tmrInactive.Enabled = False
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
@@ -31,13 +32,15 @@ Public Class Login
                             If myReader.GetInt32(2) = 1 Then
                                 myReader.Close()
                                 updatePIN(PIN)
-                                Log("User Sign In: ")
+                                LogSignIn()
+                                tmrInactive.Enabled = True
                                 Me.Hide()
                                 MainMenu.ShowDialog()
                                 Me.Show()
                             Else
                                 myReader.Close()
-                                Log("User Sign In: ")
+                                LogSignIn()
+                                tmrInactive.Enabled = True
                                 Me.Hide()
                                 MainMenu.ShowDialog()
                                 Me.Show()
@@ -48,7 +51,8 @@ Public Class Login
                         MsgBox("Employee not found.")
                     End If
                 Catch ex As Exception
-                    MsgBox(ex.ToString)
+                    LogError(ex.ToString)
+                    MsgBox("Error, check logs")
                 End Try
             Else
                 MsgBox("Please enter a PIN.")
@@ -71,7 +75,8 @@ Public Class Login
                 MsgBox("PIN Updated")
                 success = True
             Catch ex As Exception
-                MsgBox(ex.ToString)
+                LogError(ex.ToString)
+                MsgBox("Error, check logs")
                 success = False
             End Try
         Loop While success = False
@@ -79,8 +84,32 @@ Public Class Login
         myReader.Close()
     End Sub
 
-    Private Sub Log(ByVal logMessage)
-        Dim filePath As String = "C:\Users\sbanerjee\Desktop\Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
-        File.AppendAllText(filePath, logMessage + currentUser + " on " + DateTime.Now + vbNewLine)
+    Private Sub tmrInactive_Tick(sender As Object, e As EventArgs) Handles tmrInactive.Tick
+        tmrInactive.Enabled = False
+        MsgBox("Closing due to inactivity.", MsgBoxStyle.OkOnly, "")
+        For i = Application.OpenForms.Count - 1 To 1 Step -1
+            Dim form As Form = Application.OpenForms(i)
+            form.Close()
+        Next i
+    End Sub
+
+    Private Sub bgwUpdate_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgwUpdate.DoWork
+        UpdateCenters()
+        Dim machines As ArrayList = getShippingReport()
+        printShippingReport(machines)
+    End Sub
+
+    Private Sub bgwUpdate_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgwUpdate.RunWorkerCompleted
+        lblUpdate.Visible = False
+        tmrInactive.Enabled = True
+    End Sub
+
+    Private Sub tmrUpdateLabel_Tick(sender As Object, e As EventArgs) Handles tmrUpdateLabel.Tick
+        If (count = max) Then
+            lblUpdate.Text = "Updating Inventory... Sending Query..."
+        Else
+            lblUpdate.Text = "Updating Inventory... (" + count.ToString + "/" + max.ToString + ") Complete."
+        End If
+        lblUpdate.Refresh()
     End Sub
 End Class

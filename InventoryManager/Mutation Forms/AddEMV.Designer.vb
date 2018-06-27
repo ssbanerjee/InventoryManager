@@ -37,6 +37,8 @@ Partial Class AddEMV
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.pbEMV = New System.Windows.Forms.PictureBox()
+        Me.txtMESD = New System.Windows.Forms.TextBox()
+        Me.lblMESD = New System.Windows.Forms.Label()
         CType(Me.pbEMV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -44,7 +46,7 @@ Partial Class AddEMV
         '
         Me.lblName.AutoSize = True
         Me.lblName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblName.Location = New System.Drawing.Point(26, 32)
+        Me.lblName.Location = New System.Drawing.Point(24, 12)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(51, 20)
         Me.lblName.TabIndex = 1
@@ -54,7 +56,7 @@ Partial Class AddEMV
         '
         Me.lblSerialNumber.AutoSize = True
         Me.lblSerialNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSerialNumber.Location = New System.Drawing.Point(25, 95)
+        Me.lblSerialNumber.Location = New System.Drawing.Point(23, 75)
         Me.lblSerialNumber.Name = "lblSerialNumber"
         Me.lblSerialNumber.Size = New System.Drawing.Size(109, 20)
         Me.lblSerialNumber.TabIndex = 2
@@ -64,7 +66,7 @@ Partial Class AddEMV
         '
         Me.lblAssetTag.AutoSize = True
         Me.lblAssetTag.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAssetTag.Location = New System.Drawing.Point(26, 163)
+        Me.lblAssetTag.Location = New System.Drawing.Point(24, 138)
         Me.lblAssetTag.Name = "lblAssetTag"
         Me.lblAssetTag.Size = New System.Drawing.Size(81, 20)
         Me.lblAssetTag.TabIndex = 3
@@ -73,26 +75,26 @@ Partial Class AddEMV
         'txtName
         '
         Me.txtName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtName.Location = New System.Drawing.Point(29, 55)
+        Me.txtName.Location = New System.Drawing.Point(27, 35)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(147, 26)
-        Me.txtName.TabIndex = 4
+        Me.txtName.TabIndex = 1
         '
         'txtSerialNumber
         '
         Me.txtSerialNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSerialNumber.Location = New System.Drawing.Point(29, 118)
+        Me.txtSerialNumber.Location = New System.Drawing.Point(27, 98)
         Me.txtSerialNumber.Name = "txtSerialNumber"
         Me.txtSerialNumber.Size = New System.Drawing.Size(147, 26)
-        Me.txtSerialNumber.TabIndex = 5
+        Me.txtSerialNumber.TabIndex = 2
         '
         'txtAssetTag
         '
         Me.txtAssetTag.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAssetTag.Location = New System.Drawing.Point(29, 186)
+        Me.txtAssetTag.Location = New System.Drawing.Point(27, 161)
         Me.txtAssetTag.Name = "txtAssetTag"
         Me.txtAssetTag.Size = New System.Drawing.Size(147, 26)
-        Me.txtAssetTag.TabIndex = 6
+        Me.txtAssetTag.TabIndex = 3
         '
         'cbCenter
         '
@@ -100,16 +102,16 @@ Partial Class AddEMV
         Me.cbCenter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cbCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCenter.FormattingEnabled = True
-        Me.cbCenter.Location = New System.Drawing.Point(29, 251)
+        Me.cbCenter.Location = New System.Drawing.Point(28, 222)
         Me.cbCenter.Name = "cbCenter"
         Me.cbCenter.Size = New System.Drawing.Size(147, 26)
-        Me.cbCenter.TabIndex = 30
+        Me.cbCenter.TabIndex = 4
         '
         'lblCenter
         '
         Me.lblCenter.AutoSize = True
         Me.lblCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCenter.Location = New System.Drawing.Point(26, 228)
+        Me.lblCenter.Location = New System.Drawing.Point(25, 199)
         Me.lblCenter.Name = "lblCenter"
         Me.lblCenter.Size = New System.Drawing.Size(121, 20)
         Me.lblCenter.TabIndex = 31
@@ -118,7 +120,7 @@ Partial Class AddEMV
         'chCostCenter
         '
         Me.chCostCenter.AutoSize = True
-        Me.chCostCenter.Location = New System.Drawing.Point(31, 345)
+        Me.chCostCenter.Location = New System.Drawing.Point(29, 315)
         Me.chCostCenter.Name = "chCostCenter"
         Me.chCostCenter.Size = New System.Drawing.Size(141, 17)
         Me.chCostCenter.TabIndex = 35
@@ -129,7 +131,7 @@ Partial Class AddEMV
         'txtCostCenter
         '
         Me.txtCostCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCostCenter.Location = New System.Drawing.Point(31, 313)
+        Me.txtCostCenter.Location = New System.Drawing.Point(29, 283)
         Me.txtCostCenter.Name = "txtCostCenter"
         Me.txtCostCenter.ReadOnly = True
         Me.txtCostCenter.Size = New System.Drawing.Size(145, 26)
@@ -140,7 +142,7 @@ Partial Class AddEMV
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(27, 290)
+        Me.Label1.Location = New System.Drawing.Point(25, 260)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(94, 20)
         Me.Label1.TabIndex = 33
@@ -148,10 +150,11 @@ Partial Class AddEMV
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(59, 389)
+        Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAdd.Location = New System.Drawing.Point(57, 401)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(75, 23)
-        Me.btnAdd.TabIndex = 36
+        Me.btnAdd.Size = New System.Drawing.Size(75, 34)
+        Me.btnAdd.TabIndex = 6
         Me.btnAdd.Text = "Save"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -166,11 +169,31 @@ Partial Class AddEMV
         Me.pbEMV.TabIndex = 0
         Me.pbEMV.TabStop = False
         '
+        'txtMESD
+        '
+        Me.txtMESD.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMESD.Location = New System.Drawing.Point(28, 367)
+        Me.txtMESD.Name = "txtMESD"
+        Me.txtMESD.Size = New System.Drawing.Size(147, 26)
+        Me.txtMESD.TabIndex = 5
+        '
+        'lblMESD
+        '
+        Me.lblMESD.AutoSize = True
+        Me.lblMESD.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMESD.Location = New System.Drawing.Point(25, 344)
+        Me.lblMESD.Name = "lblMESD"
+        Me.lblMESD.Size = New System.Drawing.Size(56, 20)
+        Me.lblMESD.TabIndex = 37
+        Me.lblMESD.Text = "MESD"
+        '
         'AddEMV
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(717, 434)
+        Me.ClientSize = New System.Drawing.Size(717, 447)
+        Me.Controls.Add(Me.txtMESD)
+        Me.Controls.Add(Me.lblMESD)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.chCostCenter)
         Me.Controls.Add(Me.txtCostCenter)
@@ -208,4 +231,6 @@ Partial Class AddEMV
     Friend WithEvents txtCostCenter As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents btnAdd As Button
+    Friend WithEvents txtMESD As TextBox
+    Friend WithEvents lblMESD As Label
 End Class

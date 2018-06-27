@@ -1,7 +1,5 @@
 ﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
-Imports System.Text.RegularExpressions
-Imports System.IO
 
 Public Class AddLaptop
     Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
@@ -9,13 +7,11 @@ Public Class AddLaptop
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
 
-    Private currentUser As String = Login.currentUser
-
     Private Sub AddLaptop_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        resetTimer()
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
-        btnBack.Visible = False
         clearLists()
         loadModels()
         loadCenters()
@@ -30,6 +26,9 @@ Public Class AddLaptop
         Dim IMEI As String = txtIMEI.Text
         Dim model As String = cbModel.Text
         Dim centerNumber As String = cbCenter.Text
+        Dim acquisition As String = dteAcquisition.Value
+        Dim MESD As String = txtMESD.Text
+
         If centerNumber <> "" Then
             centerNumber = centerNumber.Substring(1, 3)
         Else
@@ -41,23 +40,22 @@ Public Class AddLaptop
         'checkNulls checks to see if any of the textboxes are empty.
         checkNulls(employee, machineName, assetTag, SIM, IMEI, serialNumber)
 
-        'checkUsername will only return true if either empty, or a valid username has been inputted.
-        'the serialNumber check is a bit redundant, but it's a doublecheck to ensure it has not been left blank.
 
         If (serialNumber <> "") Then
             Dim command As String = ""
             command = "INSERT INTO Machine VALUES (" + employee + ", " + machineName + ", " + assetTag + ", " +
                 serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
-                "', SYSDATETIME(), null, SYSDATETIME(), 2, 1);"
+                "', SYSDATETIME(), '" + acquisition + "', SYSDATETIME(), 2, 1, " + MESD + ", '" + getInitials() + "');"
             myCmd.CommandText = command
             Try
                 myReader = myCmd.ExecuteReader
                 MsgBox("Success!")
-                Log("Laptop Added; MachineName: " + machineName + ". By ")
+                LogMachineAdd("Laptop", machineName)
                 myReader.Close()
                 Me.Close()
             Catch ex As Exception
-                MsgBox(ex.ToString)
+                LogError(ex.ToString)
+                MsgBox("Error, check logs")
             End Try
         End If
     End Sub
@@ -94,44 +92,6 @@ Public Class AddLaptop
         Else
             MsgBox("You MUST enter a Serial Number.")
         End If
-    End Sub
-
-    'This function checks to see if the username entered exists.
-    'If it does, it continues on. If it doesn't, it then will ask if a new username is to be created.
-    'If it finds that the value is empty, is passes true and sets the value to "null"
-    Private Function checkUsername(ByVal employee As String) As Boolean
-        If employee = "" Then
-            Return True
-        End If
-        Dim dataReader As SqlDataReader
-        Dim SQLCommand As SqlCommand
-        SQLCommand = myConn.CreateCommand
-        Dim command As String = "SELECT employee_id FROM Employee WHERE employee_username = " + employee + ";"
-        SQLCommand.CommandText = command
-        Try
-            dataReader = SQLCommand.ExecuteReader
-            If (dataReader.Read()) Then
-                dataReader.Close()
-                Return True
-            Else
-                dataReader.Close()
-                Dim result As MsgBoxResult = MsgBox("Username not found." + vbCrLf + "Would you like to add this is a new username?", MsgBoxStyle.YesNo)
-                If result = MsgBoxResult.Yes Then
-                    AddEmployee.username = employee
-                    AddEmployee.ShowDialog()
-                    Return False
-                Else
-                    Return False
-                End If
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            Return False
-        End Try
-    End Function
-
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
-        Me.Close()
     End Sub
 
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
@@ -175,37 +135,25 @@ Public Class AddLaptop
     End Sub
 
     Private Sub loadModels()
+        Dim models As New List(Of String)
+
         cbModel.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = 1 ORDER BY model_name ASC;"
-        myReader = myCmd.ExecuteReader
-        While myReader.Read()
-            cbModel.Items.Add(myReader.GetString(0))
-        End While
-        myReader.Close()
+        models = LoadModelsFromSQL("Laptop")
+
+        For Each model As String In models
+            cbModel.Items.Add(model)
+        Next
     End Sub
 
     Private Sub loadCenters()
+        Dim centers As New List(Of String)
+
         cbCenter.Items.Clear()
-        Dim centerNumberInt As Integer
-        Dim centerNumber As String = ""
-        Dim centerName As String = ""
+        centers = LoadCentersFromSQL()
 
-        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC;"
-        myReader = myCmd.ExecuteReader
-        While myReader.Read()
-            centerNumberInt = myReader.GetInt32(0)
-            centerName = myReader.GetString(1)
-
-            If centerNumberInt < 100 Then
-                centerNumber = "0" + centerNumberInt.ToString
-            Else
-                centerNumber = centerNumberInt.ToString
-            End If
-
-            cbCenter.Items.Add("#" + centerNumber + ", " + centerName)
-        End While
-
-        myReader.Close()
+        For Each center As String In centers
+            cbCenter.Items.Add(center)
+        Next
     End Sub
 
     Private Sub clearLists()
@@ -215,27 +163,15 @@ Public Class AddLaptop
         txtSerialNumber.Clear()
         txtSIM.Clear()
         txtIMEI.Clear()
+        txtMESD.Clear()
         cbModel.SelectedIndex = -1
         cbCenter.SelectedIndex = -1
         txtCostCenter.Clear()
     End Sub
 
-    'This function does a simple check against SQL Injection by removing all single quotes, double quotes, and semicolons from input
-    Private Sub checkSQLInjection(ByRef input As String)
-        input = input.Replace("""", "")
-        input = input.Replace("'", "")
-        input = input.Replace(";", "")
-    End Sub
-
-    Private Sub Log(ByVal logMessage)
-        Dim filePath As String = "C:\Users\sbanerjee\Desktop\Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
-        File.AppendAllText(filePath, logMessage + currentUser + " on " + DateTime.Now + vbNewLine)
-    End Sub
-
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
         'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtAssetTag.Text = digitsOnly.Replace(txtAssetTag.Text, "")
+        checkNum(txtAssetTag.Text)
 
         If txtAssetTag.TextLength > 6 Then
             Dim character As String = txtAssetTag.Text(6)
@@ -246,8 +182,7 @@ Public Class AddLaptop
 
     Private Sub txtIMEI_TextChanged(sender As Object, e As EventArgs) Handles txtIMEI.TextChanged
         'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtIMEI.Text = digitsOnly.Replace(txtIMEI.Text, "")
+        checkNum(txtAssetTag.Text)
         txtIMEI.SelectionStart = txtIMEI.TextLength
     End Sub
 
@@ -263,8 +198,7 @@ Public Class AddLaptop
 
     Private Sub txtSIM_TextChanged(sender As Object, e As EventArgs) Handles txtSIM.TextChanged
         'Enforces only numerical input
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        txtSIM.Text = digitsOnly.Replace(txtSIM.Text, "")
+        checkNum(txtAssetTag.Text)
         txtSIM.SelectionStart = txtSIM.TextLength
     End Sub
 
