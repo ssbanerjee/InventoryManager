@@ -13,6 +13,21 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -75,8 +90,56 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Menus\AdminMenu.Designer.vb">
+      <DependentUpon>AdminMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\AdminMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\CheckScanner.Designer.vb">
+      <DependentUpon>CheckScanner.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\CheckScanner.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\Countdown.Designer.vb">
+      <DependentUpon>Countdown.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\Countdown.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\EMV.Designer.vb">
+      <DependentUpon>EMV.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\EMV.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\ExportDate.Designer.vb">
+      <DependentUpon>ExportDate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\ExportDate.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\NewMenu.Designer.vb">
+      <DependentUpon>NewMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\NewMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\QueryBuilder.Designer.vb">
+      <DependentUpon>QueryBuilder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\QueryBuilder.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modules\ShippingReport.vb" />
     <Compile Include="Modules\UpdateCenterInfo.vb" />
+    <Compile Include="Mutation Forms\AddCheckScanner.Designer.vb">
+      <DependentUpon>AddCheckScanner.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Mutation Forms\AddCheckScanner.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Mutation Forms\AddEMV.Designer.vb">
       <DependentUpon>AddEMV.vb</DependentUpon>
     </Compile>
@@ -101,6 +164,12 @@
     <Compile Include="Mutation Forms\AddShipping.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Mutation Forms\AddTablet.Designer.vb">
+      <DependentUpon>AddTablet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Mutation Forms\AddTablet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Mutation Forms\AddWorkstation.Designer.vb">
       <DependentUpon>AddWorkstation.vb</DependentUpon>
     </Compile>
@@ -113,12 +182,6 @@
     <Compile Include="Menus\CenterInfoMenu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Menus\CSVMenu.Designer.vb">
-      <DependentUpon>CSVMenu.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Menus\CSVMenu.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Menus\ShippingMenu.Designer.vb">
       <DependentUpon>ShippingMenu.vb</DependentUpon>
     </Compile>
@@ -126,14 +189,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\Scripts.vb" />
-    <Compile Include="Modules\User.vb" />
     <Compile Include="Mutation Forms\EditMachine.Designer.vb">
       <DependentUpon>EditMachine.vb</DependentUpon>
     </Compile>
     <Compile Include="Mutation Forms\EditMachine.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modules\InactivityTimer.vb" />
     <Compile Include="Menus\Login.Designer.vb">
       <DependentUpon>Login.vb</DependentUpon>
     </Compile>
@@ -176,6 +237,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Menus\AdminMenu.resx">
+      <DependentUpon>AdminMenu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\CheckScanner.resx">
+      <DependentUpon>CheckScanner.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\Countdown.resx">
+      <DependentUpon>Countdown.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\EMV.resx">
+      <DependentUpon>EMV.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\ExportDate.resx">
+      <DependentUpon>ExportDate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\NewMenu.resx">
+      <DependentUpon>NewMenu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\QueryBuilder.resx">
+      <DependentUpon>QueryBuilder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mutation Forms\AddCheckScanner.resx">
+      <DependentUpon>AddCheckScanner.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mutation Forms\AddEMV.resx">
       <DependentUpon>AddEMV.vb</DependentUpon>
     </EmbeddedResource>
@@ -188,14 +273,14 @@
     <EmbeddedResource Include="Mutation Forms\AddShipping.resx">
       <DependentUpon>AddShipping.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mutation Forms\AddTablet.resx">
+      <DependentUpon>AddTablet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mutation Forms\AddWorkstation.resx">
       <DependentUpon>AddWorkstation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menus\CenterInfoMenu.resx">
       <DependentUpon>CenterInfoMenu.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Menus\CSVMenu.resx">
-      <DependentUpon>CSVMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mutation Forms\EditMachine.resx">
       <DependentUpon>EditMachine.vb</DependentUpon>
@@ -235,49 +320,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Laptop_button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\EMV.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\EMV_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\laptop.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\laptop_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\other.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\other_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\workstation.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\workstation_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\addMachine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\addMachine_selected.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\editInfo.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\editInfo_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\searchMachine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\searchMachine_selected.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\EMV_Base.png" />
@@ -289,31 +338,37 @@
     <None Include="Resources\EMV_SerialNumber.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\equipmentRequest.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\equipmentRequest_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\transferData.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\transferdata_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\CenterDirectory.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\InventoryManager.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\CenterDirectory_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\InventoryManager_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="kim.ico" />
+    <None Include="Resources\banner_noshadow.png" />
+    <None Include="Resources\banner.png" />
+    <None Include="Resources\Workstation_pressed.png" />
+    <None Include="Resources\Workstation.png" />
+    <None Include="Resources\Tablet_pressed.png" />
+    <None Include="Resources\Tablet.png" />
+    <None Include="Resources\Laptop_pressed.png" />
+    <None Include="Resources\Laptop.png" />
+    <None Include="Resources\EMV_pressed.png" />
+    <None Include="Resources\EMV.png" />
+    <None Include="Resources\CheckScanner_pressed.png" />
+    <None Include="Resources\CheckScanner.png" />
+    <None Include="Resources\boards.png" />
+    <None Include="Resources\NewMenu_banner2.png" />
+    <None Include="Resources\NewMenu_empty_progressbar.png" />
+    <None Include="Resources\NewMenu_banner1.png" />
+    <None Include="Resources\NewMenu_empty.png" />
+    <None Include="Resources\ShippingReport_pressed.png" />
+    <None Include="Resources\select.png" />
+    <None Include="Resources\QueryBuilder_pressed.png" />
+    <None Include="Resources\EditInformation_pressed.png" />
+    <None Include="Resources\CenterInfo_pressed.png" />
+    <None Include="Resources\AddMachine_pressed.png" />
+    <None Include="Resources\NewMenu.png" />
+    <None Include="Resources\QueryBuilder_2.png" />
+    <None Include="Resources\AddMachine_2.png" />
+    <None Include="Resources\ShippingReport.png" />
+    <None Include="Resources\EditInformation.png" />
+    <None Include="Resources\CenterInfo.png" />
+    <None Include="Resources\refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -343,6 +398,18 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

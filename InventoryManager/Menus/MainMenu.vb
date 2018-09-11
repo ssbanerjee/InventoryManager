@@ -11,20 +11,34 @@
         Me.Close()
     End Sub
 
+    Private Sub btnQueryMenu_Click(sender As Object, e As EventArgs) Handles btnQueryMenu.Click
+        Me.Hide()
+        QueryBuilder.ShowDialog()
+        Me.Close()
+    End Sub
+
     Private Sub btnInvMenu_MouseHover(sender As Object, e As EventArgs) Handles btnInvMenu.MouseHover
-        btnInvMenu.Image = My.Resources.InventoryManager_selected
+        ' btnInvMenu.Image = My.Resources.InventoryManager_selected
     End Sub
 
     Private Sub btnInvMenu_MouseLeave(sender As Object, e As EventArgs) Handles btnInvMenu.MouseLeave
-        btnInvMenu.Image = My.Resources.InventoryManager
+        '  btnInvMenu.Image = My.Resources.InventoryManager
     End Sub
 
     Private Sub btnCntMenu_MouseHover(sender As Object, e As EventArgs) Handles btnCntMenu.MouseHover
-        btnCntMenu.Image = My.Resources.CenterDirectory_selected
+        'btnCntMenu.Image = My.Resources.CenterDirectory_selected
     End Sub
 
     Private Sub btnCntMenu_MouseLeave(sender As Object, e As EventArgs) Handles btnCntMenu.MouseLeave
-        btnCntMenu.Image = My.Resources.CenterDirectory
+        ' btnCntMenu.Image = My.Resources.CenterDirectory
+    End Sub
+
+    Private Sub btnQueryMenu_MouseHover(sender As Object, e As EventArgs) Handles btnQueryMenu.MouseHover
+        ' btnQueryMenu.Image = My.Resources.QueryBuilder_selected
+    End Sub
+
+    Private Sub btnQueryMenu_MouseLeave(sender As Object, e As EventArgs) Handles btnQueryMenu.MouseLeave
+        ' btnQueryMenu.Image = My.Resources.QueryBuilder
     End Sub
 
     Private Sub MainMenu_Load(sender As Object, e As EventArgs) Handles Me.Load

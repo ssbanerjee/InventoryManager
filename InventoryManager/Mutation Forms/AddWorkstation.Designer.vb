@@ -35,13 +35,16 @@ Partial Class AddWorkstation
         Me.cbCenter = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCostCenter = New System.Windows.Forms.TextBox()
-        Me.chCostCenter = New System.Windows.Forms.CheckBox()
         Me.txtMESD = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.cbCondition = New System.Windows.Forms.ComboBox()
+        Me.lblCondition = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'cbModel
         '
+        Me.cbModel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cbModel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cbModel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbModel.FormattingEnabled = True
         Me.cbModel.Location = New System.Drawing.Point(151, 100)
@@ -87,10 +90,10 @@ Partial Class AddWorkstation
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(156, 255)
+        Me.btnAdd.Location = New System.Drawing.Point(9, 287)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(133, 35)
-        Me.btnAdd.TabIndex = 21
+        Me.btnAdd.Size = New System.Drawing.Size(280, 35)
+        Me.btnAdd.TabIndex = 8
         Me.btnAdd.Text = "Add Machine"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -152,21 +155,8 @@ Partial Class AddWorkstation
         Me.txtCostCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCostCenter.Location = New System.Drawing.Point(9, 212)
         Me.txtCostCenter.Name = "txtCostCenter"
-        Me.txtCostCenter.ReadOnly = True
         Me.txtCostCenter.Size = New System.Drawing.Size(114, 26)
-        Me.txtCostCenter.TabIndex = 31
-        Me.txtCostCenter.TabStop = False
-        '
-        'chCostCenter
-        '
-        Me.chCostCenter.AutoSize = True
-        Me.chCostCenter.Location = New System.Drawing.Point(9, 244)
-        Me.chCostCenter.Name = "chCostCenter"
-        Me.chCostCenter.Size = New System.Drawing.Size(141, 17)
-        Me.chCostCenter.TabIndex = 32
-        Me.chCostCenter.TabStop = False
-        Me.chCostCenter.Text = "Charge different location"
-        Me.chCostCenter.UseVisualStyleBackColor = True
+        Me.txtCostCenter.TabIndex = 5
         '
         'txtMESD
         '
@@ -174,7 +164,7 @@ Partial Class AddWorkstation
         Me.txtMESD.Location = New System.Drawing.Point(142, 212)
         Me.txtMESD.Name = "txtMESD"
         Me.txtMESD.Size = New System.Drawing.Size(141, 26)
-        Me.txtMESD.TabIndex = 49
+        Me.txtMESD.TabIndex = 6
         '
         'Label2
         '
@@ -185,14 +175,35 @@ Partial Class AddWorkstation
         Me.Label2.TabIndex = 50
         Me.Label2.Text = "MESD:"
         '
+        'cbCondition
+        '
+        Me.cbCondition.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cbCondition.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCondition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbCondition.FormattingEnabled = True
+        Me.cbCondition.Location = New System.Drawing.Point(90, 253)
+        Me.cbCondition.Name = "cbCondition"
+        Me.cbCondition.Size = New System.Drawing.Size(111, 28)
+        Me.cbCondition.TabIndex = 7
+        '
+        'lblCondition
+        '
+        Me.lblCondition.AutoSize = True
+        Me.lblCondition.Location = New System.Drawing.Point(12, 261)
+        Me.lblCondition.Name = "lblCondition"
+        Me.lblCondition.Size = New System.Drawing.Size(72, 13)
+        Me.lblCondition.TabIndex = 52
+        Me.lblCondition.Text = "New or Used:"
+        '
         'AddWorkstation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(301, 302)
+        Me.ClientSize = New System.Drawing.Size(301, 334)
+        Me.Controls.Add(Me.cbCondition)
+        Me.Controls.Add(Me.lblCondition)
         Me.Controls.Add(Me.txtMESD)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.chCostCenter)
         Me.Controls.Add(Me.txtCostCenter)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cbCenter)
@@ -206,7 +217,7 @@ Partial Class AddWorkstation
         Me.Controls.Add(Me.txtSerialNumber)
         Me.Controls.Add(Me.txtAssetTag)
         Me.Controls.Add(Me.txtMachineName)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "AddWorkstation"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Add Workstation"
@@ -228,7 +239,8 @@ Partial Class AddWorkstation
     Friend WithEvents cbCenter As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents txtCostCenter As TextBox
-    Friend WithEvents chCostCenter As CheckBox
     Friend WithEvents txtMESD As TextBox
     Friend WithEvents Label2 As Label
+    Friend WithEvents cbCondition As ComboBox
+    Friend WithEvents lblCondition As Label
 End Class

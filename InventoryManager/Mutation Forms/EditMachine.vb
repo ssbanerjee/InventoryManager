@@ -1,10 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
-Imports System.Text.RegularExpressions
-Imports System.IO
 
 Public Class EditMachine
-    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
@@ -96,7 +93,7 @@ Public Class EditMachine
                             If myReader.IsDBNull(i) Then
                                 center_number = "null"
                             Else
-                                center_number = myReader.GetInt32(i).ToString
+                                center_number = "#" + myReader.GetInt32(i).ToString
                             End If
                         Case 8
                             If myReader.IsDBNull(i) Then
@@ -151,8 +148,7 @@ Public Class EditMachine
             Loop
             myReader.Close()
         Catch ex As Exception
-            LogError(ex.ToString)
-            MsgBox("Error, check logs")
+            LogError(ex.ToString, "EditMachine", getInitials())
         End Try
 
         loadInformation()
@@ -181,6 +177,9 @@ Public Class EditMachine
         End If
         If acquisition <> "null" And acquisition <> "" Then
             dteAcquisition.Value = acquisition
+        End If
+        If center_number.ToString.Equals("0") Then
+            cbCenter.Text = "#In Store, Mechanicsville"
         End If
 
     End Sub
@@ -218,14 +217,20 @@ Public Class EditMachine
 
     'Updates the machine with the current values shown in the Form
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        Dim centerNumber As String = cbCenter.Text.Substring(1, 3)
+        If cbCenter.Text.Equals("#In Store, Mechanicsville") Then
+            centerNumber = "0"
+        End If
+
+
         Try
             Dim command As String = "UPDATE Machine SET employee_username = '" + txtUsername.Text + "', " +
-                "machine_name = '" + txtMachineName.Text + "', " +
+                "machine_name = '" + txtMachineName.Text.ToUpper() + "', " +
                 "asset_tag = " + txtAssetTag.Text + ", " +
-                "serial_number = '" + txtSerialNumber.Text + "', " +
-                "SIM = '" + txtSIM.Text + "', " +
-                "IMEI = '" + txtIMEI.Text + "', " +
-                "machine_center_number = " + center_number + ", " +
+                "serial_number = '" + txtSerialNumber.Text.ToUpper() + "', " +
+                "SIM = " + checkNull(txtSIM.Text) + ", " +
+                "IMEI = " + checkNull(txtIMEI.Text) + ", " +
+                "machine_center_number = " + centerNumber + ", " +
                 "asset_state_id = (SELECT asset_state_id FROM AssetState WHERE asset_state_name = '" + cbAssetState.Text + "'), " +
                 "condition = (SELECT condition_id FROM Condition WHERE condition_name = '" + cbCondition.Text + "'), " +
                 "acquisition_date = '" + dteAcquisition.Value + "', " +
@@ -237,30 +242,19 @@ Public Class EditMachine
             myReader = myCmd.ExecuteReader
             myReader.Close()
             MsgBox("Success!")
-            LogMachineEdit(machineName)
+            LogMachineEdit(machineName, myCmd.CommandText)
             Me.Close()
         Catch ex As Exception
-            LogError(ex.ToString)
-            MsgBox("Error, check logs")
+            LogError(ex.ToString, "EditMachine", getInitials())
         End Try
     End Sub
 
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
         'This grabs the center number from the combobox and puts it into the CostCenter textbox
         If cbCenter.Text <> "" Then
-            txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
-        End If
-    End Sub
-
-    Private Sub chCostCenter_CheckedChanged(sender As Object, e As EventArgs) Handles chCostCenter.CheckedChanged
-        'By default, the CostCenter textbox is disabled.
-        'The user can enable it by cheking the checkbox next to it.
-        'If the user de-selects it once more, it grabs the center number from the combobox and fills it in.
-        If chCostCenter.Checked Then
-            txtCostCenter.ReadOnly = False
-        Else
-            txtCostCenter.ReadOnly = True
-            If cbCenter.Text <> "" Then
+            If cbCenter.Text.Substring(1, 8).Equals("In Store") Then
+                txtCostCenter.Text = ""
+            Else
                 txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
             End If
         End If
@@ -285,13 +279,6 @@ Public Class EditMachine
         End If
     End Sub
 
-    'This function is testing to see if I can get it to listen for a keypress. At the moment it is not working.
-    Private Sub EditMachine_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
-        If e.KeyChar.Equals(Keys.F12) Then
-            MsgBox("success")
-        End If
-    End Sub
-
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
         'Enforces only numerical input
         checkNum(txtAssetTag.Text)
@@ -305,7 +292,7 @@ Public Class EditMachine
 
     Private Sub txtIMEI_TextChanged(sender As Object, e As EventArgs) Handles txtIMEI.TextChanged
         'Enforces only numerical input
-        checkNum(txtAssetTag.Text)
+        checkNum(txtIMEI.Text)
         txtIMEI.SelectionStart = txtIMEI.TextLength
     End Sub
 
@@ -321,7 +308,7 @@ Public Class EditMachine
 
     Private Sub txtSIM_TextChanged(sender As Object, e As EventArgs) Handles txtSIM.TextChanged
         'Enforces only numerical input
-        checkNum(txtAssetTag.Text)
+        checkNum(txtSIM.Text)
         txtSIM.SelectionStart = txtSIM.TextLength
     End Sub
 
@@ -330,14 +317,27 @@ Public Class EditMachine
         txtUsername.SelectionStart = txtUsername.TextLength
     End Sub
 
+    Private Sub txtMESD_TextChanged(sender As Object, e As EventArgs) Handles txtMESD.TextChanged
+        checkNum(txtMESD.Text)
+        txtMESD.SelectionStart = txtMESD.TextLength
+    End Sub
+
     Private Sub EditMachine_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         myConn.Close()
     End Sub
 
     Private Sub cbCondition_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbAssetState.SelectedValueChanged
         If cbAssetState.SelectedItem = "IN STORE" Then
-            cbCenter.Text = "#000"
+            cbCenter.Text = "#In Store, Mechanicsville"
             txtCostCenter.Text = ""
         End If
     End Sub
+
+    Private Function checkNull(ByVal str As String)
+        If str <> "" Then
+            Return ("'" + str + "'")
+        Else
+            Return ("NULL")
+        End If
+    End Function
 End Class

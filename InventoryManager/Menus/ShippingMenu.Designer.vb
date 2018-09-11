@@ -26,6 +26,7 @@ Partial Class ShippingMenu
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnExport = New System.Windows.Forms.Button()
         Me.lstMachines = New System.Windows.Forms.ListBox()
+        Me.lstShipping = New System.Windows.Forms.ListBox()
         Me.SuspendLayout()
         '
         'btnAdd
@@ -34,7 +35,7 @@ Partial Class ShippingMenu
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(382, 146)
         Me.btnAdd.TabIndex = 7
-        Me.btnAdd.Text = "Add to List"
+        Me.btnAdd.Text = "Add Non-Inventoried Item to Shipping List"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
         'Label1
@@ -53,7 +54,7 @@ Partial Class ShippingMenu
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(382, 146)
         Me.btnExport.TabIndex = 5
-        Me.btnExport.Text = "Export to CSV"
+        Me.btnExport.Text = "Export By Date to CSV"
         Me.btnExport.UseVisualStyleBackColor = True
         '
         'lstMachines
@@ -63,20 +64,33 @@ Partial Class ShippingMenu
         Me.lstMachines.ItemHeight = 19
         Me.lstMachines.Location = New System.Drawing.Point(12, 48)
         Me.lstMachines.Name = "lstMachines"
-        Me.lstMachines.Size = New System.Drawing.Size(777, 270)
+        Me.lstMachines.Size = New System.Drawing.Size(777, 118)
         Me.lstMachines.TabIndex = 4
+        '
+        'lstShipping
+        '
+        Me.lstShipping.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstShipping.FormattingEnabled = True
+        Me.lstShipping.ItemHeight = 19
+        Me.lstShipping.Location = New System.Drawing.Point(12, 181)
+        Me.lstShipping.Name = "lstShipping"
+        Me.lstShipping.Size = New System.Drawing.Size(777, 118)
+        Me.lstShipping.TabIndex = 8
         '
         'ShippingMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(801, 488)
+        Me.Controls.Add(Me.lstShipping)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.lstMachines)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "ShippingMenu"
-        Me.Text = "ShippingMenu"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Shipping Menu"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -86,4 +100,5 @@ Partial Class ShippingMenu
     Friend WithEvents Label1 As Label
     Friend WithEvents btnExport As Button
     Friend WithEvents lstMachines As ListBox
+    Friend WithEvents lstShipping As ListBox
 End Class

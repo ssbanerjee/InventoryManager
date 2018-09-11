@@ -8,11 +8,11 @@
     End Sub
 
     Private Sub btnAddMachine_MouseHover(sender As Object, e As EventArgs) Handles btnAddMachine.MouseHover
-        btnAddMachine.Image = My.Resources.addMachine_selected
+        'btnAddMachine.Image = My.Resources.addMachine_selected
     End Sub
 
     Private Sub btnAddMachine_MouseLeave(sender As Object, e As EventArgs) Handles btnAddMachine.MouseLeave
-        btnAddMachine.Image = My.Resources.addMachine
+        'btnAddMachine.Image = My.Resources.addMachine
     End Sub
 
     Private Sub btnEditMachine_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
@@ -20,24 +20,23 @@
     End Sub
 
     Private Sub btnEdit_MouseHover(sender As Object, e As EventArgs) Handles btnEdit.MouseHover
-        btnEdit.Image = My.Resources.editInfo_selected
+        'btnEdit.Image = My.Resources.editInfo_selected
     End Sub
 
     Private Sub btnEdit_MouseLeave(sender As Object, e As EventArgs) Handles btnEdit.MouseLeave
-        btnEdit.Image = My.Resources.editInfo
+        'btnEdit.Image = My.Resources.editInfo
     End Sub
 
-    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnTransfer.Click
-        'CSVMenu.ShowDialog()
+    Private Sub btnTransfer_Click(sender As Object, e As EventArgs) Handles btnTransfer.Click
         ShippingMenu.ShowDialog()
     End Sub
 
     Private Sub btnTransfer_MouseHover(sender As Object, e As EventArgs) Handles btnTransfer.MouseHover
-        btnTransfer.Image = My.Resources.transferdata_selected
+        'btnTransfer.Image = My.Resources.shippingMenu_selected
     End Sub
 
     Private Sub btnTransfer_MouseLeave(sender As Object, e As EventArgs) Handles btnTransfer.MouseLeave
-        btnTransfer.Image = My.Resources.transferData
+        'btnTransfer.Image = My.Resources.shippingMenu
     End Sub
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click

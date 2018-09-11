@@ -43,7 +43,6 @@ Partial Class EditMachine
         Me.cbAssetState = New System.Windows.Forms.ComboBox()
         Me.cbCenter = New System.Windows.Forms.ComboBox()
         Me.lblCenter = New System.Windows.Forms.Label()
-        Me.chCostCenter = New System.Windows.Forms.CheckBox()
         Me.txtCostCenter = New System.Windows.Forms.TextBox()
         Me.lblCostCenter = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
@@ -119,9 +118,9 @@ Partial Class EditMachine
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(472, 318)
+        Me.btnSave.Location = New System.Drawing.Point(331, 308)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(133, 35)
+        Me.btnSave.Size = New System.Drawing.Size(274, 45)
         Me.btnSave.TabIndex = 11
         Me.btnSave.Text = "Save Changes"
         Me.btnSave.UseVisualStyleBackColor = True
@@ -212,6 +211,8 @@ Partial Class EditMachine
         '
         'cbAssetState
         '
+        Me.cbAssetState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cbAssetState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cbAssetState.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbAssetState.FormattingEnabled = True
         Me.cbAssetState.Location = New System.Drawing.Point(103, 235)
@@ -239,23 +240,11 @@ Partial Class EditMachine
         Me.lblCenter.TabIndex = 39
         Me.lblCenter.Text = "Center Number:"
         '
-        'chCostCenter
-        '
-        Me.chCostCenter.AutoSize = True
-        Me.chCostCenter.Location = New System.Drawing.Point(405, 293)
-        Me.chCostCenter.Name = "chCostCenter"
-        Me.chCostCenter.Size = New System.Drawing.Size(157, 17)
-        Me.chCostCenter.TabIndex = 42
-        Me.chCostCenter.TabStop = False
-        Me.chCostCenter.Text = "Charge different cost center"
-        Me.chCostCenter.UseVisualStyleBackColor = True
-        '
         'txtCostCenter
         '
         Me.txtCostCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCostCenter.Location = New System.Drawing.Point(405, 261)
         Me.txtCostCenter.Name = "txtCostCenter"
-        Me.txtCostCenter.ReadOnly = True
         Me.txtCostCenter.Size = New System.Drawing.Size(200, 26)
         Me.txtCostCenter.TabIndex = 41
         Me.txtCostCenter.TabStop = False
@@ -290,6 +279,8 @@ Partial Class EditMachine
         '
         'cbCondition
         '
+        Me.cbCondition.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cbCondition.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cbCondition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCondition.FormattingEnabled = True
         Me.cbCondition.Location = New System.Drawing.Point(77, 308)
@@ -324,7 +315,6 @@ Partial Class EditMachine
         Me.Controls.Add(Me.cbCondition)
         Me.Controls.Add(Me.lblCondition)
         Me.Controls.Add(Me.lblTitle)
-        Me.Controls.Add(Me.chCostCenter)
         Me.Controls.Add(Me.txtCostCenter)
         Me.Controls.Add(Me.lblCostCenter)
         Me.Controls.Add(Me.cbCenter)
@@ -348,7 +338,7 @@ Partial Class EditMachine
         Me.Controls.Add(Me.txtSerialNumber)
         Me.Controls.Add(Me.txtAssetTag)
         Me.Controls.Add(Me.txtMachineName)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "EditMachine"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "EditMachine"
@@ -378,7 +368,6 @@ Partial Class EditMachine
     Friend WithEvents cbAssetState As ComboBox
     Friend WithEvents cbCenter As ComboBox
     Friend WithEvents lblCenter As Label
-    Friend WithEvents chCostCenter As CheckBox
     Friend WithEvents txtCostCenter As TextBox
     Friend WithEvents lblCostCenter As Label
     Friend WithEvents lblTitle As Label

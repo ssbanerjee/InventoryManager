@@ -118,79 +118,100 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="addMachine" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addMachine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="addMachine_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addMachine_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="editInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\editInfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="editInfo_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\editInfo_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EMV" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EMV.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EMV_Base" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EMV_Base.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EMV_Name" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EMV_Name.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EMV_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EMV_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AddMachine_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddMachine_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EMV_SerialNumber" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EMV_SerialNumber.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="equipmentRequest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\equipmentRequest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Tablet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tablet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="equipmentRequest_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\equipmentRequest_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Workstation_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Workstation_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="laptop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\laptop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CenterInfo_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CenterInfo_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="laptop_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\laptop_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ShippingReport_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ShippingReport_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="other" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\other.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="QueryBuilder_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QueryBuilder_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="other_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\other_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\banner.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="searchMachine" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\searchMachine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="EMV_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EMV_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="searchMachine_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\searchMachine_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="workstation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\workstation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CheckScanner_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CheckScanner_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="workstation_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\workstation_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NewMenu_banner1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewMenu_banner2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CenterDirectory" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CenterDirectory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ShippingReport" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ShippingReport.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CenterDirectory_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CenterDirectory_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CenterInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CenterInfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="InventoryManager" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\InventoryManager.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="boards" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\boards.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="InventoryManager_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\InventoryManager_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="EMV_Name" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EMV_Name.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="transferData" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\transferData.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Tablet_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tablet_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="transferdata_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\transferdata_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="NewMenu_empty_progressbar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewMenu_empty_progressbar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddMachine_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddMachine_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QueryBuilder_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QueryBuilder_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Laptop_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Laptop_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewMenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewMenu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EMV" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EMV.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Workstation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Workstation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EMV_Base" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EMV_Base.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Laptop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Laptop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewMenu_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewMenu_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckScanner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CheckScanner.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EditInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditInformation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EditInformation_pressed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditInformation_pressed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="banner_noshadow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\banner_noshadow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
