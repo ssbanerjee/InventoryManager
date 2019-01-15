@@ -1,10 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
-Imports System.Text.RegularExpressions
-Imports System.IO
 
 Public Class AddWorkstation
-    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
@@ -17,6 +14,7 @@ Public Class AddWorkstation
         clearLists()
         loadCenters()
         loadModels()
+        loadConditions()
     End Sub
 
     Private Sub clearLists()
@@ -26,6 +24,8 @@ Public Class AddWorkstation
         cbModel.SelectedIndex = -1
         cbCenter.SelectedIndex = -1
         txtCostCenter.Clear()
+        txtMESD.Clear()
+        cbCondition.SelectedIndex = -1
     End Sub
 
     Private Sub loadCenters()
@@ -50,6 +50,16 @@ Public Class AddWorkstation
         Next
     End Sub
 
+    Private Sub loadConditions()
+        cbCondition.Items.Clear()
+        myCmd.CommandText = "SELECT DISTINCT condition_name FROM Condition ORDER BY condition_name ASC;"
+        myReader = myCmd.ExecuteReader
+        While myReader.Read()
+            cbCondition.Items.Add(myReader.GetString(0))
+        End While
+        myReader.Close()
+    End Sub
+
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
         Dim currentString As String = cbCenter.Text
         Dim firstIndex As String = "null"
@@ -66,41 +76,59 @@ Public Class AddWorkstation
         End If
     End Sub
 
+    Private Sub txtMESD_TextChanged(sender As Object, e As EventArgs) Handles txtMESD.TextChanged
+        checkNum(txtMESD.Text)
+        txtMESD.SelectionStart = txtMESD.TextLength
+    End Sub
+
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim centerNumber As String = ""
 
         'Checks if a center number and a model type has been selected
         If cbCenter.Text <> "" And cbModel.Text <> "" Then
-            centerNumber = cbCenter.Text.Substring(1, 3)
+            If cbCenter.Text.Equals("#In Store, Mechanicsville") Then
+                centerNumber = "0"
+            Else
+                centerNumber = cbCenter.Text.Substring(1, 3)
+            End If
+
             Dim machineName As String = txtMachineName.Text
             Dim model As String = cbModel.Text
             Dim assetTag As String = txtAssetTag.Text
             Dim serialNumber As String = txtSerialNumber.Text
             Dim costCenter As String = txtCostCenter.Text
             Dim MESD As String = txtMESD.Text
+            Dim NewOrUsed As String = cbCondition.Text
+            Dim inventoried As String = ""
 
-            'checkNulls checks to see if any of the textboxes are empty.
-            checkNulls(machineName, assetTag, serialNumber)
-
-            If serialNumber <> "" Then
-                myCmd.CommandText = "INSERT INTO Machine VALUES (null, " + machineName + ", " + assetTag + ", " + serialNumber + ", null, null, " +
-                 "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null, SYSDATETIME(), 2, 1, " + MESD + ", '" + getInitials() + "');"
-                Try
-                    myReader = myCmd.ExecuteReader
-                    MsgBox("Success!")
-                    LogMachineAdd("Workstation", machineName)
-                    myReader.Close()
-                    Me.Close()
-                Catch ex As Exception
-                    LogError(ex.ToString)
-                    MsgBox("Error, check logs")
-                End Try
+            If chInventoried.Checked = True Then
+                inventoried = "1"
+            Else
+                inventoried = "0"
             End If
 
-        Else
-            MsgBox("Enter a Center Number and select a Model")
-        End If
+            If Not (checkAT(assetTag)) Then
+                'checkNulls checks to see if any of the textboxes are empty.
+                checkNulls(machineName, assetTag, serialNumber)
 
+                If serialNumber <> "" Then
+                    myCmd.CommandText = "INSERT INTO Machine VALUES ('AMF" + centerNumber + "NODE', " + machineName.ToUpper() + ", " + assetTag + ", " + serialNumber.ToUpper() + ", null, null, " +
+                     "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', null, SYSDATETIME(), SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "', " + inventoried + ");"
+                    Try
+                        myReader = myCmd.ExecuteReader
+                        MsgBox("Success!")
+                        LogMachineAdd("Workstation", machineName, myCmd.CommandText)
+                        myReader.Close()
+                        Close()
+                    Catch ex As Exception
+                        myReader.Close()
+                        LogError(ex.ToString, "AddWorkstation", getInitials())
+                    End Try
+                End If
+            End If
+        Else
+            MsgBox("Some fields are empty.")
+        End If
     End Sub
 
     Private Sub checkNulls(ByRef machineName As String, ByRef assetTag As String, ByRef serialNumber As String)
@@ -121,18 +149,42 @@ Public Class AddWorkstation
         End If
     End Sub
 
-    Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
-        If cbCenter.Text <> "" Then
-            txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
-        End If
-    End Sub
+    Private Function checkAT(ByVal assetTag) As Boolean
+        Dim command As String = "SELECT machine_name, machine_ID FROM Machine WHERE asset_tag = " + assetTag + ";"
+        myCmd.CommandText = command
+        Try
+            myReader = myCmd.ExecuteReader
+            If myReader.Read() Then
+                Dim result As MsgBoxResult = MsgBox("Machine " + myReader.GetString(0) + " with asset tag " + assetTag + " found." + vbNewLine +
+                                                    "Would you like to edit this machine?", MsgBoxStyle.YesNo) 'Asks user if they want to edit the machine found
+                If result = MsgBoxResult.Yes Then
+                    resetTimer() 'Code to turn off and back on the timer, found in InactivityTimer.vb
+                    EditMachine.machineID = myReader.GetInt32(1)
+                    myReader.Close()
+                    EditMachine.ShowDialog()
+                Else
+                    myReader.Close()
+                    Return False
+                End If
+                myReader.Close()
+                Return True
+            Else
+                myReader.Close()
+                Return False
+            End If
+        Catch ex As Exception
+            LogError(ex.ToString, "AddLaptop", getInitials())
+            myReader.Close()
+            Return False
+        End Try
+    End Function
 
-    Private Sub chCostCenter_CheckedChanged(sender As Object, e As EventArgs) Handles chCostCenter.CheckedChanged
-        If chCostCenter.Checked Then
-            txtCostCenter.ReadOnly = False
-        Else
-            txtCostCenter.ReadOnly = True
-            If cbCenter.Text <> "" Then
+    Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
+        'This grabs the center number from the combobox and puts it into the CostCenter textbox
+        If cbCenter.Text <> "" Then
+            If cbCenter.Text.Substring(1, 8).Equals("In Store") Then
+                txtCostCenter.Text = ""
+            Else
                 txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
             End If
         End If

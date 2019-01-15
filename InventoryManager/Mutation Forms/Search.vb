@@ -1,9 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
-Imports System.Text.RegularExpressions
 
 Public Class Search
-    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
@@ -17,9 +15,10 @@ Public Class Search
     Private category As String
     Private model As String
     Private center_number As String
-
     Private received As String
     Private acquisition As String
+    Private condition As String
+    Private costCenter As String
 
     Private machineID As String
 
@@ -57,7 +56,7 @@ Public Class Search
             End If
         End If
 
-        myCmd.CommandText = command + ";"
+        myCmd.CommandText = command + " ORDER BY m." + searchOption + " ASC;"
         myReader = myCmd.ExecuteReader()
         Do While myReader.Read()
             'If it finds a machine, but the name is null (only checks machine_name as serial_number is NOT NULL by default
@@ -84,7 +83,7 @@ Public Class Search
 
     Private Sub loadCategories()
         cbCategory.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT category_name FROM Category;"
+        myCmd.CommandText = "SELECT DISTINCT category_name FROM Category WHERE category_ID != 3;"
         cbCategory.Items.Add("")
         Try
             myReader = myCmd.ExecuteReader
@@ -92,8 +91,7 @@ Public Class Search
                 cbCategory.Items.Add(myReader.GetString(0))
             Loop
         Catch ex As Exception
-            LogError(ex.ToString)
-            MsgBox("Error, check logs")
+            LogError(ex.ToString, "Search", getInitials())
         End Try
         myReader.Close()
     End Sub
@@ -114,10 +112,11 @@ Public Class Search
                 query = "serial_number"
             End If
 
-            myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
+            myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date, k.condition_name, m.machine_cost_center " +
                         "FROM Machine m LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
+                        "LEFT JOIN Condition k ON m.condition = k.condition_id " +
                         "WHERE " + query + " = '" + search + "';"
             Try
                 myReader = myCmd.ExecuteReader()
@@ -126,7 +125,7 @@ Public Class Search
                 Do While myReader.Read()
                     'Checks every index of the query (machine_name, asset_tag, etc) for null values.
                     'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
-                    For i As Integer = 0 To 11
+                    For i As Integer = 0 To 13
                         Select Case i
                             Case 0
                                 If myReader.IsDBNull(i) Then
@@ -196,12 +195,23 @@ Public Class Search
                                 Else
                                     acquisition = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                                 End If
+                            Case 12
+                                If myReader.IsDBNull(i) Then
+                                    condition = "null"
+                                Else
+                                    condition = myReader.GetString(i)
+                                End If
+                            Case 13
+                                If myReader.IsDBNull(i) Then
+                                    costCenter = "null"
+                                Else
+                                    costCenter = myReader.GetString(i)
+                                End If
                         End Select
                     Next
                 Loop
             Catch ex As Exception
-                LogError(ex.ToString)
-                MsgBox("Error, check logs")
+                LogError(ex.ToString, "Search", getInitials())
             End Try
             txtAssetTag.Clear()
             myReader.Close()
@@ -231,8 +241,7 @@ Public Class Search
                 cbModel.Items.Add(myReader.GetString(0))
             Loop
         Catch ex As Exception
-            LogError(ex.ToString)
-            MsgBox("Error, check logs")
+            LogError(ex.ToString, "Search", getInitials())
         End Try
 
         myReader.Close()
@@ -248,6 +257,8 @@ Public Class Search
         'Passes the machineId to EditMachine and opens it
         EditMachine.machineID = machineID
         EditMachine.ShowDialog()
+        loadInformation()
+        loadMachineInfo()
     End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
@@ -263,7 +274,7 @@ Public Class Search
     End Sub
 
     Private Sub checkAT(ByVal input As String)
-        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date " +
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date, m.machine_cost_center " +
                         "FROM Machine m LEFT JOIN Model d ON m.model_ID = d.model_ID " +
                         "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                         "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
@@ -275,7 +286,7 @@ Public Class Search
             If myReader.Read() Then
                 'Checks every index of the query (machine_name, asset_tag, etc) for null values.
                 'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
-                For i As Integer = 0 To 11
+                For i As Integer = 0 To 12
                     Select Case i
                         Case 0
                             If myReader.IsDBNull(i) Then
@@ -349,13 +360,22 @@ Public Class Search
                             Else
                                 acquisition = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                             End If
+                        Case 12
+                            If myReader.IsDBNull(i) Then
+                                costCenter = "null"
+                            Else
+                                costCenter = myReader.GetString(i)
+                            End If
                     End Select
                 Next
-
+                btnEdit.Enabled = True
+            Else
+                If txtAssetTag.TextLength = 6 Then
+                    MsgBox("No Machine Found.")
+                End If
             End If
         Catch ex As Exception
-            LogError(ex.ToString)
-            MsgBox("Error, check logs")
+            LogError(ex.ToString, "Search", getInitials())
         End Try
         lstMachines.SelectedIndex = -1
         myReader.Close()
@@ -405,5 +425,25 @@ Public Class Search
     Private Sub cbModel_TextChanged(sender As Object, e As EventArgs) Handles cbModel.TextChanged
         checkSQLInjection(cbModel.Text)
         cbModel.SelectionStart = cbModel.Text.Length
+    End Sub
+
+    Private Sub btnNote_Click(sender As Object, e As EventArgs) Handles btnNote.Click
+        Dim note As String = machineName + vbNewLine +
+               "CC: " + costCenter + vbNewLine +
+               "AT: " + assetTag + vbNewLine +
+               "S/N: " + serialNumber + vbNewLine +
+               "SIM: " + SIM + vbNewLine +
+               "IMEI: " + IMEI + vbNewLine +
+               "Model: " + model
+        Clipboard.SetText(note)
+        MsgBox(machineName + " info copied to clipboard.")
+    End Sub
+
+    Private Sub btnCompletion_Click(sender As Object, e As EventArgs) Handles btnCompletion.Click
+        Dim str As String = System.DateTime.Now.ToString("MM/dd/yy") + vbTab +
+            model + vbTab + condition + vbTab + assetTag + vbTab + serialNumber +
+            vbTab + employee + vbTab + "Verified" + vbTab + vbTab + costCenter + vbTab + getInitials()
+        Clipboard.SetText(str)
+        MsgBox(machineName + " info copied to clipboard.")
     End Sub
 End Class

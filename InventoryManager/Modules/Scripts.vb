@@ -3,12 +3,18 @@ Imports System.Text.RegularExpressions
 Imports System.Data.SqlClient
 
 Module Scripts
-    Private logFilePath As String = "C:\Users\inventory\Desktop\Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
-    Private errorLogFilePath As String = "C:\\Users\\Inventory\\Desktop\\Error Logs\\"
-    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
+    'Public connectionString As String = "Server=\\TEST-HDINV.NA.AMFBowl.NET\INVENTORYSQL;Database=master;Trusted_Connection=True;"
+    Public connectionString As String = "Data Source=10.12.40.143,49172;Network Library=DBMSSOCN;Initial Catalog=master;Trusted_Connection=True;"
+
+    Private machineLogFilePath As String = "\\10.12.40.143\C$\Users\Inventory\Desktop\Logs\Activity Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
+    Private errorLogFilePath As String = "\\10.12.40.143\C$\Users\Inventory\Desktop\Logs\Error Logs\" + DateTime.Now.ToString("MM-dd-yyy") + "_" + DateTime.Now.ToString("HH-mm") + ".txt"
+    Private transactionLogFilePath As String = "\\10.12.40.143\C$\Users\Inventory\Desktop\Logs\Transaction Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
+
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
+
+    Public currentUser As String = ""
 
     'This function does a simple check against SQL Injection by removing all single quotes, double quotes, and semicolons from input
     Public Sub checkSQLInjection(ByRef input As String)
@@ -17,31 +23,61 @@ Module Scripts
         input = input.Replace(";", "")
     End Sub
 
+    'This function is only used in the MachineName for AddLaptop.vb. Its purpose is to remove dashes from the Serial Number per Josh's request
+    Public Sub checkDashes(ByRef input As String)
+        input = input.Replace("-", "")
+    End Sub
+
+    'Enforces numerical-only input
     Public Sub checkNum(ByRef input As String)
-        'Enforces only numerical input
         Dim digitsOnly As Regex = New Regex("[^\d]")
         input = digitsOnly.Replace(input, "")
     End Sub
 
-    Public Sub LogMachineAdd(ByVal machine, ByVal machineName)
-        File.AppendAllText(logFilePath, machine + " Added; MachineName: " + machineName + ". By " + currentUser + " on " + DateTime.Now + vbNewLine)
+    'Creates a log for adding a machine
+    '[Machine Type] Added; MachineName: [Machine Name]. By: [Technician Initials] on [DateTime]
+    Public Sub LogMachineAdd(ByVal machine, ByVal machineName, ByVal transaction)
+        File.AppendAllText(machineLogFilePath, machine + " Added; MachineName: " + machineName + ". By " + currentUser + " on " + DateTime.Now + vbNewLine)
+        LogTransaction(transaction)
     End Sub
 
-    Public Sub LogMachineEdit(ByVal machineName)
-        File.AppendAllText(logFilePath, "Machine Edited; MachineName: " + machineName + ". By " + currentUser + " on " + DateTime.Now + vbNewLine)
+    'Creates a log for editing a machine
+    'Machine Edited; MachineName: [Machine Name]. By: [Technician Initials] on [DateTime]
+    Public Sub LogMachineEdit(ByVal machineName, ByVal transaction)
+        File.AppendAllText(machineLogFilePath, "Machine Edited; MachineName: " + machineName + ". By " + currentUser + " on " + DateTime.Now + vbNewLine)
+        LogTransaction(transaction)
     End Sub
 
-    Public Sub LogShippingAdd(ByVal item, ByVal quantity)
-        File.AppendAllText(logFilePath, "Shipping Updated; Item: " + item + ", Quantity: " + quantity + "By " + currentUser + " on " + DateTime.Now + vbNewLine)
+    'Creates a log for adding an item to Shipping
+    'Shipping Updated; Item: [Item], Quantity: [Quantity]. By: [Technician Initials] on [DateTime]
+    Public Sub LogShippingAdd(ByVal item, ByVal quantity, ByVal transaction)
+        File.AppendAllText(machineLogFilePath, "Shipping Updated; Item: " + item + ", Quantity: " + quantity + ". By " + currentUser + " on " + DateTime.Now + vbNewLine)
+        LogTransaction(transaction)
     End Sub
+
+    'Creates a log for signing in
+    'User Sign In: [Technician Initials] on [DateTime]
     Public Sub LogSignIn()
-        File.AppendAllText(logFilePath, "User Sign In: " + currentUser + " on " + DateTime.Now + vbNewLine)
+        File.AppendAllText(machineLogFilePath, "User Sign In: " + currentUser + " on " + DateTime.Now + vbNewLine)
     End Sub
 
-    Public Sub LogError(ByVal errorMessage)
-        File.AppendAllText(errorLogFilePath + DateTime.Now.ToString("MM-dd-yyy") + "_" + DateTime.Now.ToString("HH-mm") + ".txt", errorMessage)
+    'Creates a log for caught errors
+    'Displays first line of error and then the log file path for more details.
+    Public Sub LogError(ByVal errorMessage As String, ByVal form As String, ByVal tech As String)
+        File.AppendAllText(errorLogFilePath, "Error on form " + form + " by " + tech + vbNewLine + vbNewLine + errorMessage)
+        Dim lines() As String = errorMessage.Split(Environment.NewLine)
+        Dim stars As String = "*********************************************************************************"
+        Dim err As String = stars + vbNewLine + lines(0) + vbNewLine + stars
+
+        MsgBox("Error!" + vbNewLine + vbNewLine + err + vbNewLine + vbNewLine + "Check " + errorLogFilePath + " for more details.")
     End Sub
 
+    'Creates a log for each transaction made on the server
+    Private Sub LogTransaction(ByVal transaction)
+        File.AppendAllText(transactionLogFilePath, transaction + vbNewLine)
+    End Sub
+
+    'Gets all Center information from SQL DB and returns it as a List
     Public Function LoadCentersFromSQL() As List(Of String)
         myConn = New SqlConnection(connectionString)
         myConn.Open()
@@ -52,13 +88,15 @@ Module Scripts
         Dim centerNumber As String = ""
         Dim centerName As String = ""
 
-        myCmd.CommandText = "SELECT center_number, name FROM Center WHERE center_number > 0 ORDER BY center_number ASC;"
+        myCmd.CommandText = "SELECT center_number, name FROM Center ORDER BY center_number ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             centerNumberInt = myReader.GetInt32(0)
             centerName = myReader.GetString(1)
 
-            If centerNumberInt < 100 Then
+            If centerNumberInt = 0 Then
+                centerNumber = "In Store"
+            ElseIf centerNumberInt < 100 Then
                 centerNumber = "0" + centerNumberInt.ToString
             Else
                 centerNumber = centerNumberInt.ToString
@@ -70,6 +108,7 @@ Module Scripts
         Return centers
     End Function
 
+    'Gets all Model types from SQL DB and returns it as a List
     Public Function LoadModelsFromSQL(ByVal category) As List(Of String)
         myConn = New SqlConnection(connectionString)
         myConn.Open()
@@ -88,14 +127,21 @@ Module Scripts
         Return models
     End Function
 
-    Public Function LoadItemsFromSQL() As List(Of String)
+    'Gets all NonInventoried shipping items from SQL DB and returns it as a List
+    Public Function LoadItemsFromSQL(ByVal category) As List(Of String)
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
 
         Dim items As New List(Of String)
-        myCmd.CommandText = "SELECT DISTINCT noninventoried_name FROM NonInventoried " +
-                            "ORDER BY noninventoried_name ASC;"
+        Dim command As String
+        command = "SELECT DISTINCT i.noninventoried_name FROM NonInventoried i " +
+                  "JOIN ShippingCategory c ON i.shipcat_id = c.shipcat_id"
+        If category <> "" Then
+            command += " WHERE c.shipcat_name = '" + category + "'"
+        End If
+        myCmd.CommandText = command + ";"
+
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             items.Add(myReader.GetString(0))
@@ -105,6 +151,7 @@ Module Scripts
         Return items
     End Function
 
+    'Gets currentUser and returns the initials of the technician
     Public Function getInitials() As String
         Dim str() As String = Split(currentUser, ",")
         Dim newUserStr As String = ""
@@ -114,4 +161,10 @@ Module Scripts
 
         Return newUserStr
     End Function
+
+    'Inactivity timer
+    Public Sub resetTimer()
+        Login.tmrInactive.Enabled = False
+        Login.tmrInactive.Enabled = True
+    End Sub
 End Module

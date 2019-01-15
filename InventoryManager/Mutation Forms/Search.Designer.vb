@@ -47,6 +47,8 @@ Partial Class Search
         Me.lblAssetTag = New System.Windows.Forms.Label()
         Me.lblMachineName = New System.Windows.Forms.Label()
         Me.lblFAssetTag = New System.Windows.Forms.Label()
+        Me.btnNote = New System.Windows.Forms.Button()
+        Me.btnCompletion = New System.Windows.Forms.Button()
         Me.gbSearchOptions.SuspendLayout()
         Me.gbListOptions.SuspendLayout()
         Me.gbMachine.SuspendLayout()
@@ -87,6 +89,8 @@ Partial Class Search
         '
         'cbModel
         '
+        Me.cbModel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cbModel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cbModel.Enabled = False
         Me.cbModel.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbModel.FormattingEnabled = True
@@ -97,6 +101,8 @@ Partial Class Search
         '
         'cbCategory
         '
+        Me.cbCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cbCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cbCategory.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCategory.FormattingEnabled = True
         Me.cbCategory.Location = New System.Drawing.Point(9, 38)
@@ -299,11 +305,31 @@ Partial Class Search
         Me.lblFAssetTag.TabIndex = 13
         Me.lblFAssetTag.Text = "Search by Asset Tag:"
         '
+        'btnNote
+        '
+        Me.btnNote.Location = New System.Drawing.Point(514, 430)
+        Me.btnNote.Name = "btnNote"
+        Me.btnNote.Size = New System.Drawing.Size(75, 23)
+        Me.btnNote.TabIndex = 14
+        Me.btnNote.Text = "Copy MESD"
+        Me.btnNote.UseVisualStyleBackColor = True
+        '
+        'btnCompletion
+        '
+        Me.btnCompletion.Location = New System.Drawing.Point(595, 430)
+        Me.btnCompletion.Name = "btnCompletion"
+        Me.btnCompletion.Size = New System.Drawing.Size(96, 23)
+        Me.btnCompletion.TabIndex = 15
+        Me.btnCompletion.Text = "Copy Completion"
+        Me.btnCompletion.UseVisualStyleBackColor = True
+        '
         'Search
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(736, 478)
+        Me.Controls.Add(Me.btnCompletion)
+        Me.Controls.Add(Me.btnNote)
         Me.Controls.Add(Me.lblFAssetTag)
         Me.Controls.Add(Me.gbMachine)
         Me.Controls.Add(Me.gbListOptions)
@@ -312,9 +338,9 @@ Partial Class Search
         Me.Controls.Add(Me.lstMachines)
         Me.Controls.Add(Me.txtAssetTag)
         Me.Controls.Add(Me.gbSearchOptions)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "Search"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Search"
         Me.gbSearchOptions.ResumeLayout(False)
         Me.gbSearchOptions.PerformLayout()
@@ -350,4 +376,6 @@ Partial Class Search
     Friend WithEvents cbModel As ComboBox
     Friend WithEvents cbCategory As ComboBox
     Friend WithEvents lblFAssetTag As Label
+    Friend WithEvents btnNote As Button
+    Friend WithEvents btnCompletion As Button
 End Class

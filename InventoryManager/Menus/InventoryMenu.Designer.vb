@@ -28,36 +28,6 @@ Partial Class InventoryMenu
         Me.btnExit = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'btnTransfer
-        '
-        Me.btnTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnTransfer.Image = Global.InventoryManager.My.Resources.Resources.transferData
-        Me.btnTransfer.Location = New System.Drawing.Point(0, 720)
-        Me.btnTransfer.Name = "btnTransfer"
-        Me.btnTransfer.Size = New System.Drawing.Size(1920, 360)
-        Me.btnTransfer.TabIndex = 2
-        Me.btnTransfer.UseVisualStyleBackColor = True
-        '
-        'btnEdit
-        '
-        Me.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnEdit.Image = Global.InventoryManager.My.Resources.Resources.editInfo
-        Me.btnEdit.Location = New System.Drawing.Point(0, 360)
-        Me.btnEdit.Name = "btnEdit"
-        Me.btnEdit.Size = New System.Drawing.Size(1920, 360)
-        Me.btnEdit.TabIndex = 1
-        Me.btnEdit.UseVisualStyleBackColor = True
-        '
-        'btnAddMachine
-        '
-        Me.btnAddMachine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAddMachine.Image = Global.InventoryManager.My.Resources.Resources.addMachine
-        Me.btnAddMachine.Location = New System.Drawing.Point(0, 0)
-        Me.btnAddMachine.Name = "btnAddMachine"
-        Me.btnAddMachine.Size = New System.Drawing.Size(1920, 360)
-        Me.btnAddMachine.TabIndex = 0
-        Me.btnAddMachine.UseVisualStyleBackColor = True
-        '
         'btnExit
         '
         Me.btnExit.BackColor = System.Drawing.SystemColors.Control

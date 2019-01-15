@@ -1,13 +1,12 @@
 ﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
-Imports System.Text.RegularExpressions
-Imports System.IO
 
 Public Class AddEMV
-    Private connectionString As String = "Server=localhost\INVENTORYSQL;Database=master;Trusted_Connection=True;"
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
+
+    Public emvType As String
 
     Private Sub AddEMV_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         resetTimer()
@@ -16,6 +15,8 @@ Public Class AddEMV
         myCmd = myConn.CreateCommand
         clearLists()
         loadCenters()
+        loadConditions()
+        txtSerialNumber.Select()
     End Sub
 
     Private Sub clearLists()
@@ -23,6 +24,8 @@ Public Class AddEMV
         txtSerialNumber.Clear()
         cbCenter.SelectedIndex = -1
         txtCostCenter.Clear()
+        txtMESD.Clear()
+        cbCondition.SelectedIndex = -1
     End Sub
 
     Private Sub loadCenters()
@@ -34,6 +37,16 @@ Public Class AddEMV
         For Each center As String In centers
             cbCenter.Items.Add(center)
         Next
+    End Sub
+
+    Private Sub loadConditions()
+        cbCondition.Items.Clear()
+        myCmd.CommandText = "SELECT DISTINCT condition_name FROM Condition ORDER BY condition_name ASC;"
+        myReader = myCmd.ExecuteReader
+        While myReader.Read()
+            cbCondition.Items.Add(myReader.GetString(0))
+        End While
+        myReader.Close()
     End Sub
 
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
@@ -53,27 +66,21 @@ Public Class AddEMV
     End Sub
 
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
+        'This grabs the center number from the combobox and puts it into the CostCenter textbox
         If cbCenter.Text <> "" Then
-            txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
-        End If
-    End Sub
-
-    Private Sub chCostCenter_CheckedChanged(sender As Object, e As EventArgs) Handles chCostCenter.CheckedChanged
-        If chCostCenter.Checked Then
-            txtCostCenter.ReadOnly = False
-        Else
-            txtCostCenter.ReadOnly = True
-            If cbCenter.Text <> "" Then
+            If cbCenter.Text.Substring(1, 8).Equals("In Store") Then
+                txtCostCenter.Text = ""
+            Else
                 txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
             End If
         End If
     End Sub
 
-    Private Sub txtName_MouseHover(sender As Object, e As EventArgs) Handles txtName.MouseHover
+    Private Sub txtName_MouseHover(sender As Object, e As EventArgs)
         pbEMV.Image = My.Resources.EMV_Name
     End Sub
 
-    Private Sub txtName_MouseLeave(sender As Object, e As EventArgs) Handles txtName.MouseLeave
+    Private Sub txtName_MouseLeave(sender As Object, e As EventArgs)
         pbEMV.Image = My.Resources.EMV_Base
     End Sub
 
@@ -85,11 +92,11 @@ Public Class AddEMV
         pbEMV.Image = My.Resources.EMV_Base
     End Sub
 
-    Private Sub lblName_MouseHover(sender As Object, e As EventArgs) Handles lblName.MouseHover
+    Private Sub lblName_MouseHover(sender As Object, e As EventArgs)
         pbEMV.Image = My.Resources.EMV_Name
     End Sub
 
-    Private Sub lblName_MouseLeave(sender As Object, e As EventArgs) Handles lblName.MouseLeave
+    Private Sub lblName_MouseLeave(sender As Object, e As EventArgs)
         pbEMV.Image = My.Resources.EMV_Base
     End Sub
 
@@ -102,40 +109,85 @@ Public Class AddEMV
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        Dim machineName As String = txtName.Text
+        'Local variables
         Dim assetTag As String = txtAssetTag.Text
         Dim serialNumber As String = txtSerialNumber.Text
         Dim MESD As String = txtMESD.Text
         Dim costCenter As String = txtCostCenter.Text
+        Dim NewOrUsed As String = cbCondition.Text
 
+        'Get center number if cbCenter.Text is not empty
         Dim centerNumber As String = cbCenter.Text
         If centerNumber <> "" Then
-            centerNumber = centerNumber.Substring(1, 3)
+            If centerNumber.Substring(1, 8).Equals("In Store") Then
+                centerNumber = "0"
+            Else
+                'ex: '#115, AMF Sunset Lanes' -> 115
+                centerNumber = centerNumber.Substring(1, 3)
+            End If
         Else
             centerNumber = "0"
         End If
 
-        myCmd.CommandText = "INSERT INTO Machine VALUES (null, '" + machineName + "', " + assetTag + ", '" + serialNumber + "', null, null, " +
-                            "(SELECT model_id FROM Model WHERE model_name = 'VeriFone EMV'), " + centerNumber + ", '" + costCenter + "', SYSDATETIME(), null, SYSDATETIME(), 2, 1, " + MESD + ", '" + getInitials() + "');"
+        If Not (checkAT(assetTag)) Then
+            myCmd.CommandText = "INSERT INTO Machine VALUES (null, '" + serialNumber.ToUpper() + "', " + assetTag + ", '" + serialNumber.ToUpper() + "', null, null, " +
+                           "(SELECT model_id FROM Model WHERE model_name = '" + emvType + "'), " + centerNumber + ", '" + costCenter +
+                           "', null, SYSDATETIME(), SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "', 1);"
+            Try
+                myReader = myCmd.ExecuteReader
+                MsgBox("Success!")
+                LogMachineAdd("EMV", serialNumber, myCmd.CommandText)
+                myReader.Close()
+                Close()
+            Catch ex As Exception
+                myReader.Close()
+                LogError(ex.ToString, "AddEMV", getInitials())
+            End Try
+            Login.bgwShipping.RunWorkerAsync()
+        End If
+    End Sub
+
+    Private Function checkAT(ByVal assetTag) As Boolean
+        Dim command As String = "SELECT machine_name, machine_ID FROM Machine WHERE asset_tag = " + assetTag + ";"
+        myCmd.CommandText = command
         Try
             myReader = myCmd.ExecuteReader
-            MsgBox("Success!")
-            LogMachineAdd("EMV", machineName)
-            myReader.Close()
-            Me.Close()
+            If myReader.Read() Then
+                Dim result As MsgBoxResult = MsgBox("Machine " + myReader.GetString(0) + " with asset tag " + assetTag + " found." + vbNewLine +
+                                                    "Would you like to edit this machine?", MsgBoxStyle.YesNo) 'Asks user if they want to edit the machine found
+                If result = MsgBoxResult.Yes Then
+                    resetTimer() 'Code to turn off and back on the timer, found in InactivityTimer.vb
+                    EditMachine.machineID = myReader.GetInt32(1)
+                    myReader.Close()
+                    EditMachine.ShowDialog()
+                Else
+                    myReader.Close()
+                    Return False
+                End If
+                myReader.Close()
+                Return True
+            Else
+                myReader.Close()
+                Return False
+            End If
         Catch ex As Exception
-            LogError(ex.ToString)
-            MsgBox("Error, check logs")
+            LogError(ex.ToString, "AddLaptop", getInitials())
+            myReader.Close()
+            Return False
         End Try
-    End Sub
+    End Function
 
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
         'Enforces only numerical input
         checkNum(txtAssetTag.Text)
 
-        If txtAssetTag.TextLength > 6 Then
-            Dim character As String = txtAssetTag.Text(6)
-            txtAssetTag.Text = character
+        'Checks length of AT. If greater than 6, clear text and input last character
+        'If txtAssetTag.TextLength > 6 Then
+        '    Dim character As String = txtAssetTag.Text(6)
+        '    txtAssetTag.Text = character
+        'End If
+        If txtAssetTag.TextLength > 5 Then
+            cbCenter.Select()
         End If
         txtAssetTag.SelectionStart = txtAssetTag.TextLength
     End Sub
@@ -143,6 +195,10 @@ Public Class AddEMV
     Private Sub txtSerialNumber_TextChanged(sender As Object, e As EventArgs) Handles txtSerialNumber.TextChanged
         checkSQLInjection(txtSerialNumber.Text)
         txtSerialNumber.SelectionStart = txtSerialNumber.TextLength
+
+        'If (txtSerialNumber.TextLength > 10) Then
+        '    txtAssetTag.Select()
+        'End If
     End Sub
 
     Private Sub txtCostCenter_TextChanged(sender As Object, e As EventArgs) Handles txtCostCenter.TextChanged
@@ -150,13 +206,12 @@ Public Class AddEMV
         txtCostCenter.SelectionStart = txtCostCenter.TextLength
     End Sub
 
-    Private Sub txtName_TextChanged(sender As Object, e As EventArgs) Handles txtName.TextChanged
-        checkSQLInjection(txtName.Text)
-        txtName.SelectionStart = txtName.TextLength
-    End Sub
-
     Private Sub AddEMV_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         myConn.Close()
     End Sub
 
+    Private Sub txtMESD_TextChanged(sender As Object, e As EventArgs) Handles txtMESD.TextChanged
+        checkNum(txtMESD.Text)
+        txtMESD.SelectionStart = txtMESD.TextLength
+    End Sub
 End Class

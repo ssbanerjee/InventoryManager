@@ -28,7 +28,6 @@ Partial Class CenterInfoMenu
         Me.lblRegDist = New System.Windows.Forms.Label()
         Me.lblCircuitInfo = New System.Windows.Forms.Label()
         Me.lblPhoneNumbers = New System.Windows.Forms.Label()
-        Me.btnUpdate = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cbCenter
@@ -90,22 +89,13 @@ Partial Class CenterInfoMenu
         Me.lblPhoneNumbers.Size = New System.Drawing.Size(105, 16)
         Me.lblPhoneNumbers.TabIndex = 45
         Me.lblPhoneNumbers.Text = "Phone Numbers"
-        '
-        'btnUpdate
-        '
-        Me.btnUpdate.Location = New System.Drawing.Point(351, 25)
-        Me.btnUpdate.Name = "btnUpdate"
-        Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
-        Me.btnUpdate.TabIndex = 46
-        Me.btnUpdate.Text = "Update"
-        Me.btnUpdate.UseVisualStyleBackColor = True
+        Me.lblPhoneNumbers.Visible = False
         '
         'CenterInfoMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(508, 293)
-        Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.lblPhoneNumbers)
         Me.Controls.Add(Me.lblCircuitInfo)
         Me.Controls.Add(Me.lblRegDist)
@@ -113,7 +103,7 @@ Partial Class CenterInfoMenu
         Me.Controls.Add(Me.cbCenter)
         Me.Controls.Add(Me.lblCenter)
         Me.Name = "CenterInfoMenu"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "CenterInfoMenu"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -126,5 +116,4 @@ Partial Class CenterInfoMenu
     Friend WithEvents lblRegDist As Label
     Friend WithEvents lblCircuitInfo As Label
     Friend WithEvents lblPhoneNumbers As Label
-    Friend WithEvents btnUpdate As Button
 End Class
