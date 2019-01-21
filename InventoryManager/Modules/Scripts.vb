@@ -4,7 +4,7 @@ Imports System.Data.SqlClient
 
 Module Scripts
     'Public connectionString As String = "Server=\\TEST-HDINV.NA.AMFBowl.NET\INVENTORYSQL;Database=master;Trusted_Connection=True;"
-    Public connectionString As String = "Data Source=10.12.40.143,49172;Network Library=DBMSSOCN;Initial Catalog=master;Trusted_Connection=True;"
+    Public connectionString As String = "Data Source=10.12.40.143,1433;Network Library=DBMSSOCN;Initial Catalog=master;Trusted_Connection=True;"
 
     Private machineLogFilePath As String = "\\10.12.40.143\C$\Users\Inventory\Desktop\Logs\Activity Logs\" + DateTime.Now.ToString("MM-dd-yyy") + ".txt"
     Private errorLogFilePath As String = "\\10.12.40.143\C$\Users\Inventory\Desktop\Logs\Error Logs\" + DateTime.Now.ToString("MM-dd-yyy") + "_" + DateTime.Now.ToString("HH-mm") + ".txt"
