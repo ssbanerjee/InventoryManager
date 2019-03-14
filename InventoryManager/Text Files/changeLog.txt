@@ -1,0 +1,5 @@
+﻿v3.08.2
+-- Removed "In Inventory" option
+--- This may cause issues on any queries I may have missed when updating.
+-- Updated Change Log
+-- Fixed bug that caused the menu to hide whenever selecting Edit Information or Center Info

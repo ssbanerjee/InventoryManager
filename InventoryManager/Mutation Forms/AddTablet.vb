@@ -28,7 +28,6 @@ Public Class AddTablet
         Dim MESD As String = txtMESD.Text
         Dim NewOrUsed As String = cbCondition.Text
         Dim costCenter As String = txtCostCenter.Text
-        Dim inventoried As String = ""
         If centerNumber <> "" Then
             If centerNumber.Substring(1, 8).Equals("In Store") Then
                 centerNumber = "0"
@@ -39,18 +38,12 @@ Public Class AddTablet
             centerNumber = "0"
         End If
 
-        If chInventoried.Checked = True Then
-            inventoried = "1"
-        Else
-            inventoried = "0"
-        End If
-
         If Not (checkAT(assetTag)) Then
             If (serialNumber <> "") Then
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES (NULL, '" + machineName.ToUpper() + "', " + assetTag + ", '" +
                     serialNumber.ToUpper + "', NULL, NULL, 23, " + centerNumber + ", '" + costCenter +
-                    "', null, SYSDATETIME(), SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "', " + inventoried + ");"
+                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
@@ -152,15 +145,11 @@ Public Class AddTablet
         'Enforces only numerical input
         checkNum(txtAssetTag.Text)
 
-        'If txtAssetTag.TextLength > 6 Then
-        '    Dim character As String = txtAssetTag.Text(6)
-        '    txtAssetTag.Text = character
-        'End If
-        txtAssetTag.SelectionStart = txtAssetTag.TextLength
-        If txtAssetTag.TextLength = 6 Then
-            txtMESD.Select()
-            txtCostCenter.Text = "1645"
+        If txtAssetTag.TextLength > 6 Then
+            Dim character As String = txtAssetTag.Text(6)
+            txtAssetTag.Text = character
         End If
+        txtAssetTag.SelectionStart = txtAssetTag.TextLength
     End Sub
 
     Private Sub txtMachineName_TextChanged(sender As Object, e As EventArgs) Handles txtMachineName.TextChanged
@@ -171,26 +160,14 @@ Public Class AddTablet
     Private Sub txtSerialNumber_TextChanged(sender As Object, e As EventArgs) Handles txtSerialNumber.TextChanged
         checkSQLInjection(txtSerialNumber.Text)
         txtSerialNumber.SelectionStart = txtSerialNumber.TextLength
-        If (txtSerialNumber.TextLength = 15) Then
-            txtAssetTag.Select()
-        End If
     End Sub
 
     Private Sub txtMESD_TextChanged(sender As Object, e As EventArgs) Handles txtMESD.TextChanged
         checkNum(txtMESD.Text)
         txtMESD.SelectionStart = txtMESD.TextLength
-        If (txtMESD.TextLength = 6) Then
-            cbCondition.Text = "NEW"
-            btnAdd.Select()
-        End If
     End Sub
 
     Private Sub AddTablet_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         myConn.Close()
-    End Sub
-
-    Private Sub txtSerialNumber_Leave(sender As Object, e As EventArgs) Handles txtSerialNumber.Leave
-        txtMachineName.Text = txtSerialNumber.Text
-        cbCenter.Text = "#In Store, Mechanicsville"
     End Sub
 End Class

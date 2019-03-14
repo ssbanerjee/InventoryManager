@@ -22,7 +22,6 @@
 
     'Edit Information
     Private Sub pbEditInfo_Click(sender As Object, e As EventArgs) Handles pbEditInfo.Click
-        Hide()
         Search.ShowDialog()
         Show()
     End Sub
@@ -51,33 +50,32 @@
     End Sub
 
     'Center Information
-    Private Sub pbCenterInfo_Click(sender As Object, e As EventArgs) Handles pbCenterInfo.Click
-        Hide()
+    Private Sub pbCenterInfo_Click(sender As Object, e As EventArgs) Handles pbCenterInfo.Click, PictureBox1.Click
         CenterInfoMenu.ShowDialog()
         Show()
     End Sub
 
-    Private Sub pbCenterInfo_MouseDown(sender As Object, e As MouseEventArgs) Handles pbCenterInfo.MouseDown
+    Private Sub pbCenterInfo_MouseDown(sender As Object, e As MouseEventArgs) Handles pbCenterInfo.MouseDown, PictureBox1.MouseDown
         pbCenterInfo.Image = My.Resources.CenterInfo_pressed
     End Sub
 
-    Private Sub pbCenterInfo_MouseUp(sender As Object, e As MouseEventArgs) Handles pbCenterInfo.MouseUp
+    Private Sub pbCenterInfo_MouseUp(sender As Object, e As MouseEventArgs) Handles pbCenterInfo.MouseUp, PictureBox1.MouseUp
         pbCenterInfo.Image = My.Resources.CenterInfo
     End Sub
 
     'Query Builder
-    Private Sub pbQueryBuilder_Click(sender As Object, e As EventArgs) Handles pbQueryBuilder.Click
-        Hide()
-        QueryBuilder.ShowDialog()
+    Private Sub pbShipItem_Click(sender As Object, e As EventArgs) Handles pbShipItem.Click
+        'Hide()
+        AddShipping.ShowDialog()
         Show()
     End Sub
 
-    Private Sub pbQueryBuilder_MouseDown(sender As Object, e As MouseEventArgs) Handles pbQueryBuilder.MouseDown
-        pbQueryBuilder.Image = My.Resources.QueryBuilder_pressed
+    Private Sub pbShipItem_MouseDown(sender As Object, e As MouseEventArgs) Handles pbShipItem.MouseDown
+        pbShipItem.Image = My.Resources.ShipItem_pressed
     End Sub
 
-    Private Sub pbQueryBuilder_MouseUp(sender As Object, e As MouseEventArgs) Handles pbQueryBuilder.MouseUp
-        pbQueryBuilder.Image = My.Resources.QueryBuilder_2
+    Private Sub ppbShipItem_MouseUp(sender As Object, e As MouseEventArgs) Handles pbShipItem.MouseUp
+        pbShipItem.Image = My.Resources.ShipItem
     End Sub
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class AddWorkstation
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class AddWorkstation
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.cbModel = New System.Windows.Forms.ComboBox()
         Me.lblModel = New System.Windows.Forms.Label()
@@ -39,7 +39,8 @@ Partial Class AddWorkstation
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cbCondition = New System.Windows.Forms.ComboBox()
         Me.lblCondition = New System.Windows.Forms.Label()
-        Me.chInventoried = New System.Windows.Forms.CheckBox()
+        Me.dteAcquisition = New System.Windows.Forms.DateTimePicker()
+        Me.lblAcquisition = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'cbModel
@@ -48,7 +49,7 @@ Partial Class AddWorkstation
         Me.cbModel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cbModel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbModel.FormattingEnabled = True
-        Me.cbModel.Location = New System.Drawing.Point(151, 100)
+        Me.cbModel.Location = New System.Drawing.Point(154, 100)
         Me.cbModel.Name = "cbModel"
         Me.cbModel.Size = New System.Drawing.Size(132, 26)
         Me.cbModel.TabIndex = 2
@@ -65,7 +66,7 @@ Partial Class AddWorkstation
         'lblSerialNumber
         '
         Me.lblSerialNumber.AutoSize = True
-        Me.lblSerialNumber.Location = New System.Drawing.Point(139, 138)
+        Me.lblSerialNumber.Location = New System.Drawing.Point(142, 138)
         Me.lblSerialNumber.Name = "lblSerialNumber"
         Me.lblSerialNumber.Size = New System.Drawing.Size(147, 13)
         Me.lblSerialNumber.TabIndex = 25
@@ -91,9 +92,9 @@ Partial Class AddWorkstation
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(9, 287)
+        Me.btnAdd.Location = New System.Drawing.Point(9, 324)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(280, 35)
+        Me.btnAdd.Size = New System.Drawing.Size(277, 35)
         Me.btnAdd.TabIndex = 8
         Me.btnAdd.Text = "Add Machine"
         Me.btnAdd.UseVisualStyleBackColor = True
@@ -101,7 +102,7 @@ Partial Class AddWorkstation
         'txtSerialNumber
         '
         Me.txtSerialNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSerialNumber.Location = New System.Drawing.Point(142, 157)
+        Me.txtSerialNumber.Location = New System.Drawing.Point(145, 157)
         Me.txtSerialNumber.Name = "txtSerialNumber"
         Me.txtSerialNumber.Size = New System.Drawing.Size(141, 26)
         Me.txtSerialNumber.TabIndex = 4
@@ -109,7 +110,7 @@ Partial Class AddWorkstation
         'txtAssetTag
         '
         Me.txtAssetTag.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAssetTag.Location = New System.Drawing.Point(6, 157)
+        Me.txtAssetTag.Location = New System.Drawing.Point(9, 157)
         Me.txtAssetTag.Name = "txtAssetTag"
         Me.txtAssetTag.Size = New System.Drawing.Size(117, 26)
         Me.txtAssetTag.TabIndex = 3
@@ -117,7 +118,7 @@ Partial Class AddWorkstation
         'txtMachineName
         '
         Me.txtMachineName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMachineName.Location = New System.Drawing.Point(6, 100)
+        Me.txtMachineName.Location = New System.Drawing.Point(9, 100)
         Me.txtMachineName.Name = "txtMachineName"
         Me.txtMachineName.Size = New System.Drawing.Size(139, 26)
         Me.txtMachineName.TabIndex = 1
@@ -162,7 +163,7 @@ Partial Class AddWorkstation
         'txtMESD
         '
         Me.txtMESD.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMESD.Location = New System.Drawing.Point(142, 212)
+        Me.txtMESD.Location = New System.Drawing.Point(145, 212)
         Me.txtMESD.Name = "txtMESD"
         Me.txtMESD.Size = New System.Drawing.Size(141, 26)
         Me.txtMESD.TabIndex = 6
@@ -170,7 +171,7 @@ Partial Class AddWorkstation
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(139, 196)
+        Me.Label2.Location = New System.Drawing.Point(142, 196)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(41, 13)
         Me.Label2.TabIndex = 50
@@ -184,7 +185,7 @@ Partial Class AddWorkstation
         Me.cbCondition.FormattingEnabled = True
         Me.cbCondition.Location = New System.Drawing.Point(90, 253)
         Me.cbCondition.Name = "cbCondition"
-        Me.cbCondition.Size = New System.Drawing.Size(111, 28)
+        Me.cbCondition.Size = New System.Drawing.Size(196, 28)
         Me.cbCondition.TabIndex = 7
         '
         'lblCondition
@@ -196,24 +197,32 @@ Partial Class AddWorkstation
         Me.lblCondition.TabIndex = 52
         Me.lblCondition.Text = "New or Used:"
         '
-        'chInventoried
+        'dteAcquisition
         '
-        Me.chInventoried.AutoSize = True
-        Me.chInventoried.Checked = True
-        Me.chInventoried.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chInventoried.Location = New System.Drawing.Point(207, 257)
-        Me.chInventoried.Name = "chInventoried"
-        Me.chInventoried.Size = New System.Drawing.Size(82, 17)
-        Me.chInventoried.TabIndex = 53
-        Me.chInventoried.Text = "In Inventory"
-        Me.chInventoried.UseVisualStyleBackColor = True
+        Me.dteAcquisition.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dteAcquisition.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dteAcquisition.Location = New System.Drawing.Point(90, 294)
+        Me.dteAcquisition.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
+        Me.dteAcquisition.Name = "dteAcquisition"
+        Me.dteAcquisition.Size = New System.Drawing.Size(196, 20)
+        Me.dteAcquisition.TabIndex = 54
+        '
+        'lblAcquisition
+        '
+        Me.lblAcquisition.AutoSize = True
+        Me.lblAcquisition.Location = New System.Drawing.Point(12, 301)
+        Me.lblAcquisition.Name = "lblAcquisition"
+        Me.lblAcquisition.Size = New System.Drawing.Size(61, 13)
+        Me.lblAcquisition.TabIndex = 53
+        Me.lblAcquisition.Text = "Acquisition:"
         '
         'AddWorkstation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(301, 334)
-        Me.Controls.Add(Me.chInventoried)
+        Me.ClientSize = New System.Drawing.Size(298, 371)
+        Me.Controls.Add(Me.dteAcquisition)
+        Me.Controls.Add(Me.lblAcquisition)
         Me.Controls.Add(Me.cbCondition)
         Me.Controls.Add(Me.lblCondition)
         Me.Controls.Add(Me.txtMESD)
@@ -257,5 +266,6 @@ Partial Class AddWorkstation
     Friend WithEvents Label2 As Label
     Friend WithEvents cbCondition As ComboBox
     Friend WithEvents lblCondition As Label
-    Friend WithEvents chInventoried As CheckBox
+    Friend WithEvents dteAcquisition As DateTimePicker
+    Friend WithEvents lblAcquisition As Label
 End Class

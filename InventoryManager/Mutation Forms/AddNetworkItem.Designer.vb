@@ -31,6 +31,8 @@ Partial Class AddNetworkItem
         Me.cbCenter = New System.Windows.Forms.ComboBox()
         Me.lblCenter = New System.Windows.Forms.Label()
         Me.btnAdd = New System.Windows.Forms.Button()
+        Me.txtMESD = New System.Windows.Forms.TextBox()
+        Me.lblMESD = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblSerialNumber
@@ -92,7 +94,7 @@ Partial Class AddNetworkItem
         Me.cbCenter.FormattingEnabled = True
         Me.cbCenter.Location = New System.Drawing.Point(12, 89)
         Me.cbCenter.Name = "cbCenter"
-        Me.cbCenter.Size = New System.Drawing.Size(402, 26)
+        Me.cbCenter.Size = New System.Drawing.Size(273, 26)
         Me.cbCenter.TabIndex = 38
         '
         'lblCenter
@@ -113,11 +115,30 @@ Partial Class AddNetworkItem
         Me.btnAdd.Text = "Add Machine"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
+        'txtMESD
+        '
+        Me.txtMESD.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMESD.Location = New System.Drawing.Point(300, 89)
+        Me.txtMESD.Name = "txtMESD"
+        Me.txtMESD.Size = New System.Drawing.Size(114, 26)
+        Me.txtMESD.TabIndex = 41
+        '
+        'lblMESD
+        '
+        Me.lblMESD.AutoSize = True
+        Me.lblMESD.Location = New System.Drawing.Point(300, 73)
+        Me.lblMESD.Name = "lblMESD"
+        Me.lblMESD.Size = New System.Drawing.Size(38, 13)
+        Me.lblMESD.TabIndex = 42
+        Me.lblMESD.Text = "MESD"
+        '
         'AddNetworkItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(426, 181)
+        Me.Controls.Add(Me.lblMESD)
+        Me.Controls.Add(Me.txtMESD)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.cbCenter)
         Me.Controls.Add(Me.lblCenter)
@@ -144,4 +165,6 @@ Partial Class AddNetworkItem
     Friend WithEvents cbCenter As ComboBox
     Friend WithEvents lblCenter As Label
     Friend WithEvents btnAdd As Button
+    Friend WithEvents txtMESD As TextBox
+    Friend WithEvents lblMESD As Label
 End Class

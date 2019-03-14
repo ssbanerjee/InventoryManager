@@ -26,14 +26,16 @@ Partial Class NewMenu
         Me.pbEditInfo = New System.Windows.Forms.PictureBox()
         Me.pbCenterInfo = New System.Windows.Forms.PictureBox()
         Me.pbShippingReport = New System.Windows.Forms.PictureBox()
-        Me.pbQueryBuilder = New System.Windows.Forms.PictureBox()
+        Me.pbShipItem = New System.Windows.Forms.PictureBox()
         Me.btnExit = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.pbAddMachine, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbEditInfo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbCenterInfo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbShippingReport, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pbQueryBuilder, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbShipItem, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pbAddMachine
@@ -76,15 +78,15 @@ Partial Class NewMenu
         Me.pbShippingReport.TabIndex = 4
         Me.pbShippingReport.TabStop = False
         '
-        'pbQueryBuilder
+        'pbShipItem
         '
-        Me.pbQueryBuilder.BackColor = System.Drawing.Color.Transparent
-        Me.pbQueryBuilder.Image = Global.InventoryManager.My.Resources.Resources.QueryBuilder_2
-        Me.pbQueryBuilder.Location = New System.Drawing.Point(32, 527)
-        Me.pbQueryBuilder.Name = "pbQueryBuilder"
-        Me.pbQueryBuilder.Size = New System.Drawing.Size(419, 86)
-        Me.pbQueryBuilder.TabIndex = 5
-        Me.pbQueryBuilder.TabStop = False
+        Me.pbShipItem.BackColor = System.Drawing.Color.Transparent
+        Me.pbShipItem.Image = Global.InventoryManager.My.Resources.Resources.ShipItem
+        Me.pbShipItem.Location = New System.Drawing.Point(34, 397)
+        Me.pbShipItem.Name = "pbShipItem"
+        Me.pbShipItem.Size = New System.Drawing.Size(419, 86)
+        Me.pbShipItem.TabIndex = 5
+        Me.pbShipItem.TabStop = False
         '
         'btnExit
         '
@@ -106,6 +108,16 @@ Partial Class NewMenu
         Me.Button1.UseVisualStyleBackColor = True
         Me.Button1.Visible = False
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox1.Image = Global.InventoryManager.My.Resources.Resources.CenterInfo
+        Me.PictureBox1.Location = New System.Drawing.Point(34, 527)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(419, 86)
+        Me.PictureBox1.TabIndex = 3
+        Me.PictureBox1.TabStop = False
+        '
         'NewMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -114,21 +126,23 @@ Partial Class NewMenu
         Me.ClientSize = New System.Drawing.Size(1000, 625)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btnExit)
-        Me.Controls.Add(Me.pbQueryBuilder)
+        Me.Controls.Add(Me.pbShipItem)
         Me.Controls.Add(Me.pbShippingReport)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.pbCenterInfo)
         Me.Controls.Add(Me.pbEditInfo)
         Me.Controls.Add(Me.pbAddMachine)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
         Me.Name = "NewMenu"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Inventory Manager"
         CType(Me.pbAddMachine, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbEditInfo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbCenterInfo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbShippingReport, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pbQueryBuilder, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbShipItem, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -137,7 +151,8 @@ Partial Class NewMenu
     Friend WithEvents pbEditInfo As PictureBox
     Friend WithEvents pbCenterInfo As PictureBox
     Friend WithEvents pbShippingReport As PictureBox
-    Friend WithEvents pbQueryBuilder As PictureBox
+    Friend WithEvents pbShipItem As PictureBox
     Friend WithEvents btnExit As Button
     Friend WithEvents Button1 As Button
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

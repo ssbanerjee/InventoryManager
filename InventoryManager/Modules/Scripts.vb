@@ -151,6 +151,30 @@ Module Scripts
         Return items
     End Function
 
+    Public Function SearchItemsFromSQL(ByVal category, ByVal input) As List(Of String)
+        myConn = New SqlConnection(connectionString)
+        myConn.Open()
+        myCmd = myConn.CreateCommand
+
+        Dim items As New List(Of String)
+        Dim command As String
+        command = "SELECT DISTINCT i.noninventoried_name FROM NonInventoried i " +
+                  "JOIN ShippingCategory c ON i.shipcat_id = c.shipcat_id " +
+                  "WHERE i.noninventoried_name LIKE '%" + input + "%'"
+        If category <> "" Then
+            command += " AND c.shipcat_name = '" + category + "'"
+        End If
+        myCmd.CommandText = command + ";"
+
+        myReader = myCmd.ExecuteReader
+        While myReader.Read()
+            items.Add(myReader.GetString(0))
+        End While
+        myReader.Close()
+
+        Return items
+    End Function
+
     'Gets currentUser and returns the initials of the technician
     Public Function getInitials() As String
         Dim str() As String = Split(currentUser, ",")

@@ -28,7 +28,8 @@ Public Class Login
         myCmd = myConn.CreateCommand
 
         'Update Version Text
-        Dim lines() As String = IO.File.ReadAllLines("\\10.12.40.143\C$\Users\Inventory\Desktop\ChangeLog.txt")
+
+        Dim lines() As String = IO.File.ReadAllLines("Text Files\version.txt")
         lblVersion.Text = lines(0)
         lblVersion.BackColor = Color.FromArgb(0, 129, 195)
 
@@ -110,7 +111,6 @@ Public Class Login
         If update = 1 Then
             MsgBox("There has been an update!")
             btnLog.PerformClick()
-            myReader.Close()
             myCmd.CommandText = "UPDATE Employee SET employee_update = 0 WHERE employee_pin = " + PIN + ";"
             Try
                 myReader = myCmd.ExecuteReader()
@@ -168,21 +168,19 @@ Public Class Login
         myReader.Close() 'Another measure to close the reader
         LogSignIn() 'Updates activity log
         tmrInactive.Enabled = True 'Starts inactivity timer
-        Hide() 'Hides current form
         bgwShipping.RunWorkerAsync() 'Updates shipping report using another background worker
         If role = "TECHNICIAN" Then 'Shows the menu according to role
             NewMenu.ShowDialog()
         ElseIf role = "NETWORK" Then
             NetworkTeamMenu.ShowDialog()
         End If
+        Hide() 'Hides current form
         Show() 'Once the menu is closed, reveal this form again
     End Sub
 
     'Change log buttons displays the text from the ChangeLog.txt
     Private Sub btnLog_Click(sender As Object, e As EventArgs) Handles btnLog.Click
-        Dim fileReader As String
-        fileReader = My.Computer.FileSystem.ReadAllText("\\10.12.40.143\C$\Users\Inventory\Desktop\ChangeLog.txt")
-        MsgBox(fileReader)
+        ChangeLog.ShowDialog()
     End Sub
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click

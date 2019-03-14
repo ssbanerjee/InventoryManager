@@ -45,7 +45,7 @@ Partial Class Login
         Me.txtPIN.Font = New System.Drawing.Font("Calibri", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPIN.Location = New System.Drawing.Point(25, 101)
         Me.txtPIN.Name = "txtPIN"
-        Me.txtPIN.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9786)
+        Me.txtPIN.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
         Me.txtPIN.Size = New System.Drawing.Size(372, 59)
         Me.txtPIN.TabIndex = 0
         Me.txtPIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center

@@ -1,19 +1,17 @@
 ﻿Imports System.Data.SqlClient
-Imports System.ComponentModel
 
-Public Class AddNetworkItem
+Public Class AddPhone
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
 
-    Public model_id As String
-
-    Private Sub AddNetworkItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub AddPhone_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         resetTimer()
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
         clearLists()
+        loadModels()
         loadCenters()
     End Sub
 
@@ -21,9 +19,10 @@ Public Class AddNetworkItem
         'Local variables
         Dim machine_id As String = ""
         Dim assetTag As String = txtAssetTag.Text
-        Dim serialNumber As String = txtSerialNumber.Text
+        Dim MAC As String = txtMAC.Text
         Dim centerNumber As String = cbCenter.Text
         Dim costCenter As String = txtCostCenter.Text
+        Dim model As String = cbModel.Text
 
         If centerNumber <> "" Then
             If centerNumber.Substring(1, 8).Equals("In Store") Then
@@ -39,23 +38,23 @@ Public Class AddNetworkItem
         'checkAT checks to see if this machine already exists via its Asset Tag
         If Not (checkAT(assetTag)) Then
             'checkNulls checks to see if any of the textboxes are empty.
-            checkNulls(assetTag, serialNumber)
+            checkNulls(assetTag, MAC)
 
-            If (serialNumber <> "") Then
+            If (MAC <> "") Then
                 Dim command As String = ""
-                command = "INSERT INTO Machine VALUES (NULL, " + serialNumber.ToUpper() + ", " + assetTag + ", " +
-                    serialNumber + ", NULL, NULL, " + model_id + ", " + centerNumber + ", '" + costCenter +
+                command = "INSERT INTO Machine VALUES (NULL, " + MAC.ToUpper() + ", " + assetTag + ", " +
+                    MAC.ToUpper() + ", NULL, NULL, (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
                     "', null, SYSDATETIME(), SYSDATETIME(), 2, 1, NULL, '" + getInitials() + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
                     MsgBox("Success!")
-                    LogMachineAdd("NetworkItem", serialNumber.ToUpper(), myCmd.CommandText)
+                    LogMachineAdd("Phone", MAC.ToUpper(), myCmd.CommandText)
                     myReader.Close()
                     Close()
                 Catch ex As Exception
                     myReader.Close()
-                    LogError(ex.ToString, "AddNetworkItem", getInitials())
+                    LogError(ex.ToString, "AddPhone", getInitials())
                 End Try
             End If
             Login.bgwShipping.RunWorkerAsync()
@@ -64,9 +63,20 @@ Public Class AddNetworkItem
 
     Private Sub clearLists()
         txtAssetTag.Clear()
-        txtSerialNumber.Clear()
+        txtMAC.Clear()
         cbCenter.SelectedIndex = -1
         txtCostCenter.Clear()
+    End Sub
+
+    Private Sub loadModels()
+        Dim models As New List(Of String)
+
+        cbModel.Items.Clear()
+        models = LoadModelsFromSQL("Phone")
+
+        For Each model As String In models
+            cbModel.Items.Add(model)
+        Next
     End Sub
 
     Private Sub loadCenters()

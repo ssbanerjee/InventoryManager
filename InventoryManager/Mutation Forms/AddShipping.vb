@@ -41,7 +41,8 @@ Public Class AddShipping
         End If
 
         If item = "" Then
-            item = txtFilter.Text
+            MsgBox("Please select an item.")
+            Return
         End If
 
         Dim command As String = ""
@@ -99,6 +100,7 @@ Public Class AddShipping
     Private Sub clearLists()
         txtQuantity.Clear()
         txtMESD.Clear()
+        txtFilter.Clear()
         cbCenter.SelectedIndex = -1
         lstItems.SelectedIndex = -1
     End Sub
@@ -131,11 +133,14 @@ Public Class AddShipping
     Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged
         checkSQLInjection(txtFilter.Text)
         txtFilter.SelectionStart = txtFilter.TextLength
-        Dim i As Integer = lstItems.FindString(txtFilter.Text)
-        lstItems.SelectedIndex = i
-        If txtFilter.Text = "" Then
-            lstItems.SelectedIndex = -1
-        End If
+        lstItems.Items.Clear()
+
+        Dim items As New List(Of String)
+        items = SearchItemsFromSQL(category, txtFilter.Text)
+
+        For Each item As String In items
+            lstItems.Items.Add(item)
+        Next
     End Sub
 
     Private Sub txtMESD_TextChanged(sender As Object, e As EventArgs) Handles txtMESD.TextChanged

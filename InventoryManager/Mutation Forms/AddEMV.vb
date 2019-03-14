@@ -132,7 +132,7 @@ Public Class AddEMV
         If Not (checkAT(assetTag)) Then
             myCmd.CommandText = "INSERT INTO Machine VALUES (null, '" + serialNumber.ToUpper() + "', " + assetTag + ", '" + serialNumber.ToUpper() + "', null, null, " +
                            "(SELECT model_id FROM Model WHERE model_name = '" + emvType + "'), " + centerNumber + ", '" + costCenter +
-                           "', null, SYSDATETIME(), SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "', 1);"
+                           "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
             Try
                 myReader = myCmd.ExecuteReader
                 MsgBox("Success!")

@@ -27,6 +27,7 @@ Public Class Search
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
+        txtFilter.Clear()
         loadInformation()
         loadCategories()
     End Sub
@@ -42,7 +43,7 @@ Public Class Search
             searchOption = "serial_number"
         End If
 
-        Dim command As String = "SELECT " + searchOption + " FROM Model d JOIN Machine m ON m.model_ID = d.model_ID " +
+        Dim command As String = "SELECT m." + searchOption + " FROM Machine m JOIN Model d ON m.model_ID = d.model_ID " +
                     "LEFT JOIN Category c ON d.category_id = c.category_ID " +
                     "LEFT JOIN Center t ON m.machine_center_number = t.center_number"
         Dim fCategory As String = cbCategory.SelectedItem
@@ -54,7 +55,16 @@ Public Class Search
             If fModel <> "" Then
                 command += " AND d.model_name = '" + fModel + "'"
             End If
+            If txtFilter.Text <> "" Then
+                command += " AND m." + searchOption + " LIKE '%" + txtFilter.Text + "%'"
+            End If
+        Else
+            If txtFilter.Text <> "" Then
+                command += " WHERE m." + searchOption + " LIKE '%" + txtFilter.Text + "%'"
+            End If
         End If
+
+
 
         myCmd.CommandText = command + " ORDER BY m." + searchOption + " ASC;"
         myReader = myCmd.ExecuteReader()
@@ -406,11 +416,13 @@ Public Class Search
     Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged
         checkSQLInjection(txtFilter.Text)
         txtFilter.SelectionStart = txtFilter.TextLength
-        Dim i As Integer = lstMachines.FindString(txtFilter.Text)
-        lstMachines.SelectedIndex = i
-        If txtFilter.Text = "" Then
-            lstMachines.SelectedIndex = -1
-        End If
+        'Dim i As Integer = lstMachines.FindString(txtFilter.Text)
+        'lstMachines.SelectedIndex = i
+        'If txtFilter.Text = "" Then
+        '    lstMachines.SelectedIndex = -1
+        'End If
+        lstMachines.Items.Clear()
+        loadInformation()
     End Sub
 
     Private Sub Search_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing

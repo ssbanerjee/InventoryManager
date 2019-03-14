@@ -93,7 +93,14 @@ Public Class EditMachine
                             If myReader.IsDBNull(i) Then
                                 center_number = "null"
                             Else
-                                center_number = "#" + myReader.GetInt32(i).ToString
+                                Dim x As Integer = myReader.GetInt32(i)
+                                If x = 0 Then
+                                    center_number = "#In Store, Mechanicsville"
+                                ElseIf x < 100 Then
+                                    center_number = "#0" + x.ToString
+                                Else
+                                    center_number = "#" + x.ToString
+                                End If
                             End If
                         Case 8
                             If myReader.IsDBNull(i) Then
@@ -178,10 +185,6 @@ Public Class EditMachine
         If acquisition <> "null" And acquisition <> "" Then
             dteAcquisition.Value = acquisition
         End If
-        If center_number.ToString.Equals("0") Then
-            cbCenter.Text = "#In Store, Mechanicsville"
-        End If
-
     End Sub
 
     Private Sub loadAssetState()
@@ -256,17 +259,6 @@ Public Class EditMachine
         Catch ex As Exception
             LogError(ex.ToString, "EditMachine", getInitials())
         End Try
-    End Sub
-
-    Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
-        'This grabs the center number from the combobox and puts it into the CostCenter textbox
-        If cbCenter.Text <> "" Then
-            If cbCenter.Text.Substring(1, 8).Equals("In Store") Then
-                txtCostCenter.Text = ""
-            Else
-                txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
-            End If
-        End If
     End Sub
 
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged

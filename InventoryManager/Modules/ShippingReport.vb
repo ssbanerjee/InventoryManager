@@ -35,11 +35,10 @@ Module ShippingReport
         Dim machineCenterNumber As String = ""
         Dim machineTicketNumber As String = ""
         Dim technician As String = ""
-        Dim inventoried As String = ""
 
         'name 0, model 1, location 2, asset tag 3, serial 4, condition 5, cost center 6, sim 7, imei 8, aqc 9, rec 10, center 11, mesd 12, technician 13
         myCmd.CommandText = "SELECT m.machine_name, d.model_name, m.machine_center_number, m.asset_tag, m.serial_number, c.condition_name, m.machine_cost_center, " +
-        "m.SIM, m.IMEI, m.acquisition_date, m.received_date, m.machine_center_number, m.machine_ticket_number, m.technician, m.inventoried " +
+        "m.SIM, m.IMEI, m.acquisition_date, m.received_date, m.machine_center_number, m.machine_ticket_number, m.technician " +
         "FROM Machine m JOIN Model d ON m.model_ID = d.model_ID " +
         "JOIN Condition c ON m.condition = c.condition_id " +
         "WHERE m.last_modified = CONVERT (date, SYSDATETIME());"
@@ -134,22 +133,11 @@ Module ShippingReport
                             Else
                                 technician = myReader.GetString(i)
                             End If
-                        Case 14
-                            If myReader.IsDBNull(i) Then
-                                inventoried = "null"
-                            Else
-                                inventoried = myReader.GetInt32(i).ToString
-                                If inventoried = "0" Then
-                                    inventoried = "Not Inventoried"
-                                Else
-                                    inventoried = "In Inventory"
-                                End If
-                            End If
                     End Select
                 Next
                 Dim m As String = model + "," + assetTag + "," + serialNumber + "," + machineName + "," +
                                           machineCenterNumber + "," + condition + "," + costCenter + "," +
-                                          machineTicketNumber + "," + IMEI + "," + SIM + "," + technician + ", " + inventoried
+                                          machineTicketNumber + "," + IMEI + "," + SIM + "," + technician
                 machines.Add(m)
             End While
         Catch ex As Exception
@@ -187,11 +175,10 @@ Module ShippingReport
         Dim machineTicketNumber As String = ""
         Dim technician As String = ""
         Dim lastModified As String = ""
-        Dim inventoried As String = ""
 
         'name 0, model 1, location 2, asset tag 3, serial 4, condition 5, cost center 6, sim 7, imei 8, aqc 9, rec 10, center 11, mesd 12, technician 13
         myCmd.CommandText = "SELECT m.machine_name, d.model_name, m.machine_center_number, m.asset_tag, m.serial_number, c.condition_name, m.machine_cost_center, " +
-        "m.SIM, m.IMEI, m.acquisition_date, m.received_date, m.machine_center_number, m.machine_ticket_number, m.technician, m.last_modified, m.inventoried " +
+        "m.SIM, m.IMEI, m.acquisition_date, m.received_date, m.machine_center_number, m.machine_ticket_number, m.technician, m.last_modified " +
         "FROM Machine m JOIN Model d ON m.model_ID = d.model_ID " +
         "JOIN Condition c ON m.condition = c.condition_id " +
         "WHERE m.last_modified = '" + exportDate + "';"
@@ -292,22 +279,11 @@ Module ShippingReport
                             Else
                                 lastModified = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                             End If
-                        Case 15
-                            If myReader.IsDBNull(i) Then
-                                inventoried = "null"
-                            Else
-                                inventoried = myReader.GetInt32(i).ToString
-                                If inventoried = "0" Then
-                                    inventoried = "Not Inventoried"
-                                Else
-                                    inventoried = "In Inventory"
-                                End If
-                            End If
                     End Select
                 Next
                 Dim m As String = model + "," + assetTag + "," + serialNumber + "," + machineName + "," +
                                           machineCenterNumber + "," + condition + "," + costCenter + "," +
-                                          machineTicketNumber + "," + IMEI + "," + SIM + "," + technician + "," + inventoried + ", " + lastModified
+                                          machineTicketNumber + "," + IMEI + "," + SIM + "," + technician + "," + lastModified
                 machines.Add(m)
             End While
         Catch ex As Exception

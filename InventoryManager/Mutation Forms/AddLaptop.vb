@@ -31,7 +31,6 @@ Public Class AddLaptop
         Dim MESD As String = txtMESD.Text
         Dim NewOrUsed As String = cbCondition.Text
         Dim costCenter As String = txtCostCenter.Text
-        Dim inventoried As String = ""
 
         If centerNumber <> "" Then
             If centerNumber.Substring(1, 8).Equals("In Store") Then
@@ -44,12 +43,6 @@ Public Class AddLaptop
             centerNumber = "0"
         End If
 
-        If chInventoried.Checked = True Then
-            inventoried = "1"
-        Else
-            inventoried = "0"
-        End If
-
         'checkAT checks to see if this machine already exists via its Asset Tag
         If Not (checkAT(assetTag)) Then
             'checkNulls checks to see if any of the textboxes are empty.
@@ -59,7 +52,7 @@ Public Class AddLaptop
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES (" + employee.ToUpper() + ", " + machineName.ToUpper() + ", " + assetTag + ", " +
                     serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
-                    "', null, SYSDATETIME(), SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "', " + inventoried + ");"
+                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader

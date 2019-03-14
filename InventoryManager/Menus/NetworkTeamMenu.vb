@@ -6,17 +6,17 @@
         btnExit.BackColor = Color.FromArgb(0, 129, 195)
     End Sub
 
-    Private Sub pbAdtran_Click(sender As Object, e As EventArgs) Handles pbAdtran.Click
-        AddNetworkItem.model_id = "18"
+    Private Sub pbSwitch_Click(sender As Object, e As EventArgs) Handles pbSwitch.Click
+        AddNetworkItem.model_id = "19"
         AddNetworkItem.ShowDialog()
     End Sub
 
-    Private Sub pbAdtran_MouseDown(sender As Object, e As MouseEventArgs) Handles pbAdtran.MouseDown
-        pbAdtran.Image = My.Resources.Adtran_pressed
+    Private Sub pbSwitch_MouseDown(sender As Object, e As MouseEventArgs) Handles pbSwitch.MouseDown
+        pbSwitch.Image = My.Resources.Switch_pressed
     End Sub
 
-    Private Sub pbAdtran_MouseUp(sender As Object, e As MouseEventArgs) Handles pbAdtran.MouseUp
-        pbAdtran.Image = My.Resources.Adtran
+    Private Sub pbSwitch_MouseUp(sender As Object, e As MouseEventArgs) Handles pbSwitch.MouseUp
+        pbSwitch.Image = My.Resources.Switch
     End Sub
 
     Private Sub pbMojo_Click(sender As Object, e As EventArgs) Handles pbMojo.Click
@@ -35,4 +35,45 @@
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         Close()
     End Sub
+
+    Private Sub pbPhone_Click(sender As Object, e As EventArgs) Handles pbPhone.Click
+        AddPhone.ShowDialog()
+    End Sub
+
+    Private Sub pbPhone_MouseDown(sender As Object, e As MouseEventArgs) Handles pbPhone.MouseDown
+        pbPhone.Image = My.Resources.Phone_pressed
+    End Sub
+
+    Private Sub pbPhone_MouseUp(sender As Object, e As MouseEventArgs) Handles pbPhone.MouseUp
+        pbPhone.Image = My.Resources.Phone
+    End Sub
+
+    '======================================
+    ' CUSTOM MOVE FORM 
+    '======================================
+
+    Private MoveForm As Boolean
+    Private MoveForm_MousePosition As Point
+
+    Private Sub MoveForm_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+        If e.Button = MouseButtons.Left Then
+            MoveForm = True
+            Me.Cursor = Cursors.NoMove2D
+            MoveForm_MousePosition = e.Location
+        End If
+    End Sub
+
+    Private Sub MoveForm_MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
+        If MoveForm Then
+            Me.Location = Me.Location + (e.Location - MoveForm_MousePosition)
+        End If
+    End Sub
+
+    Private Sub MoveForm_MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+        If e.Button = MouseButtons.Left Then
+            MoveForm = False
+            Me.Cursor = Cursors.Default
+        End If
+    End Sub
+    'END
 End Class

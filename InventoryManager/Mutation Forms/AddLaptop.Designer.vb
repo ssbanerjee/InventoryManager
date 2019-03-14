@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class AddLaptop
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class AddLaptop
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.txtMachineName = New System.Windows.Forms.TextBox()
         Me.txtAssetTag = New System.Windows.Forms.TextBox()
@@ -45,7 +45,8 @@ Partial Class AddLaptop
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cbCondition = New System.Windows.Forms.ComboBox()
         Me.lblCondition = New System.Windows.Forms.Label()
-        Me.chInventoried = New System.Windows.Forms.CheckBox()
+        Me.dteAcquisition = New System.Windows.Forms.DateTimePicker()
+        Me.lblAcquisition = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtMachineName
@@ -243,7 +244,7 @@ Partial Class AddLaptop
         Me.cbCondition.FormattingEnabled = True
         Me.cbCondition.Location = New System.Drawing.Point(324, 224)
         Me.cbCondition.Name = "cbCondition"
-        Me.cbCondition.Size = New System.Drawing.Size(111, 28)
+        Me.cbCondition.Size = New System.Drawing.Size(95, 28)
         Me.cbCondition.TabIndex = 10
         '
         'lblCondition
@@ -255,24 +256,32 @@ Partial Class AddLaptop
         Me.lblCondition.TabIndex = 50
         Me.lblCondition.Text = "New or Used:"
         '
-        'chInventoried
+        'dteAcquisition
         '
-        Me.chInventoried.AutoSize = True
-        Me.chInventoried.Checked = True
-        Me.chInventoried.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chInventoried.Location = New System.Drawing.Point(475, 222)
-        Me.chInventoried.Name = "chInventoried"
-        Me.chInventoried.Size = New System.Drawing.Size(82, 17)
-        Me.chInventoried.TabIndex = 54
-        Me.chInventoried.Text = "In Inventory"
-        Me.chInventoried.UseVisualStyleBackColor = True
+        Me.dteAcquisition.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dteAcquisition.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dteAcquisition.Location = New System.Drawing.Point(427, 225)
+        Me.dteAcquisition.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
+        Me.dteAcquisition.Name = "dteAcquisition"
+        Me.dteAcquisition.Size = New System.Drawing.Size(174, 21)
+        Me.dteAcquisition.TabIndex = 52
+        '
+        'lblAcquisition
+        '
+        Me.lblAcquisition.AutoSize = True
+        Me.lblAcquisition.Location = New System.Drawing.Point(424, 206)
+        Me.lblAcquisition.Name = "lblAcquisition"
+        Me.lblAcquisition.Size = New System.Drawing.Size(61, 13)
+        Me.lblAcquisition.TabIndex = 51
+        Me.lblAcquisition.Text = "Acquisition:"
         '
         'AddLaptop
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(611, 306)
-        Me.Controls.Add(Me.chInventoried)
+        Me.Controls.Add(Me.dteAcquisition)
+        Me.Controls.Add(Me.lblAcquisition)
         Me.Controls.Add(Me.cbCondition)
         Me.Controls.Add(Me.lblCondition)
         Me.Controls.Add(Me.txtMESD)
@@ -328,5 +337,6 @@ Partial Class AddLaptop
     Friend WithEvents Label2 As Label
     Friend WithEvents cbCondition As ComboBox
     Friend WithEvents lblCondition As Label
-    Friend WithEvents chInventoried As CheckBox
+    Friend WithEvents dteAcquisition As DateTimePicker
+    Friend WithEvents lblAcquisition As Label
 End Class

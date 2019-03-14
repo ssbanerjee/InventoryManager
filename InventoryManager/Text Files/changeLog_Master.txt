@@ -1,0 +1,180 @@
+﻿07/10/2018 	v1.04.1
+-- Transaction Log implemented
+-- Display Port Adapter added to NonInventoried
+-- 3M Power Cable added to nonInventoried
+-- Error Message updated
+
+07/11/2018 	v1.05.1
+-- Fixed numeric-only checking on Machine adds
+-- Added documention to code functions
+-- Cleaned up code
+-- Organized log folders
+		v1.05.2
+-- Added Check Scanner
+-- Added Laptop Power Cable
+-- Modified AddShipping to enforce users to fill in all boxes
+-- Edited AddShipping mutation query
+
+07/13/2018	v1.06.1
+-- Implemented new inactive timer function, now asks user to continue their session or not
+-- Added in check scanner button
+-- Added VGA Cable
+-- Added DVI Cable
+-- Modified AddShipping.vb to allow you to organize options and more easily search
+		v1.06.2
+-- Bug fixes
+-- Added Ethernet Cable
+-- Added Serial Port
+-- Added Check Scanner Monitors (ThinkCentre All-in-One 22")
+		v1.06.3
+-- Added ChangeLog button to Login
+
+07/16/2018	v1.06.4
+-- Fixed query to insert a workstation
+-- Fixed error logs
+
+07/18/2018	v1.06.5
+-- Added 9-9 Pin Cable
+-- Updated circuit info
+-- Added ShoreTel Phone
+-- Fixed tabbing indexes for AddShipping.vb
+
+07/19/2018	v2.00.1
+-- Query Builder implemented
+-- Added check for update for individual Employees
+
+07/24/2018	v2.00.2
+-- Added P1, P2 WAN Site information
+-- Added image for the QueryBuilder button
+
+07/26/2018	v3.00.1
+-- Created a new menu interface!
+
+07/30/2018	v3.00.2
+-- Fixed spreadsheet error
+
+07/31/2018	v3.00.3
+-- Removed ability to input dashes (-) in the Serial Number for laptops
+-- Fixed MESD field persisting on new window in AddWorkstation
+-- Shipping report now updates on every machine/item add, and not just on Login
+
+08/07/2018	v3.01.1
+-- Added second circuit ID column in spreadsheet to database update
+-- Updated Login page
+
+08/08/2018	v3.01.2
+-- Fixed center number not updating when you save in the Edit Information page
+-- Added 32 items to the NonInventoried list
+
+08/09/2018	v3.02.1
+-- Updated AddMachineMenu to match the new menu theme
+
+08/13/2018	v3.02.2
+-- Changed the blue banner on the side to act as a Back button. Only implemented on a couple forms at the moment.
+-- Removed Acquisition Date on AddLaptop. It now sets it to today's date automatically.
+-- Added 'New or Used' option in AddLaptop.
+
+08/14/2018	v3.02.3
+-- Fixed tab indexes on all forms
+-- Added 'New or Used' to all relevant forms
+-- EMV name will now automatically register as the S/N
+-- Implemented new mini-menu to have user select the model of EMV prior to getting to the menu
+-- Every single dropdown-menu will now allow you to type in and search through the list, making it easier to select the one you want.
+-- Updated version text at bottom-right corner of login screen. Now automatically shows most recent version number based on changelog.
+
+08/15/2018	v3.03.1
+-- Edited Export to CSV to allow you to select the date for the report to print
+-- Added new countdown that shows the amount of time left until the 5:45 pickup
+
+08/22/2018	v3.03.2
+-- Added in menu option to select either Check Scanner or the Tiny-in-One computer
+-- Enforced numerical-only input in all MESD text boxes
+-- Fixed the Check Asset Tag button to allow you to edit the machine directly after searching
+--- Also gave a message when it cannot find a machine after inputting 6 digits for the asset tag
+
+09/06/2018	v3.03.3		The Are You Happy Now, Scott Update
+-- Several changes to AddTablet (tl;dr: You will only need to scan the numbers and manually input the MESD)
+--- After hitting their respective max lengths, the menu will automatically tab to the next field (this applies to S/N, AT, and MESD)
+--- Certain fields are set to populate automatically for the purpose of this project (this applies to Machine Name, Center, CC, and Condition)
+
+09/11/2018	v3.03.4
+-- Added in MOJO model (button to come in v3.04)
+-- Organized listbox of current machines in inventory by alphebetical order
+** Now when adding any machine the program will first check to see if another machine with the same asset tag exists
+*** It will then ask if you would like to edit that machine directly instead of making you switch menus.
+
+09/13/2018	v3.03.5		The Don't do the Dumb Update
+-- Fixed AssetTag check to keep your information in case you pull a Bruce and enter in the same asset tag you already did earlier. Twice.
+
+09/18/2018	v3.04.0		The Shoumik is very happy update
+-- INVENTORY MANAGER NOW RUNS ON YOUR DESKTOP YEAHHHH
+-- Added in an exit button (finally)
+
+10/01/2018	v3.04.1
+-- Updated the Inventory Manager icon!
+--- If you still see the old "I" icon, you will need to update your icon cache.
+--- Easy way to do this on Win10 is to run "ie4uinit.exe -show" in CMD, it will refresh the icon cache immediately.
+
+10/02/2018	v3.04.2
+-- Fixed CircuitID information
+
+10/03/2018	v3.04.3
+-- Edited CC/PAR text on all forms
+
+10/11/2018	v3.04.4
+-- Updated shipping report to show if machine is inventoried or not (per Josh's request)
+--- Will be updating the app to include the option to change this shortly
+
+10/12/2018	v3.04.5
+-- Implemented inventoried check box for AddLaptop, Workstation, and CheckScanner
+--- This is checked by default, but should be unchecked if the equipment has already been paid for by the center (so basically new center installs)
+
+10/16/2018	v3.04.6
+-- Circuit Information has been updated
+-- AddEMV now has same QOL changes made to Tablets. As long as you use a scanner, the process will be much quicker for you now.
+
+11/08/2018	v3.04.7
+-- Fixed the Copy MESD and Copy Completion buttons to correctly grab the cost center (was previously grabbing the center number)
+-- Added in some more error catching when adding laptops to give you more intuitive error reports
+
+11/19/2018	v3.05.1
+-- Forms are now draggable! (This turned out to be a bit more complicated than I wanted it to be)
+-- Added extra menu buttons (WIP)
+
+11/28/2018	v3.05.2
+-- Since VeriFone and Ingenicos have different length S/N's, I have removed the function that automatically puts you in the next field after reaching the max length S/N for a VeriFone.
+
+12/26/2018	v3.06.1
+-- I've made various bug fixes over the month and completely forgot to write which ones I fixed. tl;dr: It's better.
+-- Edited UPS pickup
+
+01/25/2019	v3.07.1
+-- Database has been updated to properly reflect MESD (This is more so for me, no real change on end-user part)
+-- Network Item menu has been updated to include Phones (Placeholder button has been placed, menu has not been created yet)
+-- MOJO C-65 has had its Category updated to Access Point and is no longer in the Other category. As such, it will no longer appear in the non-inventoried list.
+--- Use the Network Item menu (second screen in the Add Machine menu) to add in a MOJO.
+
+02/15/2019	v3.07.2
+-- Fixed issue in EditMachine where the form would not convert the 0 center to "#In Store". You will no longer need to double check this.
+-- EditMachine should correctly list the center number when choosing a center below 100. Again, don't need to double check this anymore.
+
+03/05/2019	v3.07.3
+-- Phone menu has finally been built and implemented
+-- Just realized the second AddMachine menu was static. You're now able to drag it around like other menus.
+
+03/11/2019	v3.08.1
+-- Removed QueryBuilder button
+-- Removed 'Add Non-Inventoried Item' button from Shipping Report
+-- Added a 'Ship An Item' button to the main menu
+-- Added Acquisition Date option to all machine adds
+-- Updated the ShippedItem menu
+-- Update Network menu and replaced 'Adtran' with 'Switch'
+-- Fixed bug where the main menu would not spawn in the correct position
+-- Fixed bug where certain menus would flash when opening a new one
+-- Fixed search function on all menus
+
+03/14/2019	v3.08.2
+-- Removed "In Inventory" option
+--- This may cause issues on any queries I may have missed when updating.
+-- Updated Change Log
+-- Fixed bug that caused the menu to hide whenever selecting Edit Information or Center Info

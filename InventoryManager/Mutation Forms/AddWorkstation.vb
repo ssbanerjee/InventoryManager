@@ -99,13 +99,6 @@ Public Class AddWorkstation
             Dim costCenter As String = txtCostCenter.Text
             Dim MESD As String = txtMESD.Text
             Dim NewOrUsed As String = cbCondition.Text
-            Dim inventoried As String = ""
-
-            If chInventoried.Checked = True Then
-                inventoried = "1"
-            Else
-                inventoried = "0"
-            End If
 
             If Not (checkAT(assetTag)) Then
                 'checkNulls checks to see if any of the textboxes are empty.
@@ -113,7 +106,7 @@ Public Class AddWorkstation
 
                 If serialNumber <> "" Then
                     myCmd.CommandText = "INSERT INTO Machine VALUES ('AMF" + centerNumber + "NODE', " + machineName.ToUpper() + ", " + assetTag + ", " + serialNumber.ToUpper() + ", null, null, " +
-                     "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', null, SYSDATETIME(), SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "', " + inventoried + ");"
+                     "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
                     Try
                         myReader = myCmd.ExecuteReader
                         MsgBox("Success!")

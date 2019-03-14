@@ -37,7 +37,8 @@ Partial Class AddTablet
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.cbCondition = New System.Windows.Forms.ComboBox()
         Me.lblCondition = New System.Windows.Forms.Label()
-        Me.chInventoried = New System.Windows.Forms.CheckBox()
+        Me.dteAcquisition = New System.Windows.Forms.DateTimePicker()
+        Me.lblAcquisition = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblAssetTag
@@ -99,7 +100,7 @@ Partial Class AddTablet
         Me.txtCostCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCostCenter.Location = New System.Drawing.Point(15, 177)
         Me.txtCostCenter.Name = "txtCostCenter"
-        Me.txtCostCenter.Size = New System.Drawing.Size(114, 26)
+        Me.txtCostCenter.Size = New System.Drawing.Size(141, 26)
         Me.txtCostCenter.TabIndex = 4
         '
         'Label1
@@ -147,7 +148,7 @@ Partial Class AddTablet
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(12, 245)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 280)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(289, 38)
         Me.btnAdd.TabIndex = 7
@@ -162,7 +163,7 @@ Partial Class AddTablet
         Me.cbCondition.FormattingEnabled = True
         Me.cbCondition.Location = New System.Drawing.Point(91, 211)
         Me.cbCondition.Name = "cbCondition"
-        Me.cbCondition.Size = New System.Drawing.Size(111, 28)
+        Me.cbCondition.Size = New System.Drawing.Size(210, 28)
         Me.cbCondition.TabIndex = 6
         '
         'lblCondition
@@ -174,24 +175,32 @@ Partial Class AddTablet
         Me.lblCondition.TabIndex = 58
         Me.lblCondition.Text = "New or Used:"
         '
-        'chInventoried
+        'dteAcquisition
         '
-        Me.chInventoried.AutoSize = True
-        Me.chInventoried.Checked = True
-        Me.chInventoried.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chInventoried.Location = New System.Drawing.Point(208, 215)
-        Me.chInventoried.Name = "chInventoried"
-        Me.chInventoried.Size = New System.Drawing.Size(82, 17)
-        Me.chInventoried.TabIndex = 59
-        Me.chInventoried.Text = "In Inventory"
-        Me.chInventoried.UseVisualStyleBackColor = True
+        Me.dteAcquisition.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dteAcquisition.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dteAcquisition.Location = New System.Drawing.Point(91, 245)
+        Me.dteAcquisition.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
+        Me.dteAcquisition.Name = "dteAcquisition"
+        Me.dteAcquisition.Size = New System.Drawing.Size(207, 20)
+        Me.dteAcquisition.TabIndex = 60
+        '
+        'lblAcquisition
+        '
+        Me.lblAcquisition.AutoSize = True
+        Me.lblAcquisition.Location = New System.Drawing.Point(13, 252)
+        Me.lblAcquisition.Name = "lblAcquisition"
+        Me.lblAcquisition.Size = New System.Drawing.Size(61, 13)
+        Me.lblAcquisition.TabIndex = 59
+        Me.lblAcquisition.Text = "Acquisition:"
         '
         'AddTablet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(313, 294)
-        Me.Controls.Add(Me.chInventoried)
+        Me.ClientSize = New System.Drawing.Size(313, 330)
+        Me.Controls.Add(Me.dteAcquisition)
+        Me.Controls.Add(Me.lblAcquisition)
         Me.Controls.Add(Me.cbCondition)
         Me.Controls.Add(Me.lblCondition)
         Me.Controls.Add(Me.btnAdd)
@@ -231,5 +240,6 @@ Partial Class AddTablet
     Friend WithEvents btnAdd As Button
     Friend WithEvents cbCondition As ComboBox
     Friend WithEvents lblCondition As Label
-    Friend WithEvents chInventoried As CheckBox
+    Friend WithEvents dteAcquisition As DateTimePicker
+    Friend WithEvents lblAcquisition As Label
 End Class

@@ -99,6 +99,12 @@
     <Compile Include="Menus\AdminMenu.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Menus\ChangeLog.Designer.vb">
+      <DependentUpon>ChangeLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\ChangeLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Menus\CheckScanner.Designer.vb">
       <DependentUpon>CheckScanner.vb</DependentUpon>
     </Compile>
@@ -121,6 +127,12 @@
       <DependentUpon>ExportDate.vb</DependentUpon>
     </Compile>
     <Compile Include="Menus\ExportDate.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\Maintenance.Designer.vb">
+      <DependentUpon>Maintenance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\Maintenance.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Menus\NetworkTeamMenu.Designer.vb">
@@ -171,6 +183,12 @@
       <DependentUpon>AddNetworkItem.vb</DependentUpon>
     </Compile>
     <Compile Include="Mutation Forms\AddNetworkItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mutation Forms\AddPhone.Designer.vb">
+      <DependentUpon>AddPhone.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Mutation Forms\AddPhone.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Mutation Forms\AddShipping.Designer.vb">
@@ -255,6 +273,9 @@
     <EmbeddedResource Include="Menus\AdminMenu.resx">
       <DependentUpon>AdminMenu.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Menus\ChangeLog.resx">
+      <DependentUpon>ChangeLog.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menus\CheckScanner.resx">
       <DependentUpon>CheckScanner.vb</DependentUpon>
     </EmbeddedResource>
@@ -266,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menus\ExportDate.resx">
       <DependentUpon>ExportDate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menus\Maintenance.resx">
+      <DependentUpon>Maintenance.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menus\NetworkTeamMenu.resx">
       <DependentUpon>NetworkTeamMenu.vb</DependentUpon>
@@ -290,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mutation Forms\AddNetworkItem.resx">
       <DependentUpon>AddNetworkItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mutation Forms\AddPhone.resx">
+      <DependentUpon>AddPhone.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mutation Forms\AddShipping.resx">
       <DependentUpon>AddShipping.vb</DependentUpon>
@@ -363,6 +390,21 @@
     <Content Include="kim.ico" />
     <Content Include="Logo.ico" />
     <Content Include="logo2.ico" />
+    <None Include="Resources\ShipItem.png" />
+    <None Include="Resources\ShipItem_pressed.png" />
+    <None Include="Resources\Switch.png" />
+    <None Include="Resources\Switch_pressed.png" />
+    <Content Include="Text Files\changeLog.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Text Files\changeLog_Master.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Text Files\version.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Phone_pressed.png" />
+    <None Include="Resources\Phone.png" />
     <None Include="Resources\MOJO_pressed.png" />
     <None Include="Resources\MOJO.png" />
     <None Include="Resources\Adtran_pressed.png" />

@@ -105,7 +105,6 @@ Public Class AddCheckScanner
         Dim MESD As String = txtMESD.Text
         Dim NewOrUsed As String = cbCondition.Text
         Dim costCenter As String = txtCostCenter.Text
-        Dim inventoried As String = ""
 
         If centerNumber <> "" Then
             If centerNumber.Substring(1, 8).Equals("In Store") Then
@@ -117,18 +116,12 @@ Public Class AddCheckScanner
             centerNumber = "0"
         End If
 
-        If chInventoried.Checked = True Then
-            inventoried = "1"
-        Else
-            inventoried = "0"
-        End If
-
         If Not (checkAT(assetTag)) Then
             If (serialNumber <> "") Then
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES (NULL, '" + serialNumber + "', " + assetTag + ", '" +
                     serialNumber + "', NULL, NULL, (SELECT model_id FROM Model WHERE model_name = '" + machineType + "'), " + centerNumber + ", '" + costCenter +
-                    "', null, SYSDATETIME(), SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "', " + inventoried + ");"
+                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
