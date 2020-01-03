@@ -271,3 +271,13 @@ If any of you have edited the SIM/IMEI of any computer recently, let me know.
 --Fixed error when trying to set a machine's location to Bell Creek.
 --Fixed tabbing indexes in the EditMachine form.
 --Increased form size for ConfirmChanges.
+
+01/03/2020	v4.02.03
+--A lot more optimization from the previous restructure has been added.
+--- Please let me know if something is broken.
+--Added a "Ship Machine" button to the EditInformation search page.
+--- This button has the same functionality as the Shipping button on the main page.
+--Information refresh after editing a machine on the search page now properly works.
+--- You no longer need to click on the machine again to reload the information.
+
+Lots of back end coding changes here, so please make sure you let me know if something no longer works!

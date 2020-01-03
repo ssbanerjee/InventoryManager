@@ -151,7 +151,7 @@ Public Class Search
         EditMachine.machineID = machineID
         EditMachine.ShowDialog()
         loadInformation()
-        importMachinedata()
+        quickLookMacine()
     End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
@@ -353,6 +353,119 @@ Public Class Search
         loadMachineInfo()
     End Sub
 
+    Private Sub quickLookMacine()
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.name, d.name, m.SIM, m.IMEI, t.center_number, m.username, m.machine_id, m.received_date, m.acquisition_date, k.name, m.cost_center, m.ticket_number " +
+                    "FROM Machine m LEFT JOIN Model d ON m.modelID = d.modelID " +
+                    "LEFT JOIN Category c ON d.categoryID = c.categoryID " +
+                    "LEFT JOIN Center t ON m.center_number = t.center_number " +
+                    "LEFT JOIN Condition k ON m.conditionID = k.conditionID " +
+                    "WHERE m.serial_number = '" + machine.serialNumber + "';"
+        Try
+            myReader = myCmd.ExecuteReader()
+            Dim results As String = ""
+            Dim count As Integer = 0
+            Do While myReader.Read()
+                'Checks every index of the query (machine_name, asset_tag, etc) for null values.
+                'If it finds a null, it replaces it with "null", otherwise it stores it into the corresponding variables.
+                For i As Integer = 0 To 14
+                    Select Case i
+                        Case 0
+                            If myReader.IsDBNull(i) Then
+                                machine.machineName = "null"
+                            Else
+                                machine.machineName = myReader.GetString(i)
+                            End If
+                        Case 1
+                            If myReader.IsDBNull(i) Then
+                                machine.assetTag = "null"
+                            Else
+                                machine.assetTag = myReader.GetInt32(i).ToString
+                            End If
+                        Case 2
+                            If myReader.IsDBNull(i) Then
+                                machine.serialNumber = "null"
+                            Else
+                                machine.serialNumber = myReader.GetString(i)
+                            End If
+                        Case 3
+                            If myReader.IsDBNull(i) Then
+                                machine.category = "null"
+                            Else
+                                machine.category = myReader.GetString(i)
+                            End If
+                        Case 4
+                            If myReader.IsDBNull(i) Then
+                                machine.model = "null"
+                            Else
+                                machine.model = myReader.GetString(i)
+                            End If
+                        Case 5
+                            If myReader.IsDBNull(i) Then
+                                machine.SIM = "null"
+                            Else
+                                machine.SIM = myReader.GetString(i)
+                            End If
+                        Case 6
+                            If myReader.IsDBNull(i) Then
+                                machine.IMEI = "null"
+                            Else
+                                machine.IMEI = myReader.GetString(i)
+                            End If
+                        Case 7
+                            If myReader.IsDBNull(i) Then
+                                machine.centerNumber = "null"
+                            Else
+                                machine.centerNumber = myReader.GetInt32(i).ToString
+                            End If
+                        Case 8
+                            If myReader.IsDBNull(i) Then
+                                machine.employee = "null"
+                            Else
+                                machine.employee = myReader.GetString(i)
+                            End If
+                        Case 9
+                            machineID = myReader.GetInt32(i).ToString
+                        Case 10
+                            If myReader.IsDBNull(i) Then
+                                machine.received = "null"
+                            Else
+                                machine.received = myReader.GetDateTime(i).ToString("MM/dd/yyy")
+                            End If
+                        Case 11
+                            If myReader.IsDBNull(i) Then
+                                machine.acquisition = "null"
+                            Else
+                                machine.acquisition = myReader.GetDateTime(i).ToString("MM/dd/yyy")
+                            End If
+                        Case 12
+                            If myReader.IsDBNull(i) Then
+                                machine.condition = "null"
+                            Else
+                                machine.condition = myReader.GetString(i)
+                            End If
+                        Case 13
+                            If myReader.IsDBNull(i) Then
+                                machine.costCenter = "null"
+                            Else
+                                machine.costCenter = myReader.GetString(i)
+                            End If
+                        Case 14
+                            If myReader.IsDBNull(i) Then
+                                machine.MESD = "null"
+                            Else
+                                machine.MESD = myReader.GetInt32(i).ToString
+                            End If
+                    End Select
+                Next
+            Loop
+        Catch ex As Exception
+            LogError(ex.ToString, "Search", getInitials())
+        End Try
+        txtAssetTag.Clear()
+        myReader.Close()
+        loadMachineInfo()
+    End Sub
+
     Private Sub importMachinedata()
         btnEdit.Enabled = True
         btnShip.Enabled = True
@@ -361,7 +474,6 @@ Public Class Search
         If lstMachines.SelectedIndex <> -1 Then
             Dim search As String = lstMachines.SelectedItem.ToString
             Dim query As String = ""
-            Dim command As String = ""
 
             'Edits the query based on what is being displayed on the screen
             If rdListMachineNames.Checked Then
