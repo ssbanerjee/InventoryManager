@@ -68,26 +68,27 @@ Partial Class AddEMV
         Me.txtSerialNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSerialNumber.Location = New System.Drawing.Point(12, 35)
         Me.txtSerialNumber.Name = "txtSerialNumber"
-        Me.txtSerialNumber.Size = New System.Drawing.Size(147, 26)
+        Me.txtSerialNumber.Size = New System.Drawing.Size(192, 26)
         Me.txtSerialNumber.TabIndex = 0
         '
         'txtAssetTag
         '
         Me.txtAssetTag.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAssetTag.Location = New System.Drawing.Point(12, 97)
+        Me.txtAssetTag.Location = New System.Drawing.Point(13, 97)
         Me.txtAssetTag.Name = "txtAssetTag"
-        Me.txtAssetTag.Size = New System.Drawing.Size(147, 26)
+        Me.txtAssetTag.Size = New System.Drawing.Size(191, 26)
         Me.txtAssetTag.TabIndex = 1
         '
         'cbCenter
         '
         Me.cbCenter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbCenter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCenter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCenter.FormattingEnabled = True
         Me.cbCenter.Location = New System.Drawing.Point(12, 158)
         Me.cbCenter.Name = "cbCenter"
-        Me.cbCenter.Size = New System.Drawing.Size(147, 26)
+        Me.cbCenter.Size = New System.Drawing.Size(192, 26)
         Me.cbCenter.TabIndex = 2
         '
         'lblCenter
@@ -105,7 +106,7 @@ Partial Class AddEMV
         Me.txtCostCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCostCenter.Location = New System.Drawing.Point(13, 219)
         Me.txtCostCenter.Name = "txtCostCenter"
-        Me.txtCostCenter.Size = New System.Drawing.Size(145, 26)
+        Me.txtCostCenter.Size = New System.Drawing.Size(191, 26)
         Me.txtCostCenter.TabIndex = 3
         '
         'Label1
@@ -144,7 +145,7 @@ Partial Class AddEMV
         Me.txtMESD.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMESD.Location = New System.Drawing.Point(12, 280)
         Me.txtMESD.Name = "txtMESD"
-        Me.txtMESD.Size = New System.Drawing.Size(147, 26)
+        Me.txtMESD.Size = New System.Drawing.Size(192, 26)
         Me.txtMESD.TabIndex = 4
         '
         'lblMESD
@@ -161,11 +162,12 @@ Partial Class AddEMV
         '
         Me.cbCondition.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbCondition.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCondition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbCondition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCondition.FormattingEnabled = True
         Me.cbCondition.Location = New System.Drawing.Point(11, 341)
         Me.cbCondition.Name = "cbCondition"
-        Me.cbCondition.Size = New System.Drawing.Size(148, 28)
+        Me.cbCondition.Size = New System.Drawing.Size(193, 28)
         Me.cbCondition.TabIndex = 5
         '
         'lblCondition
@@ -185,7 +187,7 @@ Partial Class AddEMV
         Me.dteAcquisition.Location = New System.Drawing.Point(12, 404)
         Me.dteAcquisition.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
         Me.dteAcquisition.Name = "dteAcquisition"
-        Me.dteAcquisition.Size = New System.Drawing.Size(147, 20)
+        Me.dteAcquisition.Size = New System.Drawing.Size(192, 20)
         Me.dteAcquisition.TabIndex = 54
         '
         'lblAcquisition

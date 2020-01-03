@@ -25,7 +25,6 @@ Partial Class Login
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Login))
         Me.txtPIN = New System.Windows.Forms.TextBox()
-        Me.tmrInactive = New System.Windows.Forms.Timer(Me.components)
         Me.bgwUpdate = New System.ComponentModel.BackgroundWorker()
         Me.lblUpdate = New System.Windows.Forms.Label()
         Me.tmrUpdateLabel = New System.Windows.Forms.Timer(Me.components)
@@ -35,6 +34,7 @@ Partial Class Login
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lblVersion = New System.Windows.Forms.Label()
         Me.btnExit = New System.Windows.Forms.Button()
+        Me.tmrInactive = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -49,10 +49,6 @@ Partial Class Login
         Me.txtPIN.Size = New System.Drawing.Size(372, 59)
         Me.txtPIN.TabIndex = 0
         Me.txtPIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'tmrInactive
-        '
-        Me.tmrInactive.Interval = 300000
         '
         'bgwUpdate
         '
@@ -121,6 +117,10 @@ Partial Class Login
         Me.btnExit.Text = "X"
         Me.btnExit.UseVisualStyleBackColor = True
         '
+        'tmrInactive
+        '
+        Me.tmrInactive.Interval = 300000
+        '
         'Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -145,7 +145,6 @@ Partial Class Login
     End Sub
 
     Friend WithEvents txtPIN As TextBox
-    Friend WithEvents tmrInactive As Timer
     Friend WithEvents bgwUpdate As System.ComponentModel.BackgroundWorker
     Friend WithEvents lblUpdate As Label
     Friend WithEvents tmrUpdateLabel As Timer
@@ -155,4 +154,5 @@ Partial Class Login
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents lblVersion As Label
     Friend WithEvents btnExit As Button
+    Friend WithEvents tmrInactive As Timer
 End Class

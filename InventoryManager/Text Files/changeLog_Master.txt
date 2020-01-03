@@ -39,7 +39,7 @@
 -- Added ShoreTel Phone
 -- Fixed tabbing indexes for AddShipping.vb
 
-07/19/2018	v2.00.1
+07/19/2018	v2.00.1		HAPPY NOW, SCOTT?
 -- Query Builder implemented
 -- Added check for update for individual Employees
 
@@ -47,7 +47,7 @@
 -- Added P1, P2 WAN Site information
 -- Added image for the QueryBuilder button
 
-07/26/2018	v3.00.1
+07/26/2018	v3.00.1		I'M DUMB
 -- Created a new menu interface!
 
 07/30/2018	v3.00.2
@@ -178,3 +178,96 @@
 --- This may cause issues on any queries I may have missed when updating.
 -- Updated Change Log
 -- Fixed bug that caused the menu to hide whenever selecting Edit Information or Center Info
+
+03/19/2019	v3.08.3
+-- Deactivated inactivity timer
+-- Apparently the Network Item menu was super broken. That's fixed now.
+-- Accidentally found the Tablet menu was also broken. Oops.
+-- Fixed main menu popping up in the top left corner.
+
+03/20/2019	v3.08.4
+-- Various bug fixes (I forgot what I did, lol)
+
+03/26/2019	v3.08.5
+-- Restructured the database and normalized it.
+--- Really high chance I missed something, so let me know if something breaks
+
+03/28/2019	v3.08.6
+-- Fixed update message popping up each time. Why do you people not tell me these things.
+
+04/16/2019	v3.08.7
+-- Fixed bug when entering in the center number on the AddPhone form.
+
+06/06/2019	v3.09.1
+-- Edited Network item add menus to allow you to choose a specific model for Switches and APs
+-- Added MOJO C-100 to inventory
+-- Edited dropdowns to no longer be editable, but you can still type to search
+
+06/06/2019	v3.09.2
+-- Fixed error when trying to set Bell Creek, Mechanicsville as the location. (oops)
+
+06/10/2019	v3.09.3
+-- **Actually** fixed the Bell Creek error this time.
+!Important!
+Due to too many devices going missing, you will now be required to enter in the Serial Numbers of all Epson printers and Cash Drawers being shipped out.
+These menus are currently in development and have not been made yet, so see me if you need to ship one out.
+Epson Printer has been removed from the non inventoried list.
+
+06/12/2019	v4.00.01	Y'ALL SUCK
+!!BIG UPDATE!!
+-- New main menu! Menu consists of three buttons.
+--- Inventory: Goes to the regular inventory menu from before
+--- Shipping: You will now need to select the Shipping button to scan *ALL* machines being shipped *at that time*
+--- Receiving: You will now need to select the Receiving button to scan *ALL* machines being received that day
+-- New roles! You will no longer be able to add machines to inventory yourself, with some exceptions
+---	Adding a machine is restricted to those with the Admin role.
+--- For now, this will be restricted to just Shoumik, then the other managers, and then James
+--- To update information on a machine, you will need go to Edit Information and update the information using that menu
+---	If there is a machine missing, you will need to contact one of the admins to get it added in
+-- ALL machines will be added into Inventory manager, both new and used, by the admins.
+---	Many of the older laptops out in the field will not be entered in. It will be awhile before all machines are in.
+-- The program will now ask to confirm data that has not been updated when editing machines. This is to make sure you all update the necessary fields.
+
+07/09/2019	v4.00.02
+--Removed username field in EditMachine due to several users putting the machine name in the username field, and not actually editing the machine name field.
+--Various bug fixes
+
+07/22/2019	v4.00.03
+--Fixed bug where editing the SIM/IMEI was not changing to the new values.
+If any of you have edited the SIM/IMEI of any computer recently, let me know.
+
+07/23/2019	v4.00.04
+--Fixed error in the Copy Completion button where it wasn't grabbing the username properly
+
+07/25/2019	v4.00.05
+--Removed UPS countdown
+--Changed ordering of Asset States in EditMachine to have the more used states at the top
+
+08/07/2019	v4.01.01
+--Added Printer button to second AddMachine page
+--Removed "Epson Printer" from NonInventoried items
+--Changed "MSR" to "USB Card Reader" in NonInventoried items
+--Changed "AirCard" to "7455 Air Card" in NonInventoried items
+--Added button to ChangeLog to make it easier to close the menu with keyboard
+
+09/17/2019	v4.01.02
+--Modified the EditInformation search page to include the MESD ticket information at a glance
+--Various bugfixes/tweaks
+
+09/23/2019	v4.01.03
+--Tweaked the Search page to start off filtered on Laptops. Looks neater
+--Fixed error with the CopyCompletion command not grabbing the condition and mesd when searching by AT
+
+09/26/2019	v4.01.04
+--Increased the size of the AddLaptop menu to account for the size of MacBook Pro model names (they suck)
+---This doesn't really affect most of you
+
+12/17/2019	v4.02.01
+--Added a new menu when editing a machine that will show you both old and new info to confirm your changes.
+--Restructured coding policy which will affect any form that houses machine information
+---Please let me know if you run into any issues!
+
+12/30/2019	v4.02.02
+--Fixed error when trying to set a machine's location to Bell Creek.
+--Fixed tabbing indexes in the EditMachine form.
+--Increased form size for ConfirmChanges.

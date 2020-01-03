@@ -47,6 +47,7 @@ Partial Class AddWorkstation
         '
         Me.cbModel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbModel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbModel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbModel.FormattingEnabled = True
         Me.cbModel.Location = New System.Drawing.Point(154, 100)
@@ -136,6 +137,7 @@ Partial Class AddWorkstation
         '
         Me.cbCenter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbCenter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCenter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCenter.FormattingEnabled = True
         Me.cbCenter.Location = New System.Drawing.Point(9, 41)
@@ -181,6 +183,7 @@ Partial Class AddWorkstation
         '
         Me.cbCondition.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbCondition.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCondition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbCondition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCondition.FormattingEnabled = True
         Me.cbCondition.Location = New System.Drawing.Point(90, 253)

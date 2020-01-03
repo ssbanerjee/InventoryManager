@@ -23,6 +23,7 @@ Partial Class ChangeLog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.lblChangeLog = New System.Windows.Forms.Label()
+        Me.btnOK = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lblChangeLog
@@ -35,11 +36,21 @@ Partial Class ChangeLog
         Me.lblChangeLog.TabIndex = 0
         Me.lblChangeLog.Text = "Change Log"
         '
+        'btnOK
+        '
+        Me.btnOK.Location = New System.Drawing.Point(13, 336)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(75, 23)
+        Me.btnOK.TabIndex = 1
+        Me.btnOK.Text = "OK"
+        Me.btnOK.UseVisualStyleBackColor = True
+        '
         'ChangeLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(616, 277)
+        Me.ClientSize = New System.Drawing.Size(980, 371)
+        Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.lblChangeLog)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -54,4 +65,5 @@ Partial Class ChangeLog
     End Sub
 
     Friend WithEvents lblChangeLog As Label
+    Friend WithEvents btnOK As Button
 End Class

@@ -7,8 +7,8 @@ Public Class QueryBuilder
     Private myReader As SqlDataReader
 
     Private index As Integer = 0
-    Private machineColumns() As String = {"machine_ID", "employee_username", "machine_name", "asset_tag", "serial_number", "SIM", "IMEI", "model_id", "machine_center_number", "received_date", "acquisition_date", "last_modified", "asset_state_id", "condition", "machine_ticket_number", "technician"}
-    Private shippingColumns() As String = {"shipping_ID", "shipping_itemID", "shipping_quantity", "shipping_center", "shipping_MESD", "shipping_last_modified", "shipping_technician"}
+    Private machineColumns() As String = {"machine_ID", "username", "machine_name", "asset_tag", "serial_number", "SIM", "IMEI", "modelID", "center_number", "received_date", "acquisition_date", "last_modified", "asset_stateID", "condition", "ticket_number", "technician"}
+    Private shippingColumns() As String = {"shipping_ID", "noninventoriedID", "quantity", "center", "MESD", "last_modified", "technician"}
     Private firstItem As Boolean = True
     Private where As Boolean = False
     Private itemCount As Integer = 0

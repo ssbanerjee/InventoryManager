@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class NetworkTeamMenu
+Partial Class NewMenuP2
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -26,6 +26,7 @@ Partial Class NetworkTeamMenu
         Me.pbMojo = New System.Windows.Forms.PictureBox()
         Me.pbSwitch = New System.Windows.Forms.PictureBox()
         Me.pbPhone = New System.Windows.Forms.PictureBox()
+        Me.btnPrinter = New System.Windows.Forms.Button()
         CType(Me.pbMojo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbSwitch, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbPhone, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -45,7 +46,7 @@ Partial Class NetworkTeamMenu
         '
         Me.pbMojo.BackColor = System.Drawing.Color.Transparent
         Me.pbMojo.Image = Global.InventoryManager.My.Resources.Resources.MOJO
-        Me.pbMojo.Location = New System.Drawing.Point(47, 232)
+        Me.pbMojo.Location = New System.Drawing.Point(51, 176)
         Me.pbMojo.Name = "pbMojo"
         Me.pbMojo.Size = New System.Drawing.Size(418, 82)
         Me.pbMojo.TabIndex = 9
@@ -55,7 +56,7 @@ Partial Class NetworkTeamMenu
         '
         Me.pbSwitch.BackColor = System.Drawing.Color.Transparent
         Me.pbSwitch.Image = Global.InventoryManager.My.Resources.Resources.Switch
-        Me.pbSwitch.Location = New System.Drawing.Point(47, 88)
+        Me.pbSwitch.Location = New System.Drawing.Point(51, 32)
         Me.pbSwitch.Name = "pbSwitch"
         Me.pbSwitch.Size = New System.Drawing.Size(418, 82)
         Me.pbSwitch.TabIndex = 8
@@ -65,11 +66,21 @@ Partial Class NetworkTeamMenu
         '
         Me.pbPhone.BackColor = System.Drawing.Color.Transparent
         Me.pbPhone.Image = Global.InventoryManager.My.Resources.Resources.Phone
-        Me.pbPhone.Location = New System.Drawing.Point(47, 376)
+        Me.pbPhone.Location = New System.Drawing.Point(51, 320)
         Me.pbPhone.Name = "pbPhone"
         Me.pbPhone.Size = New System.Drawing.Size(418, 82)
         Me.pbPhone.TabIndex = 11
         Me.pbPhone.TabStop = False
+        '
+        'btnPrinter
+        '
+        Me.btnPrinter.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPrinter.Location = New System.Drawing.Point(51, 458)
+        Me.btnPrinter.Name = "btnPrinter"
+        Me.btnPrinter.Size = New System.Drawing.Size(418, 86)
+        Me.btnPrinter.TabIndex = 12
+        Me.btnPrinter.Text = "Epson Printer"
+        Me.btnPrinter.UseVisualStyleBackColor = True
         '
         'NetworkTeamMenu
         '
@@ -77,6 +88,7 @@ Partial Class NetworkTeamMenu
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.InventoryManager.My.Resources.Resources.NewMenu_empty
         Me.ClientSize = New System.Drawing.Size(1000, 625)
+        Me.Controls.Add(Me.btnPrinter)
         Me.Controls.Add(Me.pbPhone)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.pbMojo)
@@ -95,4 +107,5 @@ Partial Class NetworkTeamMenu
     Friend WithEvents pbMojo As PictureBox
     Friend WithEvents pbSwitch As PictureBox
     Friend WithEvents pbPhone As PictureBox
+    Friend WithEvents btnPrinter As Button
 End Class

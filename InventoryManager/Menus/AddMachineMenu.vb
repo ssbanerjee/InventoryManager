@@ -80,7 +80,7 @@
 
     Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
         Hide()
-        NetworkTeamMenu.ShowDialog()
+        NewMenuP2.ShowDialog()
     End Sub
 
     '======================================

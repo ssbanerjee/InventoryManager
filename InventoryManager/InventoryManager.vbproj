@@ -93,6 +93,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Center.vb" />
     <Compile Include="Menus\AdminMenu.Designer.vb">
       <DependentUpon>AdminMenu.vb</DependentUpon>
     </Compile>
@@ -109,6 +110,12 @@
       <DependentUpon>CheckScanner.vb</DependentUpon>
     </Compile>
     <Compile Include="Menus\CheckScanner.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menus\ConfirmChanges.Designer.vb">
+      <DependentUpon>ConfirmChanges.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\ConfirmChanges.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Menus\Countdown.Designer.vb">
@@ -135,10 +142,10 @@
     <Compile Include="Menus\Maintenance.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Menus\NetworkTeamMenu.Designer.vb">
-      <DependentUpon>NetworkTeamMenu.vb</DependentUpon>
+    <Compile Include="Menus\NewMenuP2.Designer.vb">
+      <DependentUpon>NewMenuP2.vb</DependentUpon>
     </Compile>
-    <Compile Include="Menus\NetworkTeamMenu.vb">
+    <Compile Include="Menus\NewMenuP2.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Menus\NewMenu.Designer.vb">
@@ -189,6 +196,12 @@
       <DependentUpon>AddPhone.vb</DependentUpon>
     </Compile>
     <Compile Include="Mutation Forms\AddPhone.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mutation Forms\AddPrinter.Designer.vb">
+      <DependentUpon>AddPrinter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Mutation Forms\AddPrinter.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Mutation Forms\AddShipping.Designer.vb">
@@ -247,6 +260,7 @@
     <Compile Include="Menus\MainMenu.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Classes\Machine.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -279,6 +293,9 @@
     <EmbeddedResource Include="Menus\CheckScanner.resx">
       <DependentUpon>CheckScanner.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Menus\ConfirmChanges.resx">
+      <DependentUpon>ConfirmChanges.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menus\Countdown.resx">
       <DependentUpon>Countdown.vb</DependentUpon>
     </EmbeddedResource>
@@ -291,8 +308,8 @@
     <EmbeddedResource Include="Menus\Maintenance.resx">
       <DependentUpon>Maintenance.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Menus\NetworkTeamMenu.resx">
-      <DependentUpon>NetworkTeamMenu.vb</DependentUpon>
+    <EmbeddedResource Include="Menus\NewMenuP2.resx">
+      <DependentUpon>NewMenuP2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menus\NewMenu.resx">
       <DependentUpon>NewMenu.vb</DependentUpon>
@@ -317,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mutation Forms\AddPhone.resx">
       <DependentUpon>AddPhone.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mutation Forms\AddPrinter.resx">
+      <DependentUpon>AddPrinter.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mutation Forms\AddShipping.resx">
       <DependentUpon>AddShipping.vb</DependentUpon>
@@ -394,6 +414,13 @@
     <None Include="Resources\ShipItem_pressed.png" />
     <None Include="Resources\Switch.png" />
     <None Include="Resources\Switch_pressed.png" />
+    <None Include="Resources\Inventory.png" />
+    <None Include="Resources\Inventory_pressed.png" />
+    <None Include="Resources\Receiving.png" />
+    <None Include="Resources\Receiving_pressed.png" />
+    <None Include="Resources\Shipping.png" />
+    <None Include="Resources\Shipping_pressed.png" />
+    <None Include="Resources\AddMachine_locked.png" />
     <Content Include="Text Files\changeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

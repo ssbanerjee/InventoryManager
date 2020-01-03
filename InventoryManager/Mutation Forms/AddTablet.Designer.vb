@@ -56,12 +56,13 @@ Partial Class AddTablet
         Me.txtAssetTag.Location = New System.Drawing.Point(15, 85)
         Me.txtAssetTag.Name = "txtAssetTag"
         Me.txtAssetTag.Size = New System.Drawing.Size(117, 26)
-        Me.txtAssetTag.TabIndex = 1
+        Me.txtAssetTag.TabIndex = 2
         '
         'cbCenter
         '
         Me.cbCenter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbCenter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCenter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCenter.FormattingEnabled = True
         Me.cbCenter.Location = New System.Drawing.Point(15, 130)
@@ -127,7 +128,8 @@ Partial Class AddTablet
         Me.txtMachineName.Location = New System.Drawing.Point(162, 85)
         Me.txtMachineName.Name = "txtMachineName"
         Me.txtMachineName.Size = New System.Drawing.Size(139, 26)
-        Me.txtMachineName.TabIndex = 2
+        Me.txtMachineName.TabIndex = 3
+        Me.txtMachineName.TabStop = False
         '
         'lblSerialNumber
         '
@@ -144,7 +146,7 @@ Partial Class AddTablet
         Me.txtSerialNumber.Location = New System.Drawing.Point(15, 37)
         Me.txtSerialNumber.Name = "txtSerialNumber"
         Me.txtSerialNumber.Size = New System.Drawing.Size(286, 26)
-        Me.txtSerialNumber.TabIndex = 0
+        Me.txtSerialNumber.TabIndex = 1
         '
         'btnAdd
         '
@@ -159,6 +161,7 @@ Partial Class AddTablet
         '
         Me.cbCondition.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbCondition.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCondition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbCondition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCondition.FormattingEnabled = True
         Me.cbCondition.Location = New System.Drawing.Point(91, 211)
@@ -184,6 +187,7 @@ Partial Class AddTablet
         Me.dteAcquisition.Name = "dteAcquisition"
         Me.dteAcquisition.Size = New System.Drawing.Size(207, 20)
         Me.dteAcquisition.TabIndex = 60
+        Me.dteAcquisition.TabStop = False
         '
         'lblAcquisition
         '

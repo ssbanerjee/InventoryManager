@@ -3,6 +3,14 @@
     Private Sub NewMenu_Load(sender As Object, e As EventArgs) Handles Me.Load
         'Update Exit Button
         btnExit.BackColor = Color.FromArgb(0, 129, 195)
+
+        If Not Login.role = "ADMIN" Then
+            pbAddMachine.Enabled = False
+            pbAddMachine.Image = My.Resources.AddMachine_locked
+        Else
+            pbAddMachine.Enabled = True
+            pbAddMachine.Image = My.Resources.AddMachine_2
+        End If
     End Sub
 
     'Add Machine
@@ -63,7 +71,7 @@
         pbCenterInfo.Image = My.Resources.CenterInfo
     End Sub
 
-    'Query Builder
+    'Ship An Item
     Private Sub pbShipItem_Click(sender As Object, e As EventArgs) Handles pbShipItem.Click
         'Hide()
         AddShipping.ShowDialog()

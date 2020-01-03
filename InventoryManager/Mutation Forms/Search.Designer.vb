@@ -36,6 +36,8 @@ Partial Class Search
         Me.rdListSerialNumbers = New System.Windows.Forms.RadioButton()
         Me.rdListMachineNames = New System.Windows.Forms.RadioButton()
         Me.gbMachine = New System.Windows.Forms.GroupBox()
+        Me.btnShip = New System.Windows.Forms.Button()
+        Me.lblMESD = New System.Windows.Forms.Label()
         Me.btnEdit = New System.Windows.Forms.Button()
         Me.lblIMEI = New System.Windows.Forms.Label()
         Me.lblSim = New System.Windows.Forms.Label()
@@ -91,6 +93,7 @@ Partial Class Search
         '
         Me.cbModel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbModel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbModel.Enabled = False
         Me.cbModel.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbModel.FormattingEnabled = True
@@ -103,6 +106,7 @@ Partial Class Search
         '
         Me.cbCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbCategory.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCategory.FormattingEnabled = True
         Me.cbCategory.Location = New System.Drawing.Point(9, 38)
@@ -179,6 +183,8 @@ Partial Class Search
         '
         'gbMachine
         '
+        Me.gbMachine.Controls.Add(Me.btnShip)
+        Me.gbMachine.Controls.Add(Me.lblMESD)
         Me.gbMachine.Controls.Add(Me.btnEdit)
         Me.gbMachine.Controls.Add(Me.lblIMEI)
         Me.gbMachine.Controls.Add(Me.lblSim)
@@ -195,6 +201,25 @@ Partial Class Search
         Me.gbMachine.TabIndex = 12
         Me.gbMachine.TabStop = False
         Me.gbMachine.Text = resources.GetString("gbMachine.Text")
+        '
+        'btnShip
+        '
+        Me.btnShip.Enabled = False
+        Me.btnShip.Location = New System.Drawing.Point(270, 221)
+        Me.btnShip.Name = "btnShip"
+        Me.btnShip.Size = New System.Drawing.Size(97, 23)
+        Me.btnShip.TabIndex = 11
+        Me.btnShip.Text = "Ship Machine"
+        Me.btnShip.UseVisualStyleBackColor = True
+        '
+        'lblMESD
+        '
+        Me.lblMESD.AutoSize = True
+        Me.lblMESD.Location = New System.Drawing.Point(9, 250)
+        Me.lblMESD.Name = "lblMESD"
+        Me.lblMESD.Size = New System.Drawing.Size(41, 13)
+        Me.lblMESD.TabIndex = 10
+        Me.lblMESD.Text = "MESD:"
         '
         'btnEdit
         '
@@ -378,4 +403,6 @@ Partial Class Search
     Friend WithEvents lblFAssetTag As Label
     Friend WithEvents btnNote As Button
     Friend WithEvents btnCompletion As Button
+    Friend WithEvents lblMESD As Label
+    Friend WithEvents btnShip As Button
 End Class

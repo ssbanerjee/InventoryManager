@@ -95,13 +95,13 @@ Module Scripts
             centerName = myReader.GetString(1)
 
             If centerNumberInt = 0 Then
-                centerNumber = "In Store"
+                centerNumber = "Bell Creek"
             ElseIf centerNumberInt < 100 Then
                 centerNumber = "0" + centerNumberInt.ToString
             Else
                 centerNumber = centerNumberInt.ToString
             End If
-            centers.Add("#" + centerNumber + ", " + centerName)
+            centers.Add("" + centerNumber + ", " + centerName)
         End While
 
         myReader.Close()
@@ -115,9 +115,9 @@ Module Scripts
         myCmd = myConn.CreateCommand
 
         Dim models As New List(Of String)
-        myCmd.CommandText = "SELECT DISTINCT model_name FROM Model WHERE category_id = " +
-                            "(SELECT category_id FROM Category WHERE category_name = '" + category + "') " +
-                            "ORDER BY model_name ASC;"
+        myCmd.CommandText = "SELECT DISTINCT name FROM Model WHERE categoryID = " +
+                            "(SELECT categoryID FROM Category WHERE name = '" + category + "') " +
+                            "ORDER BY name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             models.Add(myReader.GetString(0))
@@ -135,10 +135,11 @@ Module Scripts
 
         Dim items As New List(Of String)
         Dim command As String
-        command = "SELECT DISTINCT i.noninventoried_name FROM NonInventoried i " +
-                  "JOIN ShippingCategory c ON i.shipcat_id = c.shipcat_id"
+        command = "SELECT DISTINCT i.name FROM NonInventoried i " +
+                  "JOIN ShippingCategory c ON i.shipcatID = c.shipcatID " +
+                  "WHERE i.noninventoriedID != 8"
         If category <> "" Then
-            command += " WHERE c.shipcat_name = '" + category + "'"
+            command += " AND c.name = '" + category + "'"
         End If
         myCmd.CommandText = command + ";"
 
@@ -158,11 +159,11 @@ Module Scripts
 
         Dim items As New List(Of String)
         Dim command As String
-        command = "SELECT DISTINCT i.noninventoried_name FROM NonInventoried i " +
-                  "JOIN ShippingCategory c ON i.shipcat_id = c.shipcat_id " +
-                  "WHERE i.noninventoried_name LIKE '%" + input + "%'"
+        command = "SELECT DISTINCT i.name FROM NonInventoried i " +
+                  "JOIN ShippingCategory c ON i.shipcatID = c.shipcatID " +
+                  "WHERE i.noninventoriedID != 8 AND i.name LIKE '%" + input + "%'"
         If category <> "" Then
-            command += " AND c.shipcat_name = '" + category + "'"
+            command += " AND c.name = '" + category + "'"
         End If
         myCmd.CommandText = command + ";"
 

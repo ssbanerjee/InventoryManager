@@ -41,7 +41,7 @@ Public Class AddEMV
 
     Private Sub loadConditions()
         cbCondition.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT condition_name FROM Condition ORDER BY condition_name ASC;"
+        myCmd.CommandText = "SELECT DISTINCT name FROM Condition ORDER BY name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             cbCondition.Items.Add(myReader.GetString(0))
@@ -50,30 +50,19 @@ Public Class AddEMV
     End Sub
 
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
-        Dim currentString As String = cbCenter.Text
-        Dim firstIndex As String = "null"
-        If Not cbCenter.Text.Length = 0 Then
-            firstIndex = currentString.Substring(0, 1)
-        End If
+        'Dim currentString As String = cbCenter.Text
+        'Dim firstIndex As String = "null"
+        'If Not cbCenter.Text.Length = 0 Then
+        '    firstIndex = currentString.Substring(0, 1)
+        'End If
 
-        Dim num As Integer
-        If Int32.TryParse(firstIndex, num) Then
-            If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
-                cbCenter.Text = "#" + currentString
-                cbCenter.SelectionStart = cbCenter.Text.Length
-            End If
-        End If
-    End Sub
-
-    Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
-        'This grabs the center number from the combobox and puts it into the CostCenter textbox
-        If cbCenter.Text <> "" Then
-            If cbCenter.Text.Substring(1, 8).Equals("In Store") Then
-                txtCostCenter.Text = ""
-            Else
-                txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
-            End If
-        End If
+        'Dim num As Integer
+        'If Int32.TryParse(firstIndex, num) Then
+        '    If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+        '        cbCenter.Text = "#" + currentString
+        '        cbCenter.SelectionStart = cbCenter.Text.Length
+        '    End If
+        'End If
     End Sub
 
     Private Sub txtName_MouseHover(sender As Object, e As EventArgs)
@@ -119,11 +108,11 @@ Public Class AddEMV
         'Get center number if cbCenter.Text is not empty
         Dim centerNumber As String = cbCenter.Text
         If centerNumber <> "" Then
-            If centerNumber.Substring(1, 8).Equals("In Store") Then
+            If centerNumber.Equals("In Store") Then
                 centerNumber = "0"
             Else
                 'ex: '#115, AMF Sunset Lanes' -> 115
-                centerNumber = centerNumber.Substring(1, 3)
+                centerNumber = centerNumber.Substring(0, 3)
             End If
         Else
             centerNumber = "0"
@@ -131,8 +120,8 @@ Public Class AddEMV
 
         If Not (checkAT(assetTag)) Then
             myCmd.CommandText = "INSERT INTO Machine VALUES (null, '" + serialNumber.ToUpper() + "', " + assetTag + ", '" + serialNumber.ToUpper() + "', null, null, " +
-                           "(SELECT model_id FROM Model WHERE model_name = '" + emvType + "'), " + centerNumber + ", '" + costCenter +
-                           "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
+                           "(SELECT modelID FROM Model WHERE name = '" + emvType + "'), " + centerNumber + ", '" + costCenter +
+                           "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
             Try
                 myReader = myCmd.ExecuteReader
                 MsgBox("Success!")

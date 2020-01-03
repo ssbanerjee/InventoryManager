@@ -17,7 +17,7 @@ Module ShippingReport
 
         'Clear Machine list and add header line
         machines.Clear()
-        machines.Add("Model,Asset #,Serial #,Machine Name,Issued To,Cond.,Cost Center,Ticket Number,IMEI,SIM,Technician,Inventory Status")
+        machines.Add("Model,Asset #,Serial #,Machine Name,Issued To,Cond.,Cost Center,Ticket Number,IMEI,SIM,Technician")
 
         'Local variables
         Dim result As String = ""
@@ -37,10 +37,10 @@ Module ShippingReport
         Dim technician As String = ""
 
         'name 0, model 1, location 2, asset tag 3, serial 4, condition 5, cost center 6, sim 7, imei 8, aqc 9, rec 10, center 11, mesd 12, technician 13
-        myCmd.CommandText = "SELECT m.machine_name, d.model_name, m.machine_center_number, m.asset_tag, m.serial_number, c.condition_name, m.machine_cost_center, " +
-        "m.SIM, m.IMEI, m.acquisition_date, m.received_date, m.machine_center_number, m.machine_ticket_number, m.technician " +
-        "FROM Machine m JOIN Model d ON m.model_ID = d.model_ID " +
-        "JOIN Condition c ON m.condition = c.condition_id " +
+        myCmd.CommandText = "SELECT m.machine_name, d.name, m.center_number, m.asset_tag, m.serial_number, c.name, m.cost_center, " +
+        "m.SIM, m.IMEI, m.acquisition_date, m.received_date, m.center_number, m.ticket_number, m.technician " +
+        "FROM Machine m JOIN Model d ON m.modelID = d.modelID " +
+        "JOIN Condition c ON m.conditionID = c.conditionID " +
         "WHERE m.last_modified = CONVERT (date, SYSDATETIME());"
         Try
             myReader = myCmd.ExecuteReader
@@ -156,7 +156,7 @@ Module ShippingReport
 
         'Clear Machine list and add header line
         machines.Clear()
-        machines.Add("Model,Asset #,Serial #,Machine Name,Issued To,Cond.,Cost Center,Ticket Number,IMEI,SIM,Technician,Date,Inventory Status")
+        machines.Add("Model,Asset #,Serial #,Machine Name,Issued To,Cond.,Cost Center,Ticket Number,IMEI,SIM,Technician,Date")
 
         'Local variables
         Dim result As String = ""
@@ -177,10 +177,10 @@ Module ShippingReport
         Dim lastModified As String = ""
 
         'name 0, model 1, location 2, asset tag 3, serial 4, condition 5, cost center 6, sim 7, imei 8, aqc 9, rec 10, center 11, mesd 12, technician 13
-        myCmd.CommandText = "SELECT m.machine_name, d.model_name, m.machine_center_number, m.asset_tag, m.serial_number, c.condition_name, m.machine_cost_center, " +
-        "m.SIM, m.IMEI, m.acquisition_date, m.received_date, m.machine_center_number, m.machine_ticket_number, m.technician, m.last_modified " +
-        "FROM Machine m JOIN Model d ON m.model_ID = d.model_ID " +
-        "JOIN Condition c ON m.condition = c.condition_id " +
+        myCmd.CommandText = "SELECT m.machine_name, d.name, m.center_number, m.asset_tag, m.serial_number, c.name, m.cost_center, " +
+        "m.SIM, m.IMEI, m.acquisition_date, m.received_date, m.center_number, m.ticket_number, m.technician, m.last_modified " +
+        "FROM Machine m JOIN Model d ON m.modelID = d.modelID " +
+        "JOIN Condition c ON m.conditionID = c.conditionID " +
         "WHERE m.last_modified = '" + exportDate + "';"
         Try
             myReader = myCmd.ExecuteReader
@@ -311,9 +311,9 @@ Module ShippingReport
         Dim MESD As String = ""
         Dim technician As String = ""
 
-        myCmd.CommandText = "SELECT n.noninventoried_name, s.shipping_quantity, s.shipping_center, s.shipping_MESD, s.shipping_technician " +
-                            "FROM NonInventoried n LEFT JOIN Shipping s ON s.shipping_itemID = n.noninventoried_ID " +
-                            "WHERE s.shipping_last_modified = CONVERT (date, SYSDATETIME());"
+        myCmd.CommandText = "SELECT n.name, s.quantity, s.center, s.MESD, s.technician " +
+                            "FROM NonInventoried n LEFT JOIN Shipping s ON s.noninventoriedID = n.noninventoriedID " +
+                            "WHERE s.last_modified = CONVERT (date, SYSDATETIME());"
         Try
             myReader = myCmd.ExecuteReader
             While myReader.Read()
@@ -383,9 +383,9 @@ Module ShippingReport
         Dim technician As String = ""
         Dim lastModified As String = ""
 
-        myCmd.CommandText = "SELECT n.noninventoried_name, s.shipping_quantity, s.shipping_center, s.shipping_MESD, s.shipping_technician, s.shipping_last_modified " +
-                            "FROM NonInventoried n LEFT JOIN Shipping s ON s.shipping_itemID = n.noninventoried_ID " +
-                            "WHERE s.shipping_last_modified = '" + exportDate + "';"
+        myCmd.CommandText = "SELECT n.name, s.quantity, s.center, s.MESD, s.technician, s.last_modified " +
+                            "FROM NonInventoried n LEFT JOIN Shipping s ON s.noninventoriedID = n.noninventoriedID " +
+                            "WHERE s.last_modified = '" + exportDate + "';"
         Try
             myReader = myCmd.ExecuteReader
             While myReader.Read()

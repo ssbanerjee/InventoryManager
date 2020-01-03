@@ -20,7 +20,7 @@ Public Class AddLaptop
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         'Local variables
         Dim machine_id As String = ""
-        Dim employee As String = txtUsername.Text
+        Dim employee As String = txtMachineName.Text
         Dim machineName As String = txtMachineName.Text
         Dim assetTag As String = txtAssetTag.Text
         Dim serialNumber As String = txtSerialNumber.Text
@@ -33,11 +33,11 @@ Public Class AddLaptop
         Dim costCenter As String = txtCostCenter.Text
 
         If centerNumber <> "" Then
-            If centerNumber.Substring(1, 8).Equals("In Store") Then
+            If centerNumber.Equals("Bell Creek, Mechanicsville") Then
                 centerNumber = "0"
             Else
                 'ex: '#115, AMF Sunset Lanes' -> 115
-                centerNumber = centerNumber.Substring(1, 3)
+                centerNumber = centerNumber.Substring(0, 3)
             End If
         Else
             centerNumber = "0"
@@ -50,9 +50,9 @@ Public Class AddLaptop
 
             If (serialNumber <> "") Then
                 Dim command As String = ""
-                command = "INSERT INTO Machine VALUES (" + employee.ToUpper() + ", " + machineName.ToUpper() + ", " + assetTag + ", " +
-                    serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
-                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
+                command = "INSERT INTO Machine VALUES ('" + employee.Substring(0, getIndexOfNum(employee) - 1) + "', " + machineName.ToUpper() + ", " + assetTag + ", " +
+                    serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT modelID FROM Model WHERE name = '" + model + "'), " + centerNumber + ", '" + costCenter +
+                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
@@ -65,15 +65,10 @@ Public Class AddLaptop
                     LogError(ex.ToString, "AddLaptop", getInitials())
                 End Try
             End If
-            Login.bgwShipping.RunWorkerAsync()
         End If
     End Sub
 
     Private Sub checkNulls(ByRef employee As String, ByRef machineName As String, ByRef assetTag As String, ByRef SIM As String, ByRef IMEI As String, ByRef serialNumber As String, ByRef MESD As String)
-        If employee <> "" Then
-            employee = "'" + employee + "'"
-        End If
-
         If machineName = "" Then
             machineName = "null"
         Else
@@ -141,19 +136,19 @@ Public Class AddLaptop
         checkSQLInjection(cbCenter.Text)
         cbCenter.SelectionStart = cbCenter.Text.Length
 
-        Dim currentString As String = cbCenter.Text
-        Dim firstIndex As String = "null"
-        If Not cbCenter.Text.Length = 0 Then
-            firstIndex = currentString.Substring(0, 1)
-        End If
+        'Dim currentString As String = cbCenter.Text
+        'Dim firstIndex As String = "null"
+        'If Not cbCenter.Text.Length = 0 Then
+        '    firstIndex = currentString.Substring(0, 1)
+        'End If
 
-        Dim num As Integer
-        If Int32.TryParse(firstIndex, num) Then
-            If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
-                cbCenter.Text = "#" + currentString
-                cbCenter.SelectionStart = cbCenter.Text.Length
-            End If
-        End If
+        'Dim num As Integer
+        'If Int32.TryParse(firstIndex, num) Then
+        '    If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+        '        cbCenter.Text = "#" + currentString
+        '        cbCenter.SelectionStart = cbCenter.Text.Length
+        '    End If
+        'End If
     End Sub
 
     Private Sub loadModels()
@@ -180,7 +175,7 @@ Public Class AddLaptop
 
     Private Sub loadConditions()
         cbCondition.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT condition_name FROM Condition ORDER BY condition_name ASC;"
+        myCmd.CommandText = "SELECT DISTINCT name FROM Condition ORDER BY name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             cbCondition.Items.Add(myReader.GetString(0))
@@ -259,4 +254,16 @@ Public Class AddLaptop
         txtMachineName.Text = txtUsername.Text + "-L"
         txtMachineName.SelectionStart = txtMachineName.TextLength
     End Sub
+
+    Private Function getIndexOfNum(ByVal input) As Integer
+        For i = 1 To Len(input)
+            Dim currentCharacter As String
+            currentCharacter = Mid(input, i, 1)
+            If IsNumeric(currentCharacter) = True Then
+                Return i
+                Exit Function
+            End If
+        Next
+        Return Len(input) - 1
+    End Function
 End Class

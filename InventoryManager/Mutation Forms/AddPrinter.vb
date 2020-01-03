@@ -1,14 +1,15 @@
 ﻿Imports System.Data.SqlClient
 Imports System.ComponentModel
 
-Public Class AddCheckScanner
+Public Class AddPrinter
+
     Private myConn As SqlConnection
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
 
-    Public machineType As String
+    Private machineType As String = "T88VI-061"
 
-    Private Sub AddCheckScanner_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub AddPrinter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         resetTimer()
         myConn = New SqlConnection(connectionString)
         myConn.Open()
@@ -17,7 +18,6 @@ Public Class AddCheckScanner
         loadCenters()
         loadConditions()
     End Sub
-
     Private Sub loadCenters()
         Dim centers As New List(Of String)
 
@@ -51,20 +51,6 @@ Public Class AddCheckScanner
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
         checkSQLInjection(cbCenter.Text)
         cbCenter.SelectionStart = cbCenter.Text.Length
-
-        'Dim currentString As String = cbCenter.Text
-        'Dim firstIndex As String = "null"
-        'If Not cbCenter.Text.Length = 0 Then
-        '    firstIndex = currentString.Substring(0, 1)
-        'End If
-
-        'Dim num As Integer
-        'If Int32.TryParse(firstIndex, num) Then
-        '    If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
-        '        cbCenter.Text = "#" + currentString
-        '        cbCenter.SelectionStart = cbCenter.Text.Length
-        '    End If
-        'End If
     End Sub
 
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
@@ -81,10 +67,6 @@ Public Class AddCheckScanner
     Private Sub txtSerialNumber_TextChanged(sender As Object, e As EventArgs) Handles txtSerialNumber.TextChanged
         checkSQLInjection(txtSerialNumber.Text)
         txtSerialNumber.SelectionStart = txtSerialNumber.TextLength
-    End Sub
-
-    Private Sub AddCheckScanner_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        myConn.Close()
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click

@@ -6,7 +6,7 @@ Public Class AddNetworkItem
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
 
-    Public model_id As String
+    Public category_name As String
 
     Private Sub AddNetworkItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         resetTimer()
@@ -14,7 +14,9 @@ Public Class AddNetworkItem
         myConn.Open()
         myCmd = myConn.CreateCommand
         clearLists()
+        loadModels()
         loadCenters()
+        txtCategory.Text = category_name
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -24,13 +26,15 @@ Public Class AddNetworkItem
         Dim serialNumber As String = txtSerialNumber.Text
         Dim centerNumber As String = cbCenter.Text
         Dim costCenter As String = txtCostCenter.Text
+        Dim MESD As String = txtMESD.Text
+        Dim model_name As String = cbModel.Text
 
         If centerNumber <> "" Then
-            If centerNumber.Substring(1, 8).Equals("In Store") Then
+            If centerNumber.Equals("Bell Creek, Mechanicsville") Then
                 centerNumber = "0"
             Else
                 'ex: '#115, AMF Sunset Lanes' -> 115
-                centerNumber = centerNumber.Substring(1, 3)
+                centerNumber = centerNumber.Substring(0, 3)
             End If
         Else
             centerNumber = "0"
@@ -43,9 +47,9 @@ Public Class AddNetworkItem
 
             If (serialNumber <> "") Then
                 Dim command As String = ""
-                command = "INSERT INTO Machine VALUES (NULL, " + serialNumber.ToUpper() + ", " + assetTag + ", " +
-                    serialNumber + ", NULL, NULL, " + model_id + ", " + centerNumber + ", '" + costCenter +
-                    "', null, SYSDATETIME(), SYSDATETIME(), 2, 1, NULL, '" + getInitials() + "');"
+                command = "INSERT INTO Machine VALUES (NULL, '" + serialNumber.ToUpper() + "', " + assetTag + ", '" +
+                    serialNumber.ToUpper() + "', NULL, NULL, (SELECT modelId FROM Model WHERE name = '" + model_name + "'), " + centerNumber + ", '" + costCenter +
+                    "', null, SYSDATETIME(), SYSDATETIME(), 2, 1, " + MESD + ", '" + getInitials() + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
@@ -69,6 +73,17 @@ Public Class AddNetworkItem
         txtCostCenter.Clear()
     End Sub
 
+    Private Sub loadModels()
+        Dim models As New List(Of String)
+
+        cbModel.Items.Clear()
+        models = LoadModelsFromSQL(category_name)
+
+        For Each model As String In models
+            cbModel.Items.Add(model)
+        Next
+    End Sub
+
     Private Sub loadCenters()
         Dim centers As New List(Of String)
 
@@ -85,9 +100,7 @@ Public Class AddNetworkItem
             assetTag = "null"
         End If
 
-        If serialNumber <> "" Then
-            serialNumber = "'" + serialNumber + "'"
-        Else
+        If serialNumber = "" Then
             MsgBox("You MUST enter a Serial Number.")
         End If
     End Sub
@@ -121,4 +134,34 @@ Public Class AddNetworkItem
             Return False
         End Try
     End Function
+
+    Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
+        'Enforces only numerical input
+        checkNum(txtAssetTag.Text)
+
+        If txtAssetTag.TextLength > 6 Then
+            Dim character As String = txtAssetTag.Text(6)
+            txtAssetTag.Text = character
+        End If
+        txtAssetTag.SelectionStart = txtAssetTag.TextLength
+    End Sub
+
+    Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
+        checkSQLInjection(cbCenter.Text)
+        cbCenter.SelectionStart = cbCenter.Text.Length
+
+        'Dim currentString As String = cbCenter.Text
+        'Dim firstIndex As String = "null"
+        'If Not cbCenter.Text.Length = 0 Then
+        '    firstIndex = currentString.Substring(0, 1)
+        'End If
+
+        'Dim num As Integer
+        'If Int32.TryParse(firstIndex, num) Then
+        '    If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+        '        cbCenter.Text = "#" + currentString
+        '        cbCenter.SelectionStart = cbCenter.Text.Length
+        '    End If
+        'End If
+    End Sub
 End Class

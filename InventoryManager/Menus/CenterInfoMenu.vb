@@ -6,17 +6,7 @@ Public Class CenterInfoMenu
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
 
-    Private centerNumber As String
-    Private centerName As String
-    Private region As String
-    Private district As String
-    Private address As String
-    Private city As String
-    Private state As String
-    Private zip As String
-    Private circuitProvider As String
-    Private circuitID As String
-    Private wan As String
+    Private center As New Center("", "", "", "", "", "", "", "", "", "", "", "")
 
     Private Sub CenterInfoMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Connect to SQL DB
@@ -43,28 +33,14 @@ Public Class CenterInfoMenu
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
         checkSQLInjection(cbCenter.Text)
         cbCenter.SelectionStart = cbCenter.Text.Length
-
-        'Adds a '#' to the start of cbCenter.Text if one does not exist already
-        Dim currentString As String = cbCenter.Text
-        Dim firstIndex As String = "null"
-        Dim num As Integer
-        If Not cbCenter.Text.Length = 0 Then
-            firstIndex = currentString.Substring(0, 1)
-        End If
-        If Int32.TryParse(firstIndex, num) Then
-            If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
-                cbCenter.Text = "#" + currentString
-                cbCenter.SelectionStart = cbCenter.Text.Length
-            End If
-        End If
     End Sub
 
     Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
         'If cbCenter is not empty, grab the center number
-        'ex: '#115, AMF Sunset Lanes' -> 115
+        'ex: '115, AMF Sunset Lanes' -> 115
         If cbCenter.Text <> "" Then
-            centerNumber = cbCenter.Text.Substring(1, 3)
-            getInfo(centerNumber)
+            center.centerNumber = cbCenter.Text.Substring(0, 3)
+            getInfo(center.centerNumber)
         End If
     End Sub
 
@@ -72,7 +48,7 @@ Public Class CenterInfoMenu
         'First, collect center information
         myCmd.CommandText = "SELECT center_number, name, region, district, address, city, state, zip_code, circuit_provider, circuit_id, wan " +
                             "FROM Center " +
-                            "WHERE center_number = " + centerNumber + ";"
+                            "WHERE center_number = " + center.centerNumber + ";"
         Try
             myReader = myCmd.ExecuteReader()
             Do While myReader.Read()
@@ -82,63 +58,63 @@ Public Class CenterInfoMenu
                     Select Case i
                         Case 1
                             If myReader.IsDBNull(i) Then
-                                Name = "null"
+                                center.name = "null"
                             Else
-                                Name = myReader.GetString(i)
+                                center.name = myReader.GetString(i)
                             End If
                         Case 2
                             If myReader.IsDBNull(i) Then
-                                region = "null"
+                                center.region = "null"
                             Else
-                                region = myReader.GetString(i)
+                                center.region = myReader.GetString(i)
                             End If
                         Case 3
                             If myReader.IsDBNull(i) Then
-                                district = "null"
+                                center.district = "null"
                             Else
-                                district = myReader.GetString(i)
+                                center.district = myReader.GetString(i)
                             End If
                         Case 4
                             If myReader.IsDBNull(i) Then
-                                address = "null"
+                                center.address = "null"
                             Else
-                                address = myReader.GetString(i)
+                                center.address = myReader.GetString(i)
                             End If
                         Case 5
                             If myReader.IsDBNull(i) Then
-                                city = "null"
+                                center.city = "null"
                             Else
-                                city = myReader.GetString(i)
+                                center.city = myReader.GetString(i)
                             End If
                         Case 6
                             If myReader.IsDBNull(i) Then
-                                state = "null"
+                                center.state = "null"
                             Else
-                                state = myReader.GetString(i)
+                                center.state = myReader.GetString(i)
                             End If
                         Case 7
                             If myReader.IsDBNull(i) Then
-                                zip = "null"
+                                center.zipCode = "null"
                             Else
-                                zip = myReader.GetString(i)
+                                center.zipCode = myReader.GetString(i)
                             End If
                         Case 8
                             If myReader.IsDBNull(i) Then
-                                circuitProvider = "null"
+                                center.circuitProvider = "null"
                             Else
-                                circuitProvider = myReader.GetString(i)
+                                center.circuitProvider = myReader.GetString(i)
                             End If
                         Case 9
                             If myReader.IsDBNull(i) Then
-                                circuitID = "null"
+                                center.circuitID = "null"
                             Else
-                                circuitID = myReader.GetString(i)
+                                center.circuitID = myReader.GetString(i)
                             End If
                         Case 10
                             If myReader.IsDBNull(i) Then
-                                wan = "null"
+                                center.WAN = "null"
                             Else
-                                wan = myReader.GetString(i)
+                                center.WAN = myReader.GetString(i)
                             End If
                     End Select
                 Next
@@ -149,53 +125,11 @@ Public Class CenterInfoMenu
             LogError(ex.ToString, "CenterInfoMenu", getInitials)
             myReader.Close()
         End Try
-
-        'Next, collect phone number information and clear the existing list
-        'lblPhoneNumbers.Text = ""
-        'myCmd.CommandText = "SELECT role, employee_name, phone_number " +
-        '                    "FROM PhoneNumber " +
-        '                    "WHERE center_number = " + centerNumber + ";"
-        'Try
-        '    myReader = myCmd.ExecuteReader()
-        '    Do While myReader.Read()
-        '        Dim role As String = ""
-        '        Dim empName As String = ""
-        '        Dim phoneNum As String = ""
-
-        '        For i As Integer = 0 To 2
-        '            Select Case i
-        '                Case 0
-        '                    If myReader.IsDBNull(i) Then
-        '                        role = "null"
-        '                    Else
-        '                        role = myReader.GetString(i)
-        '                    End If
-        '                Case 1
-        '                    If myReader.IsDBNull(i) Then
-        '                        empName = "null"
-        '                    Else
-        '                        empName = myReader.GetString(i)
-        '                    End If
-        '                Case 2
-        '                    If myReader.IsDBNull(i) Then
-        '                        phoneNum = "null"
-        '                    Else
-        '                        phoneNum = myReader.GetString(i)
-        '                    End If
-        '            End Select
-        '        Next
-        '        lblPhoneNumbers.Text += role + ": " + empName + ". Phone Number: " + phoneNum + vbNewLine
-        '    Loop
-        '    myReader.Close()
-        'Catch ex As Exception
-        '    LogError(ex.ToString, "CenterInfoMenu", getInitials)
-        '    myReader.Close()
-        'End Try
     End Sub
 
     Private Sub loadInfo()
-        lblAddress.Text = address + vbNewLine + city + " " + state + ", " + zip
-        lblCircuitInfo.Text = "Circuit Provider: " + circuitProvider + vbNewLine + "CircuitID: " + circuitID + vbNewLine + "WAN Type: " + wan
-        lblRegDist.Text = "Region: " + region + vbNewLine + "District: " + district
+        lblAddress.Text = center.address + vbNewLine + center.city + " " + center.state + ", " + center.zipCode
+        lblCircuitInfo.Text = "Circuit Provider: " + center.circuitProvider + vbNewLine + "CircuitID: " + center.circuitID + vbNewLine + "WAN Type: " + center.WAN
+        lblRegDist.Text = "Region: " + center.region + vbNewLine + "District: " + center.district
     End Sub
 End Class

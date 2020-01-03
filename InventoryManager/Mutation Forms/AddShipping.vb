@@ -33,11 +33,11 @@ Public Class AddShipping
         Dim MESD As String = txtMESD.Text
 
         'Get center number
-        If centerNumber.Substring(1, 8).Equals("In Store") Then
+        If centerNumber.Equals("Bell Creek, Mechanicsville") Then
             centerNumber = "0"
         Else
             'ex: '#115, AMF Sunset Lanes' -> 115
-            centerNumber = centerNumber.Substring(1, 3)
+            centerNumber = centerNumber.Substring(0, 3)
         End If
 
         If item = "" Then
@@ -46,7 +46,7 @@ Public Class AddShipping
         End If
 
         Dim command As String = ""
-        command = "INSERT INTO Shipping VALUES ((SELECT noninventoried_ID FROM NonInventoried WHERE noninventoried_name = '" + item + "'), " +
+        command = "INSERT INTO Shipping VALUES ((SELECT noninventoriedID FROM NonInventoried WHERE name = '" + item + "'), " +
             quantity + ", " + centerNumber + ", " + MESD + ", SYSDATETIME(), '" + getInitials() + "');"
         myCmd.CommandText = command
         Try
@@ -84,7 +84,7 @@ Public Class AddShipping
 
     Private Sub loadCategories()
         cbCategory.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT shipcat_name FROM ShippingCategory;"
+        myCmd.CommandText = "SELECT DISTINCT name FROM ShippingCategory;"
         cbCategory.Items.Add("")
         Try
             myReader = myCmd.ExecuteReader
@@ -109,19 +109,19 @@ Public Class AddShipping
         checkSQLInjection(cbCenter.Text)
         cbCenter.SelectionStart = cbCenter.Text.Length
 
-        Dim currentString As String = cbCenter.Text
-        Dim firstIndex As String = "null"
-        If Not cbCenter.Text.Length = 0 Then
-            firstIndex = currentString.Substring(0, 1)
-        End If
+        'Dim currentString As String = cbCenter.Text
+        'Dim firstIndex As String = "null"
+        'If Not cbCenter.Text.Length = 0 Then
+        '    firstIndex = currentString.Substring(0, 1)
+        'End If
 
-        Dim num As Integer
-        If Int32.TryParse(firstIndex, num) Then
-            If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
-                cbCenter.Text = "#" + currentString
-                cbCenter.SelectionStart = cbCenter.Text.Length
-            End If
-        End If
+        'Dim num As Integer
+        'If Int32.TryParse(firstIndex, num) Then
+        '    If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+        '        cbCenter.Text = "#" + currentString
+        '        cbCenter.SelectionStart = cbCenter.Text.Length
+        '    End If
+        'End If
     End Sub
 
     Private Sub cbCategory_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCategory.SelectedValueChanged

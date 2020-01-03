@@ -1,4 +1,4 @@
-﻿Public Class NetworkTeamMenu
+﻿Public Class NewMenuP2
     Private Sub NetworkTeamMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         resetTimer()
 
@@ -7,7 +7,7 @@
     End Sub
 
     Private Sub pbSwitch_Click(sender As Object, e As EventArgs) Handles pbSwitch.Click
-        AddNetworkItem.model_id = "19"
+        AddNetworkItem.category_name = "Switch"
         AddNetworkItem.ShowDialog()
     End Sub
 
@@ -20,7 +20,7 @@
     End Sub
 
     Private Sub pbMojo_Click(sender As Object, e As EventArgs) Handles pbMojo.Click
-        AddNetworkItem.model_id = "26"
+        AddNetworkItem.category_name = "Access Point"
         AddNetworkItem.ShowDialog()
     End Sub
 
@@ -37,6 +37,7 @@
     End Sub
 
     Private Sub pbPhone_Click(sender As Object, e As EventArgs) Handles pbPhone.Click
+        AddNetworkItem.category_name = "Phone"
         AddPhone.ShowDialog()
     End Sub
 
@@ -46,6 +47,10 @@
 
     Private Sub pbPhone_MouseUp(sender As Object, e As MouseEventArgs) Handles pbPhone.MouseUp
         pbPhone.Image = My.Resources.Phone
+    End Sub
+
+    Private Sub BtnPrinter_Click(sender As Object, e As EventArgs) Handles btnPrinter.Click
+        AddPrinter.ShowDialog()
     End Sub
 
     '======================================

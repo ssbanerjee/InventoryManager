@@ -52,7 +52,7 @@ Partial Class AddLaptop
         'txtMachineName
         '
         Me.txtMachineName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMachineName.Location = New System.Drawing.Point(12, 111)
+        Me.txtMachineName.Location = New System.Drawing.Point(12, 113)
         Me.txtMachineName.Name = "txtMachineName"
         Me.txtMachineName.Size = New System.Drawing.Size(139, 26)
         Me.txtMachineName.TabIndex = 1
@@ -60,23 +60,23 @@ Partial Class AddLaptop
         'txtAssetTag
         '
         Me.txtAssetTag.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAssetTag.Location = New System.Drawing.Point(12, 168)
+        Me.txtAssetTag.Location = New System.Drawing.Point(12, 170)
         Me.txtAssetTag.Name = "txtAssetTag"
-        Me.txtAssetTag.Size = New System.Drawing.Size(117, 26)
+        Me.txtAssetTag.Size = New System.Drawing.Size(139, 26)
         Me.txtAssetTag.TabIndex = 3
         '
         'txtSerialNumber
         '
         Me.txtSerialNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSerialNumber.Location = New System.Drawing.Point(148, 168)
+        Me.txtSerialNumber.Location = New System.Drawing.Point(166, 171)
         Me.txtSerialNumber.Name = "txtSerialNumber"
-        Me.txtSerialNumber.Size = New System.Drawing.Size(141, 26)
+        Me.txtSerialNumber.Size = New System.Drawing.Size(187, 26)
         Me.txtSerialNumber.TabIndex = 4
         '
         'txtSIM
         '
         Me.txtSIM.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSIM.Location = New System.Drawing.Point(324, 49)
+        Me.txtSIM.Location = New System.Drawing.Point(374, 49)
         Me.txtSIM.Name = "txtSIM"
         Me.txtSIM.Size = New System.Drawing.Size(277, 26)
         Me.txtSIM.TabIndex = 7
@@ -84,16 +84,17 @@ Partial Class AddLaptop
         'txtIMEI
         '
         Me.txtIMEI.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIMEI.Location = New System.Drawing.Point(324, 111)
+        Me.txtIMEI.Location = New System.Drawing.Point(374, 111)
         Me.txtIMEI.Name = "txtIMEI"
         Me.txtIMEI.Size = New System.Drawing.Size(277, 26)
         Me.txtIMEI.TabIndex = 8
         '
         'btnAdd
         '
+        Me.btnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdd.Location = New System.Drawing.Point(12, 259)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(587, 35)
+        Me.btnAdd.Size = New System.Drawing.Size(639, 51)
         Me.btnAdd.TabIndex = 11
         Me.btnAdd.Text = "Add Machine"
         Me.btnAdd.UseVisualStyleBackColor = True
@@ -105,13 +106,13 @@ Partial Class AddLaptop
         Me.txtUsername.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUsername.Location = New System.Drawing.Point(12, 49)
         Me.txtUsername.Name = "txtUsername"
-        Me.txtUsername.Size = New System.Drawing.Size(277, 26)
+        Me.txtUsername.Size = New System.Drawing.Size(341, 26)
         Me.txtUsername.TabIndex = 0
         '
         'lblUsername
         '
         Me.lblUsername.AutoSize = True
-        Me.lblUsername.Location = New System.Drawing.Point(9, 30)
+        Me.lblUsername.Location = New System.Drawing.Point(9, 32)
         Me.lblUsername.Name = "lblUsername"
         Me.lblUsername.Size = New System.Drawing.Size(106, 13)
         Me.lblUsername.TabIndex = 8
@@ -120,7 +121,7 @@ Partial Class AddLaptop
         'lblMachineName
         '
         Me.lblMachineName.AutoSize = True
-        Me.lblMachineName.Location = New System.Drawing.Point(9, 92)
+        Me.lblMachineName.Location = New System.Drawing.Point(9, 94)
         Me.lblMachineName.Name = "lblMachineName"
         Me.lblMachineName.Size = New System.Drawing.Size(139, 13)
         Me.lblMachineName.TabIndex = 9
@@ -129,7 +130,7 @@ Partial Class AddLaptop
         'lblAssetTag
         '
         Me.lblAssetTag.AutoSize = True
-        Me.lblAssetTag.Location = New System.Drawing.Point(9, 149)
+        Me.lblAssetTag.Location = New System.Drawing.Point(9, 151)
         Me.lblAssetTag.Name = "lblAssetTag"
         Me.lblAssetTag.Size = New System.Drawing.Size(117, 13)
         Me.lblAssetTag.TabIndex = 10
@@ -138,7 +139,7 @@ Partial Class AddLaptop
         'lblSerialNumber
         '
         Me.lblSerialNumber.AutoSize = True
-        Me.lblSerialNumber.Location = New System.Drawing.Point(145, 149)
+        Me.lblSerialNumber.Location = New System.Drawing.Point(163, 152)
         Me.lblSerialNumber.Name = "lblSerialNumber"
         Me.lblSerialNumber.Size = New System.Drawing.Size(147, 13)
         Me.lblSerialNumber.TabIndex = 11
@@ -147,7 +148,7 @@ Partial Class AddLaptop
         'lblSIM
         '
         Me.lblSIM.AutoSize = True
-        Me.lblSIM.Location = New System.Drawing.Point(321, 30)
+        Me.lblSIM.Location = New System.Drawing.Point(371, 30)
         Me.lblSIM.Name = "lblSIM"
         Me.lblSIM.Size = New System.Drawing.Size(26, 13)
         Me.lblSIM.TabIndex = 12
@@ -156,7 +157,7 @@ Partial Class AddLaptop
         'lblIMEI
         '
         Me.lblIMEI.AutoSize = True
-        Me.lblIMEI.Location = New System.Drawing.Point(321, 92)
+        Me.lblIMEI.Location = New System.Drawing.Point(371, 92)
         Me.lblIMEI.Name = "lblIMEI"
         Me.lblIMEI.Size = New System.Drawing.Size(29, 13)
         Me.lblIMEI.TabIndex = 13
@@ -165,7 +166,7 @@ Partial Class AddLaptop
         'lblModel
         '
         Me.lblModel.AutoSize = True
-        Me.lblModel.Location = New System.Drawing.Point(153, 92)
+        Me.lblModel.Location = New System.Drawing.Point(163, 94)
         Me.lblModel.Name = "lblModel"
         Me.lblModel.Size = New System.Drawing.Size(36, 13)
         Me.lblModel.TabIndex = 14
@@ -175,25 +176,26 @@ Partial Class AddLaptop
         '
         Me.cbModel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbModel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbModel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbModel.FormattingEnabled = True
-        Me.cbModel.Location = New System.Drawing.Point(157, 111)
+        Me.cbModel.Location = New System.Drawing.Point(166, 113)
         Me.cbModel.Name = "cbModel"
-        Me.cbModel.Size = New System.Drawing.Size(132, 26)
+        Me.cbModel.Size = New System.Drawing.Size(187, 26)
         Me.cbModel.TabIndex = 2
         '
         'txtCostCenter
         '
         Me.txtCostCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCostCenter.Location = New System.Drawing.Point(12, 222)
+        Me.txtCostCenter.Location = New System.Drawing.Point(12, 224)
         Me.txtCostCenter.Name = "txtCostCenter"
-        Me.txtCostCenter.Size = New System.Drawing.Size(114, 26)
+        Me.txtCostCenter.Size = New System.Drawing.Size(139, 26)
         Me.txtCostCenter.TabIndex = 5
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 206)
+        Me.Label1.Location = New System.Drawing.Point(9, 208)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(95, 13)
         Me.Label1.TabIndex = 33
@@ -203,9 +205,10 @@ Partial Class AddLaptop
         '
         Me.cbCenter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbCenter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCenter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbCenter.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCenter.FormattingEnabled = True
-        Me.cbCenter.Location = New System.Drawing.Point(324, 168)
+        Me.cbCenter.Location = New System.Drawing.Point(374, 168)
         Me.cbCenter.Name = "cbCenter"
         Me.cbCenter.Size = New System.Drawing.Size(277, 26)
         Me.cbCenter.TabIndex = 9
@@ -213,7 +216,7 @@ Partial Class AddLaptop
         'lblCenter
         '
         Me.lblCenter.AutoSize = True
-        Me.lblCenter.Location = New System.Drawing.Point(321, 152)
+        Me.lblCenter.Location = New System.Drawing.Point(371, 152)
         Me.lblCenter.Name = "lblCenter"
         Me.lblCenter.Size = New System.Drawing.Size(81, 13)
         Me.lblCenter.TabIndex = 37
@@ -222,15 +225,15 @@ Partial Class AddLaptop
         'txtMESD
         '
         Me.txtMESD.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMESD.Location = New System.Drawing.Point(148, 224)
+        Me.txtMESD.Location = New System.Drawing.Point(166, 227)
         Me.txtMESD.Name = "txtMESD"
-        Me.txtMESD.Size = New System.Drawing.Size(141, 26)
+        Me.txtMESD.Size = New System.Drawing.Size(187, 26)
         Me.txtMESD.TabIndex = 6
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(145, 206)
+        Me.Label2.Location = New System.Drawing.Point(163, 209)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(41, 13)
         Me.Label2.TabIndex = 48
@@ -240,9 +243,10 @@ Partial Class AddLaptop
         '
         Me.cbCondition.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbCondition.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cbCondition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbCondition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbCondition.FormattingEnabled = True
-        Me.cbCondition.Location = New System.Drawing.Point(324, 224)
+        Me.cbCondition.Location = New System.Drawing.Point(374, 224)
         Me.cbCondition.Name = "cbCondition"
         Me.cbCondition.Size = New System.Drawing.Size(95, 28)
         Me.cbCondition.TabIndex = 10
@@ -250,7 +254,7 @@ Partial Class AddLaptop
         'lblCondition
         '
         Me.lblCondition.AutoSize = True
-        Me.lblCondition.Location = New System.Drawing.Point(321, 206)
+        Me.lblCondition.Location = New System.Drawing.Point(371, 206)
         Me.lblCondition.Name = "lblCondition"
         Me.lblCondition.Size = New System.Drawing.Size(72, 13)
         Me.lblCondition.TabIndex = 50
@@ -260,7 +264,7 @@ Partial Class AddLaptop
         '
         Me.dteAcquisition.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dteAcquisition.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dteAcquisition.Location = New System.Drawing.Point(427, 225)
+        Me.dteAcquisition.Location = New System.Drawing.Point(477, 225)
         Me.dteAcquisition.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
         Me.dteAcquisition.Name = "dteAcquisition"
         Me.dteAcquisition.Size = New System.Drawing.Size(174, 21)
@@ -269,7 +273,7 @@ Partial Class AddLaptop
         'lblAcquisition
         '
         Me.lblAcquisition.AutoSize = True
-        Me.lblAcquisition.Location = New System.Drawing.Point(424, 206)
+        Me.lblAcquisition.Location = New System.Drawing.Point(474, 206)
         Me.lblAcquisition.Name = "lblAcquisition"
         Me.lblAcquisition.Size = New System.Drawing.Size(61, 13)
         Me.lblAcquisition.TabIndex = 51
@@ -279,7 +283,7 @@ Partial Class AddLaptop
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(611, 306)
+        Me.ClientSize = New System.Drawing.Size(663, 322)
         Me.Controls.Add(Me.dteAcquisition)
         Me.Controls.Add(Me.lblAcquisition)
         Me.Controls.Add(Me.cbCondition)

@@ -6,37 +6,40 @@ Public Class EditMachine
     Private myCmd As SqlCommand
     Private myReader As SqlDataReader
 
-    Private employee As String
-    Private machineName As String
+    Public oldMachine As Machine
+    Public newMachine As Machine
+
+    Private old_machineName As String
     Private assetTag As String
     Private serialNumber As String
     Private SIM As String
     Private IMEI As String
     Private category As String
     Private model As String
-    Private center_number As String
-    Private assetState As String
-    Private costCenter As String
-    Private condition As String
-    Private MESD As String
-
-    Private received As String
-    Private acquisition As String
+    Private old_center_number As String
+    Private old_assetState As String
+    Private old_costCenter As String
+    Private old_condition As String
+    Private old_MESD As String
+    Private old_received As String
+    Private old_acquisition As String
 
     Public machineID As String 'This is the primary key value that is passed to it from the previous Form
+    Public confirm As Boolean
 
     'When loading the form, it runs a query using machineID as the primary key
     Private Sub EditMachine_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         resetTimer()
+        confirm = False
         myConn = New SqlConnection(connectionString)
         myConn.Open()
         myCmd = myConn.CreateCommand
-        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.category_name, d.model_name, m.SIM, m.IMEI, t.center_number, m.employee_username, m.machine_id, m.received_date, m.acquisition_date, a.asset_state_name, m.machine_cost_center, s.condition_name, m.machine_ticket_number " +
-                        "FROM Machine m LEFT JOIN Model d ON m.model_ID = d.model_ID " +
-                        "LEFT JOIN Category c ON d.category_id = c.category_ID " +
-                        "LEFT JOIN Center t ON m.machine_center_number = t.center_number " +
-                        "LEFT JOIN AssetState a ON m.asset_state_id = a.asset_state_id " +
-                        "LEFT JOIN Condition s ON m.condition = s.condition_id " +
+        myCmd.CommandText = "SELECT m.machine_name, m.asset_tag, m.serial_number, c.name, d.name, m.SIM, m.IMEI, t.center_number, m.username, m.machine_id, m.received_date, m.acquisition_date, a.name, m.cost_center, s.name, m.ticket_number " +
+                        "FROM Machine m LEFT JOIN Model d ON m.modelID = d.modelID " +
+                        "LEFT JOIN Category c ON d.categoryID = c.categoryID " +
+                        "LEFT JOIN Center t ON m.center_number = t.center_number " +
+                        "LEFT JOIN AssetState a ON m.asset_stateID = a.asset_stateID " +
+                        "LEFT JOIN Condition s ON m.conditionID = s.conditionID " +
                         "WHERE m.machine_id = " + machineID + ";"
         Try
             myReader = myCmd.ExecuteReader()
@@ -49,9 +52,9 @@ Public Class EditMachine
                     Select Case i
                         Case 0
                             If myReader.IsDBNull(i) Then
-                                machineName = "null"
+                                old_machineName = "null"
                             Else
-                                machineName = myReader.GetString(i)
+                                old_machineName = myReader.GetString(i)
                             End If
                         Case 1
                             If myReader.IsDBNull(i) Then
@@ -91,22 +94,16 @@ Public Class EditMachine
                             End If
                         Case 7
                             If myReader.IsDBNull(i) Then
-                                center_number = "null"
+                                old_center_number = "null"
                             Else
                                 Dim x As Integer = myReader.GetInt32(i)
                                 If x = 0 Then
-                                    center_number = "#In Store, Mechanicsville"
+                                    old_center_number = "Bell Creek"
                                 ElseIf x < 100 Then
-                                    center_number = "#0" + x.ToString
+                                    old_center_number = "0" + x.ToString
                                 Else
-                                    center_number = "#" + x.ToString
+                                    old_center_number = x.ToString
                                 End If
-                            End If
-                        Case 8
-                            If myReader.IsDBNull(i) Then
-                                employee = "null"
-                            Else
-                                employee = myReader.GetString(i)
                             End If
                         Case 9
                             If myReader.IsDBNull(i) Then
@@ -116,39 +113,39 @@ Public Class EditMachine
                             End If
                         Case 10
                             If myReader.IsDBNull(i) Then
-                                received = "null"
+                                old_received = "null"
                             Else
-                                received = myReader.GetDateTime(i).ToString("MM/dd/yyy")
+                                old_received = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                             End If
                         Case 11
                             If myReader.IsDBNull(i) Then
-                                acquisition = "null"
+                                old_acquisition = "null"
                             Else
-                                acquisition = myReader.GetDateTime(i).ToString("MM/dd/yyy")
+                                old_acquisition = myReader.GetDateTime(i).ToString("MM/dd/yyy")
                             End If
                         Case 12
                             If myReader.IsDBNull(i) Then
-                                assetState = "null"
+                                old_assetState = "null"
                             Else
-                                assetState = myReader.GetString(i)
+                                old_assetState = myReader.GetString(i)
                             End If
                         Case 13
                             If myReader.IsDBNull(i) Then
-                                costCenter = "null"
+                                old_costCenter = "null"
                             Else
-                                costCenter = myReader.GetString(i)
+                                old_costCenter = myReader.GetString(i)
                             End If
                         Case 14
                             If myReader.IsDBNull(i) Then
-                                condition = "null"
+                                old_condition = "null"
                             Else
-                                condition = myReader.GetString(i)
+                                old_condition = myReader.GetString(i)
                             End If
                         Case 15
                             If myReader.IsDBNull(i) Then
-                                MESD = "null"
+                                old_MESD = "null"
                             Else
-                                MESD = myReader.GetInt32(i).ToString
+                                old_MESD = myReader.GetInt32(i).ToString
                             End If
                     End Select
                 Next
@@ -166,30 +163,57 @@ Public Class EditMachine
 
     'After getting the information from the query, it then displays the information via text boxes and such on the Form
     Private Sub loadInformation()
-        lblTitle.Text = category + " -- " + model
-        txtUsername.Text = employee
-        txtMachineName.Text = machineName
-        txtAssetTag.Text = assetTag
-        txtSerialNumber.Text = serialNumber
-        txtSIM.Text = SIM
-        txtIMEI.Text = IMEI
-        cbAssetState.Text = assetState
-        cbCenter.Text = center_number.ToString
-        txtCostCenter.Text = costCenter
-        cbCondition.Text = condition
-        txtMESD.Text = MESD
 
-        If received <> "null" And received <> "" Then
-            dteReceived.Value = received
+        oldMachine = New Machine(machineID, old_machineName, assetTag, serialNumber, SIM, IMEI, category, model, old_center_number,
+                                      old_assetState, old_costCenter, old_condition, old_MESD, old_received, old_acquisition, "")
+        newMachine = New Machine(machineID, old_machineName, assetTag, serialNumber, SIM, IMEI, category, model, old_center_number,
+                                      old_assetState, old_costCenter, old_condition, old_MESD, old_received, old_acquisition, "")
+
+        lblTitle.Text = oldMachine.category + " -- " + oldMachine.model
+        txtMachineName.Text = oldMachine.machineName
+        txtAssetTag.Text = oldMachine.assetTag
+        txtSerialNumber.Text = oldMachine.serialNumber
+        txtSIM.Text = oldMachine.SIM
+        txtIMEI.Text = oldMachine.IMEI
+        cbAssetState.Text = oldMachine.assetState
+        cbCenter.Text = oldMachine.centerNumber.ToString
+        txtCostCenter.Text = oldMachine.costCenter
+        cbCondition.Text = oldMachine.condition
+        txtMESD.Text = oldMachine.MESD
+
+        If old_received <> "null" And old_received <> "" Then
+            dteReceived.Value = old_received
         End If
-        If acquisition <> "null" And acquisition <> "" Then
-            dteAcquisition.Value = acquisition
+        If old_acquisition <> "null" And old_acquisition <> "" Then
+            dteAcquisition.Value = old_acquisition
         End If
+    End Sub
+
+    Private Sub getNewValues()
+        newMachine.machineName = txtMachineName.Text
+        newMachine.assetState = cbAssetState.Text
+        newMachine.costCenter = txtCostCenter.Text
+        newMachine.condition = cbCondition.Text
+        newMachine.MESD = txtMESD.Text
+        newMachine.received = dteReceived.Value
+        newMachine.acquisition = dteAcquisition.Value
+
+        If cbCenter.Text.Equals("Bell Creek, Mechanicsville") Then
+            newMachine.centerNumber = "Bell Creek"
+        Else
+            newMachine.centerNumber = cbCenter.Text.Substring(0, 3)
+        End If
+
+        'If txtUsername.Text = "null" Or txtUsername.Text = "" Then
+        '    employee = "NULL"
+        'Else
+        '    employee = "'" + txtUsername.Text + "'"
+        'End If
     End Sub
 
     Private Sub loadAssetState()
         cbAssetState.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT asset_state_name FROM AssetState ORDER BY asset_state_name ASC;"
+        myCmd.CommandText = "SELECT name FROM AssetState ORDER BY asset_stateID;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             cbAssetState.Items.Add(myReader.GetString(0))
@@ -199,7 +223,7 @@ Public Class EditMachine
 
     Private Sub loadConditions()
         cbCondition.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT condition_name FROM Condition ORDER BY condition_name ASC;"
+        myCmd.CommandText = "SELECT DISTINCT name FROM Condition ORDER BY name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             cbCondition.Items.Add(myReader.GetString(0))
@@ -220,64 +244,67 @@ Public Class EditMachine
 
     'Updates the machine with the current values shown in the Form
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim centerNumber As String = ""
-        If cbCenter.Text.Equals("#In Store, Mechanicsville") Then
-            centerNumber = "0"
+        getNewValues()
+        If newMachine.machineName = oldMachine.machineName Or newMachine.assetState = oldMachine.assetState Or newMachine.costCenter = oldMachine.costCenter _
+           Or newMachine.condition = oldMachine.condition Or newMachine.MESD = oldMachine.MESD Or newMachine.received = oldMachine.received Or newMachine.acquisition = oldMachine.acquisition Then
+            ConfirmChanges.ShowDialog()
+            'Dim result As MsgBoxResult = MsgBox("Some values were not changed." + vbNewLine + "Is this OK?", MsgBoxStyle.YesNo)
+            If confirm = True Then
+                saveInfo()
+            End If
         Else
-            centerNumber = cbCenter.Text.Substring(1, 3)
+            saveInfo()
         End If
+    End Sub
 
-        If txtUsername.Text = "null" Or txtUsername.Text = "" Then
-            employee = "NULL"
-        Else
-            employee = "'" + txtUsername.Text + "'"
+    Private Sub saveInfo()
+        If (newMachine.centerNumber.Equals("Bell Creek")) Then
+            newMachine.centerNumber = "0"
         End If
-
         Try
-            Dim command As String = "UPDATE Machine SET employee_username = " + employee + ", " +
-                "machine_name = '" + txtMachineName.Text.ToUpper() + "', " +
+            Dim command As String = "UPDATE Machine SET machine_name = '" + newMachine.machineName.ToUpper() + "', " +
+                "username = '" + txtMachineName.Text.Substring(0, getIndexOfNum(txtMachineName.Text) - 1) + "', " +
                 "asset_tag = " + txtAssetTag.Text + ", " +
                 "serial_number = '" + txtSerialNumber.Text.ToUpper() + "', " +
                 "SIM = " + checkNull(txtSIM.Text) + ", " +
                 "IMEI = " + checkNull(txtIMEI.Text) + ", " +
-                "machine_center_number = " + centerNumber + ", " +
-                "machine_cost_center = '" + txtCostCenter.Text + "', " +
-                "asset_state_id = (SELECT asset_state_id FROM AssetState WHERE asset_state_name = '" + cbAssetState.Text + "'), " +
-                "condition = (SELECT condition_id FROM Condition WHERE condition_name = '" + cbCondition.Text + "'), " +
-                "acquisition_date = '" + dteAcquisition.Value + "', " +
-                "received_date = '" + dteReceived.Value + "', " +
+                "center_number = " + newMachine.centerNumber + ", " +
+                "cost_center = '" + newMachine.costCenter + "', " +
+                "asset_stateID = (SELECT asset_stateID FROM AssetState WHERE name = '" + newMachine.assetState + "'), " +
+                "conditionID = (SELECT conditionID FROM Condition WHERE name = '" + newMachine.condition + "'), " +
+                "acquisition_date = '" + newMachine.acquisition + "', " +
+                "received_date = '" + newMachine.received + "', " +
                 "last_modified = SYSDATETIME(), " +
-                "machine_ticket_number = " + txtMESD.Text + ", " +
+                "ticket_number = " + newMachine.MESD + ", " +
                 "technician = '" + getInitials() + "' " +
                 "WHERE machine_id = " + machineID + ";"
             myCmd.CommandText = command
             myReader = myCmd.ExecuteReader
             myReader.Close()
             MsgBox("Success!")
-            LogMachineEdit(machineName, myCmd.CommandText)
+            LogMachineEdit(old_machineName, myCmd.CommandText)
             Me.Close()
         Catch ex As Exception
             LogError(ex.ToString, "EditMachine", getInitials())
         End Try
     End Sub
-
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
         checkSQLInjection(cbCenter.Text)
         cbCenter.SelectionStart = cbCenter.Text.Length
 
-        Dim currentString As String = cbCenter.Text
-        Dim firstIndex As String = "null"
-        If Not cbCenter.Text.Length = 0 Then
-            firstIndex = currentString.Substring(0, 1)
-        End If
+        'Dim currentString As String = cbCenter.Text
+        'Dim firstIndex As String = "null"
+        'If Not cbCenter.Text.Length = 0 Then
+        '    firstIndex = currentString.Substring(0, 1)
+        'End If
 
-        Dim num As Integer
-        If Int32.TryParse(firstIndex, num) Then
-            If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
-                cbCenter.Text = "#" + currentString
-                cbCenter.SelectionStart = cbCenter.Text.Length
-            End If
-        End If
+        'Dim num As Integer
+        'If Int32.TryParse(firstIndex, num) Then
+        '    If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+        '        cbCenter.Text = currentString
+        '        cbCenter.SelectionStart = cbCenter.Text.Length
+        '    End If
+        'End If
     End Sub
 
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
@@ -314,9 +341,9 @@ Public Class EditMachine
         txtSIM.SelectionStart = txtSIM.TextLength
     End Sub
 
-    Private Sub txtUsername_TextChanged(sender As Object, e As EventArgs) Handles txtUsername.TextChanged
-        checkSQLInjection(txtUsername.Text)
-        txtUsername.SelectionStart = txtUsername.TextLength
+    Private Sub txtUsername_TextChanged(sender As Object, e As EventArgs)
+        'checkSQLInjection(txtUsername.Text)
+        'txtUsername.SelectionStart = txtUsername.TextLength
     End Sub
 
     Private Sub txtMESD_TextChanged(sender As Object, e As EventArgs) Handles txtMESD.TextChanged
@@ -330,16 +357,28 @@ Public Class EditMachine
 
     Private Sub cbCondition_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbAssetState.SelectedValueChanged
         If cbAssetState.SelectedItem = "IN STORE" Then
-            cbCenter.Text = "#In Store, Mechanicsville"
+            cbCenter.Text = "Bell Creek, Mechanicsville"
             txtCostCenter.Text = ""
         End If
     End Sub
 
     Private Function checkNull(ByVal str As String)
-        If str <> "" Then
+        If str.Trim().Length() > 0 Then
             Return ("'" + str + "'")
         Else
             Return ("NULL")
         End If
+    End Function
+
+    Private Function getIndexOfNum(ByVal input) As Integer
+        For i = 1 To Len(input)
+            Dim currentCharacter As String
+            currentCharacter = Mid(input, i, 1)
+            If IsNumeric(currentCharacter) = True Then
+                Return i
+                Exit Function
+            End If
+        Next
+        Return Len(input) - 1
     End Function
 End Class

@@ -100,11 +100,11 @@ Partial Class NewMenu
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(500, 197)
+        Me.Button1.Location = New System.Drawing.Point(913, 41)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 9
-        Me.Button1.Text = "Button1"
+        Me.Button1.Text = "Import"
         Me.Button1.UseVisualStyleBackColor = True
         Me.Button1.Visible = False
         '
@@ -135,7 +135,7 @@ Partial Class NewMenu
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
         Me.Name = "NewMenu"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Inventory Manager"
         CType(Me.pbAddMachine, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbEditInfo, System.ComponentModel.ISupportInitialize).EndInit()

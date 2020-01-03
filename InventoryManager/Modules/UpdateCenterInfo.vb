@@ -8,7 +8,7 @@ Module UpdateCenterInfo
 
     'Number of centers
     Public COUNT As Integer = 1
-    Public MAX As Integer = 305
+    Public MAX As Integer = 300
 
     Public Sub UpdateCenters()
         'Network file
@@ -29,67 +29,56 @@ Module UpdateCenterInfo
         xlWorkBook = xlApp.Workbooks.Open(mastersheet)
         xlWorkSheet = xlWorkBook.Worksheets("Master Sheet")
 
-        'Local variables
-        Dim center_number As String = ""
-        Dim name As String = ""
-        Dim address As String = ""
-        Dim city As String = ""
-        Dim state As String = ""
-        Dim zipCode As String = ""
-        Dim phoneNumber = ""
-        Dim circuitProvider As String = ""
-        Dim circuitID As String = ""
-        Dim WAN As String = ""
+        'Class variable
+        Dim center As New Center("", "", "", "", "", "", "", "", "", "", "", "")
 
         'Dim row As Integer = xlWorkSheet.Rows.Count $$$ Didn't work
         Dim row As Integer = MAX 'Temporary static setting
         Dim col As Integer = xlWorkSheet.Columns.Count
 
-        Dim centers As New List(Of String)
         Dim command As String = ""
         Dim line As String = ""
 
-        For i As Integer = 2 To row
+        For i As Integer = 2 To 300
             For j As Integer = 1 To col
                 'Iterates through every cell, one row at a time
                 Select Case j
                     Case 1
-                        center_number = xlWorkSheet.Cells(i, j).Value
+                        center.centerNumber = xlWorkSheet.Cells(i, j).Value
                     Case 2
-                        name = xlWorkSheet.Cells(i, j).Value
-                        name = name.Replace("'", "")
+                        center.name = xlWorkSheet.Cells(i, j).Value
+                        center.name = center.name.Replace("'", "")
                     Case 6
-                        address = xlWorkSheet.Cells(i, j).Value
-                        If Not (address = Nothing) Then
-                            address = address.Replace("'", "")
+                        center.address = xlWorkSheet.Cells(i, j).Value
+                        If Not (center.address = Nothing) Then
+                            center.address = center.address.Replace("'", "")
                         End If
                     Case 7
-                        city = xlWorkSheet.Cells(i, j).Value
+                        center.city = xlWorkSheet.Cells(i, j).Value
                     Case 8
-                        state = xlWorkSheet.Cells(i, j).Value
+                        center.state = xlWorkSheet.Cells(i, j).Value
                     Case 9
-                        zipCode = xlWorkSheet.Cells(i, j).Value
+                        center.zipCode = xlWorkSheet.Cells(i, j).Value
                     Case 10
-                        phoneNumber = xlWorkSheet.Cells(i, j).Value
+                        center.phoneNumber = xlWorkSheet.Cells(i, j).Value
                     Case 12
-                        circuitProvider = xlWorkSheet.Cells(i, j).Value
+                        center.circuitProvider = xlWorkSheet.Cells(i, j).Value
                     Case 14
-                        WAN = xlWorkSheet.Cells(i, j).value
-                    Case 23
-                        circuitID = xlWorkSheet.Cells(i, j).Value
-                    Case 28
+                        center.WAN = xlWorkSheet.Cells(i, j).value
+                    Case 27
+                        center.circuitID = xlWorkSheet.Cells(i, j).Value
+                    Case 32
                         Dim secondID As String = xlWorkSheet.Cells(i, j).Value
                         If Not (secondID = Nothing) Then
-                            circuitID += vbNewLine + secondID
+                            center.circuitID += ", " + secondID
                         End If
                 End Select
             Next
             command += String.Format("UPDATE Center SET name = '{0}', address = '{1}', city = '{2}', state = '{3}', zip_code = '{4}', phone_number = '{5}', circuit_provider = '{6}', circuit_id = '{7}', wan = '{8}' WHERE center_number = {9}; ",
-                                    name, address, city, state, zipCode, phoneNumber, circuitProvider, circuitID, WAN, center_number)
+                                    center.name, center.address, center.city, center.state, center.zipCode, center.phoneNumber, center.circuitProvider, center.circuitID, center.WAN, center.centerNumber)
             command += vbNewLine
 
-            count += 1
-
+            COUNT += 1
         Next
         myCmd.CommandText = command
 
@@ -111,7 +100,7 @@ Module UpdateCenterInfo
         Dim aReader As SqlDataReader
 
         'Network file
-        Dim mastersheet As String = "\\10.12.40.143\C$\Users\Inventory\Desktop\tablets.xls"
+        Dim mastersheet As String = "C:\Users\sbanerjee\Desktop\import.xls"
 
         'Connect to SQL DB
         aConn = New SqlConnection(connectionString)
@@ -129,39 +118,36 @@ Module UpdateCenterInfo
         xlWorkSheet = xlWorkBook.Worksheets("Sheet1")
 
         'Local variables
-        Dim center_number As String = ""
-        Dim MESD As String = ""
+        Dim model As String = ""
         Dim serialNumber As String = ""
         Dim assetTag As String = ""
-        Dim time As String = ""
+        Dim received As String = ""
 
 
         'Dim row As Integer = xlWorkSheet.Rows.Count $$$ Didn't work
-        Dim row As Integer = 64
+        Dim row As Integer = 74
         Dim col As Integer = xlWorkSheet.Columns.Count
 
-        Dim centers As New List(Of String)
+        'Dim centers As New List(Of String)
         Dim command As String = ""
         Dim line As String = ""
 
-        For i As Integer = 2 To row
+        For i As Integer = 1 To row
             For j As Integer = 1 To col
                 'Iterates through every cell, one row at a time
                 Select Case j
                     Case 1
-                        center_number = xlWorkSheet.Cells(i, j).Value
-                    Case 2
-                        MESD = xlWorkSheet.Cells(i, j).Value
-                    Case 3
                         serialNumber = xlWorkSheet.Cells(i, j).Value
-                    Case 4
-                        assetTag = xlWorkSheet.Cells(i, j).Value
+                    Case 2
+                        model = xlWorkSheet.Cells(i, j).Value
                     Case 5
-                        time = xlWorkSheet.Cells(i, j).Value
+                        received = xlWorkSheet.Cells(i, j).Value
                 End Select
             Next
 
-            command += "INSERT INTO Machine VALUES (NULL, '" + serialNumber.ToUpper + "', " + assetTag + ", '" + serialNumber.ToUpper + "', NULL, NULL, 14, " + center_number + ", 'FD', '" + time + "', '" + time + "', SYSDATETIME(), 2, 1, " + MESD + ", 'JR', 0); "
+            'user, name, tag, sn, sim, imei, modelid, center, cc, recei, acq, last, 1, 1, mesd, tech        'user, name, tag, sn, sim, imei, modelid, center, cc, recei, acq, last, 1, 1, mesd, tech        'user, name, tag, sn, sim, imei, modelid, center, cc, recei, acq, last, 1, 1, mesd, tech
+            command += "INSERT INTO Machine VALUES (NULL, '" + serialNumber.ToUpper + "', null, '" + serialNumber.ToUpper + "', NULL, NULL, (SELECT modelid FROM Model WHERE name ='" + model + "'), 0, null, SYSDATETIME(), null, SYSDATETIME(), 1, 1, null, 'SB'); "
+            'MsgBox(command)
         Next
         aCmd.CommandText = command
 
@@ -170,12 +156,13 @@ Module UpdateCenterInfo
             aReader.Close()
             MsgBox("success")
         Catch ex As Exception
-            LogError(ex.ToString, "AddFDProject", "Program")
+            LogError(ex.ToString, "Import", "Program")
         End Try
 
         xlWorkBook.Close()
         xlApp.Quit()
     End Sub
+
     'Removes single quotation marks to prevent SQL query from failing
     Private Sub alterName(ByRef name As String)
         name.Replace("'", "")

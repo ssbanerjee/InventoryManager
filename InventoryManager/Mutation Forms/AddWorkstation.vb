@@ -52,7 +52,7 @@ Public Class AddWorkstation
 
     Private Sub loadConditions()
         cbCondition.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT condition_name FROM Condition ORDER BY condition_name ASC;"
+        myCmd.CommandText = "SELECT DISTINCT name FROM Condition ORDER BY name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             cbCondition.Items.Add(myReader.GetString(0))
@@ -61,19 +61,19 @@ Public Class AddWorkstation
     End Sub
 
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
-        Dim currentString As String = cbCenter.Text
-        Dim firstIndex As String = "null"
-        If Not cbCenter.Text.Length = 0 Then
-            firstIndex = currentString.Substring(0, 1)
-        End If
+        'Dim currentString As String = cbCenter.Text
+        'Dim firstIndex As String = "null"
+        'If Not cbCenter.Text.Length = 0 Then
+        '    firstIndex = currentString.Substring(0, 1)
+        'End If
 
-        Dim num As Integer
-        If Int32.TryParse(firstIndex, num) Then
-            If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
-                cbCenter.Text = "#" + currentString
-                cbCenter.SelectionStart = cbCenter.Text.Length
-            End If
-        End If
+        'Dim num As Integer
+        'If Int32.TryParse(firstIndex, num) Then
+        '    If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+        '        cbCenter.Text = "#" + currentString
+        '        cbCenter.SelectionStart = cbCenter.Text.Length
+        '    End If
+        'End If
     End Sub
 
     Private Sub txtMESD_TextChanged(sender As Object, e As EventArgs) Handles txtMESD.TextChanged
@@ -86,10 +86,10 @@ Public Class AddWorkstation
 
         'Checks if a center number and a model type has been selected
         If cbCenter.Text <> "" And cbModel.Text <> "" Then
-            If cbCenter.Text.Equals("#In Store, Mechanicsville") Then
+            If cbCenter.Text.Equals("Bell Creek, Mechanicsville") Then
                 centerNumber = "0"
             Else
-                centerNumber = cbCenter.Text.Substring(1, 3)
+                centerNumber = cbCenter.Text.Substring(0, 3)
             End If
 
             Dim machineName As String = txtMachineName.Text
@@ -106,7 +106,7 @@ Public Class AddWorkstation
 
                 If serialNumber <> "" Then
                     myCmd.CommandText = "INSERT INTO Machine VALUES ('AMF" + centerNumber + "NODE', " + machineName.ToUpper() + ", " + assetTag + ", " + serialNumber.ToUpper() + ", null, null, " +
-                     "(SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
+                     "(SELECT modelID FROM Model WHERE name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
                     Try
                         myReader = myCmd.ExecuteReader
                         MsgBox("Success!")
@@ -171,17 +171,6 @@ Public Class AddWorkstation
             Return False
         End Try
     End Function
-
-    Private Sub cbCenter_SelectedValueChanged(sender As Object, e As EventArgs) Handles cbCenter.SelectedValueChanged
-        'This grabs the center number from the combobox and puts it into the CostCenter textbox
-        If cbCenter.Text <> "" Then
-            If cbCenter.Text.Substring(1, 8).Equals("In Store") Then
-                txtCostCenter.Text = ""
-            Else
-                txtCostCenter.Text = cbCenter.Text.Substring(1, 3)
-            End If
-        End If
-    End Sub
 
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
         'Enforces only numerical input

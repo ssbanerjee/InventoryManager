@@ -15,9 +15,6 @@ Public Class AddTablet
         loadCenters()
         loadConditions()
         txtSerialNumber.Select()
-        txtMachineName.TabStop = False
-        cbCenter.TabStop = False
-        txtCostCenter.TabStop = False
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -29,10 +26,10 @@ Public Class AddTablet
         Dim NewOrUsed As String = cbCondition.Text
         Dim costCenter As String = txtCostCenter.Text
         If centerNumber <> "" Then
-            If centerNumber.Substring(1, 8).Equals("In Store") Then
+            If centerNumber.Equals("Bell Creek, Mechanicsville") Then
                 centerNumber = "0"
             Else
-                centerNumber = centerNumber.Substring(1, 3)
+                centerNumber = centerNumber.Substring(0, 3)
             End If
         Else
             centerNumber = "0"
@@ -43,7 +40,7 @@ Public Class AddTablet
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES (NULL, '" + machineName.ToUpper() + "', " + assetTag + ", '" +
                     serialNumber.ToUpper + "', NULL, NULL, 23, " + centerNumber + ", '" + costCenter +
-                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT condition_id FROM Condition WHERE condition_name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
+                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
@@ -104,7 +101,7 @@ Public Class AddTablet
 
     Private Sub loadConditions()
         cbCondition.Items.Clear()
-        myCmd.CommandText = "SELECT DISTINCT condition_name FROM Condition ORDER BY condition_name ASC;"
+        myCmd.CommandText = "SELECT DISTINCT name FROM Condition ORDER BY name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()
             cbCondition.Items.Add(myReader.GetString(0))
@@ -126,19 +123,19 @@ Public Class AddTablet
         checkSQLInjection(cbCenter.Text)
         cbCenter.SelectionStart = cbCenter.Text.Length
 
-        Dim currentString As String = cbCenter.Text
-        Dim firstIndex As String = "null"
-        If Not cbCenter.Text.Length = 0 Then
-            firstIndex = currentString.Substring(0, 1)
-        End If
+        'Dim currentString As String = cbCenter.Text
+        'Dim firstIndex As String = "null"
+        'If Not cbCenter.Text.Length = 0 Then
+        '    firstIndex = currentString.Substring(0, 1)
+        'End If
 
-        Dim num As Integer
-        If Int32.TryParse(firstIndex, num) Then
-            If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
-                cbCenter.Text = "#" + currentString
-                cbCenter.SelectionStart = cbCenter.Text.Length
-            End If
-        End If
+        'Dim num As Integer
+        'If Int32.TryParse(firstIndex, num) Then
+        '    If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+        '        cbCenter.Text = "#" + currentString
+        '        cbCenter.SelectionStart = cbCenter.Text.Length
+        '    End If
+        'End If
     End Sub
 
     Private Sub txtAssetTag_TextChanged(sender As Object, e As EventArgs) Handles txtAssetTag.TextChanged
@@ -169,5 +166,9 @@ Public Class AddTablet
 
     Private Sub AddTablet_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         myConn.Close()
+    End Sub
+
+    Private Sub txtSerialNumber_Leave(sender As Object, e As EventArgs) Handles txtSerialNumber.Leave
+        txtMachineName.Text = txtSerialNumber.Text
     End Sub
 End Class

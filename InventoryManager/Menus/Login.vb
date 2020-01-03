@@ -15,6 +15,8 @@ Public Class Login
     'Placeholder variable to check if it is the first time a user has logged into the system
     Private firstLogin As Boolean
 
+    Public role As String
+
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Runs background worker to update center info while user is logging in
         bgwUpdate.RunWorkerAsync()
@@ -35,9 +37,6 @@ Public Class Login
 
         'Update Exit Button
         btnExit.BackColor = Color.FromArgb(0, 129, 195)
-
-        'Display countdown to UPS pickup
-        Countdown.Show()
     End Sub
 
     'The following is hands down the ugliest piece of shit code you will ever read so please ignore it.
@@ -49,14 +48,14 @@ Public Class Login
             If txtPIN.Text IsNot "" Then
                 Dim PIN As String = txtPIN.Text
                 'Following Query gets the user (written as lastName, firstName), and two booleans that check if it is their first time logging in, or first time since last update
-                myCmd.CommandText = "SELECT (last_name + ', ' + first_name), employee_firstLogin, employee_update, employee_role FROM Employee WHERE employee_pin = " + PIN + ";"
+                myCmd.CommandText = "SELECT (last_name + ', ' + first_name), first_login, up_to_date, role FROM Employee WHERE pin = " + PIN + ";"
                 txtPIN.Clear() 'Clears PIN field
                 Try
                     myReader = myCmd.ExecuteReader() 'Executes the Query. Placed inside a Try-Catch in the event that something breaks
                     If myReader.Read() Then 'Normally keeps running while Query still has rows to return. In this case, it's a single-row Query, so only need to check it once
                         currentUser = myReader.GetString(0) 'Index increments by one, starting from 0
                         Dim result As MsgBoxResult = MsgBox("Login as " + currentUser + "?", MsgBoxStyle.YesNo) 'Asks if user wants to Login
-                        Dim role As String = myReader.GetString(3)
+                        role = myReader.GetString(3)
                         If result = MsgBoxResult.Yes Then
                             If myReader.GetInt32(1) = 1 Then 'If it is their first login, run updatePIN
                                 updatePIN(PIN)
@@ -90,8 +89,8 @@ Public Class Login
             Do 'Keep looping if not numerical.
                 newPIN = InputBox("Please enter a numerical PIN: ", "Enter New PIN", "")
             Loop While Not IsNumeric(newPIN)
-            'Following query updates the Employee table and sets the PIN equal to what the user put in, and then sets their firstLogin to false
-            myCmd.CommandText = "UPDATE Employee SET employee_pin = " + newPIN + ", employee_firstLogin = 0 WHERE employee_pin = " + oldPIN + ";"
+            'Following query updates the Employee table and sets the PIN equal to what the user put in, and then sets their first_login to false
+            myCmd.CommandText = "UPDATE Employee SET pin = " + newPIN + ", first_login = 0 WHERE pin = " + oldPIN + ";"
             Try
                 myReader = myCmd.ExecuteReader
                 MsgBox("PIN Updated")
@@ -106,12 +105,34 @@ Public Class Login
     End Sub
 
     'Gets the PIN and update status (0 or 1) and checks to see if it needs to display the changelog or not
-    Private Sub checkUpdate(ByVal PIN As String, ByVal update As Integer)
+    Private Sub checkUpdate(ByVal PIN As String, ByVal up_to_date As Integer)
         myReader.Close()
-        If update = 1 Then
+        Dim cat As String = ""
+        cat += "⊂_ヽ" + vbNewLine
+        cat += "　 ＼＼ Λ＿Λ" + vbNewLine
+        cat += "　　 ＼(　ˇωˇ)" + vbNewLine
+        cat += "　　　 >　⌒ヽ" + vbNewLine
+        cat += "　　　/ 　 へ＼" + vbNewLine
+        cat += "　　 /　　/　＼＼" + vbNewLine
+        cat += "　　 ﾚ　ノ　　 ヽ_つ" + vbNewLine
+        cat += "　　/　/" + vbNewLine
+        cat += "　 /　/|" + vbNewLine
+        cat += "　(　(ヽ" + vbNewLine
+        cat += "　|　|、＼" + vbNewLine
+        cat += "　| 丿 ＼ ⌒)" + vbNewLine
+        cat += "　| |　　) /" + vbNewLine
+        cat += "`ノ )　　Lﾉ" + vbNewLine
+        cat += "(_／ " + vbNewLine
+        cat += "Just for you."
+
+        If PIN = 5269 Then
+            MsgBox(cat)
+        End If
+
+        If up_to_date = 0 Then
             MsgBox("There has been an update!")
             btnLog.PerformClick()
-            myCmd.CommandText = "UPDATE Employee SET employee_update = 0 WHERE employee_pin = " + PIN + ";"
+            myCmd.CommandText = "UPDATE Employee SET up_to_date = 1 WHERE pin = " + PIN + ";"
             Try
                 myReader = myCmd.ExecuteReader()
             Catch ex2 As Exception
@@ -126,18 +147,18 @@ Public Class Login
     'This is the inactivity timer that keeps active through the whole application
     'Every "tick", the following code will run
     Private Sub tmrInactive_Tick(sender As Object, e As EventArgs) Handles tmrInactive.Tick
-        tmrInactive.Enabled = False 'Turns off the timer so multiple messages don't spawn from long periods of inactivity
-        Dim result As MsgBoxResult = MsgBox("Would you like to continue your session as " + currentUser + "?", MsgBoxStyle.YesNo) 'Asks user if they want to continue their session
-        If result = MsgBoxResult.Yes Then
-            resetTimer() 'Code to turn off and back on the timer, found in InactivityTimer.vb
-        Else
-            MsgBox("Closing due to inactivity.", MsgBoxStyle.Question, "")
-            For i = Application.OpenForms.Count - 1 To 0 Step -1 'Closes all open forms except for the first one (this form)
-                Dim form As Form = Application.OpenForms(i)
-                form.Close()
-            Next i
-            Countdown.Show()
-        End If
+        'tmrInactive.Enabled = False 'Turns off the timer so multiple messages don't spawn from long periods of inactivity
+        'Dim result As MsgBoxResult = MsgBox("Would you like to continue your session as " + currentUser + "?", MsgBoxStyle.YesNo) 'Asks user if they want to continue their session
+        'If result = MsgBoxResult.Yes Then
+        '    resetTimer() 'Code to turn off and back on the timer, found in InactivityTimer.vb
+        'Else
+        '    MsgBox("Closing due to inactivity.", MsgBoxStyle.Question, "")
+        '    For i = Application.OpenForms.Count - 1 To 0 Step -1 'Closes all open forms except for the first one (this form)
+        '        Dim form As Form = Application.OpenForms(i)
+        '        form.Close()
+        '    Next i
+        '    Countdown.Show()
+        'End If
     End Sub
 
     'The following two Subs are background workers. These apply multiprogramming to allow you to run two (or more) segments of code at once
@@ -167,14 +188,16 @@ Public Class Login
     Private Sub login(ByVal role As String)
         myReader.Close() 'Another measure to close the reader
         LogSignIn() 'Updates activity log
-        tmrInactive.Enabled = True 'Starts inactivity timer
+        'tmrInactive.Enabled = True 'Starts inactivity timer
         bgwShipping.RunWorkerAsync() 'Updates shipping report using another background worker
-        If role = "TECHNICIAN" Then 'Shows the menu according to role
-            NewMenu.ShowDialog()
-        ElseIf role = "NETWORK" Then
-            NetworkTeamMenu.ShowDialog()
-        End If
         Hide() 'Hides current form
+        If (role = "TECHNICIAN") Or (role = "ADMIN") Then 'Shows the menu according to role
+            MainMenu.ShowDialog()
+        ElseIf role = "NETWORK" Then
+            NewMenuP2.ShowDialog()
+        ElseIf role = "DISABLED" Then
+            MsgBox("You do not have access to enter the application.")
+        End If
         Show() 'Once the menu is closed, reveal this form again
     End Sub
 

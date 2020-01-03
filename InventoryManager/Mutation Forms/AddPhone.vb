@@ -25,11 +25,11 @@ Public Class AddPhone
         Dim model As String = cbModel.Text
 
         If centerNumber <> "" Then
-            If centerNumber.Substring(1, 8).Equals("In Store") Then
+            If centerNumber.Equals("Bell Creek, Mechanicsville") Then
                 centerNumber = "0"
             Else
                 'ex: '#115, AMF Sunset Lanes' -> 115
-                centerNumber = centerNumber.Substring(1, 3)
+                centerNumber = centerNumber.Substring(0, 3)
             End If
         Else
             centerNumber = "0"
@@ -43,7 +43,7 @@ Public Class AddPhone
             If (MAC <> "") Then
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES (NULL, " + MAC.ToUpper() + ", " + assetTag + ", " +
-                    MAC.ToUpper() + ", NULL, NULL, (SELECT model_id FROM Model WHERE model_name = '" + model + "'), " + centerNumber + ", '" + costCenter +
+                    MAC.ToUpper() + ", NULL, NULL, (SELECT modelID FROM Model WHERE name = '" + model + "'), " + centerNumber + ", '" + costCenter +
                     "', null, SYSDATETIME(), SYSDATETIME(), 2, 1, NULL, '" + getInitials() + "');"
                 myCmd.CommandText = command
                 Try
@@ -131,4 +131,23 @@ Public Class AddPhone
             Return False
         End Try
     End Function
+
+    Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
+        checkSQLInjection(cbCenter.Text)
+        cbCenter.SelectionStart = cbCenter.Text.Length
+
+        'Dim currentString As String = cbCenter.Text
+        'Dim firstIndex As String = "null"
+        'If Not cbCenter.Text.Length = 0 Then
+        '    firstIndex = currentString.Substring(0, 1)
+        'End If
+
+        'Dim num As Integer
+        'If Int32.TryParse(firstIndex, num) Then
+        '    If Not cbCenter.Text.Length = 0 And Not currentString.Substring(0, 1) = "#" Then
+        '        cbCenter.Text = "#" + currentString
+        '        cbCenter.SelectionStart = cbCenter.Text.Length
+        '    End If
+        'End If
+    End Sub
 End Class
