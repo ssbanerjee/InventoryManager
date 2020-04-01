@@ -92,7 +92,7 @@ Public Class AddPrinter
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES (NULL, '" + serialNumber + "', " + assetTag + ", '" +
                     serialNumber + "', NULL, NULL, (SELECT modelID FROM Model WHERE name = '" + machineType + "'), " + centerNumber + ", '" + costCenter +
-                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
+                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + currentUser + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
@@ -131,7 +131,7 @@ Public Class AddPrinter
                 Return False
             End If
         Catch ex As Exception
-            LogError(ex.ToString, "AddCheckScanner", getInitials())
+            LogError(ex.ToString, "AddCheckScanner", currentUser)
             myReader.Close()
             Return False
         End Try

@@ -49,7 +49,7 @@ Public Class AddNetworkItem
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES (NULL, '" + serialNumber.ToUpper() + "', " + assetTag + ", '" +
                     serialNumber.ToUpper() + "', NULL, NULL, (SELECT modelId FROM Model WHERE name = '" + model_name + "'), " + centerNumber + ", '" + costCenter +
-                    "', null, SYSDATETIME(), SYSDATETIME(), 2, 1, " + MESD + ", '" + getInitials() + "');"
+                    "', null, SYSDATETIME(), SYSDATETIME(), 2, 1, " + MESD + ", '" + currentUser + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
@@ -59,7 +59,7 @@ Public Class AddNetworkItem
                     Close()
                 Catch ex As Exception
                     myReader.Close()
-                    LogError(ex.ToString, "AddNetworkItem", getInitials())
+                    LogError(ex.ToString, "AddNetworkItem", currentUser)
                 End Try
             End If
             Login.bgwShipping.RunWorkerAsync()
@@ -129,7 +129,7 @@ Public Class AddNetworkItem
                 Return False
             End If
         Catch ex As Exception
-            LogError(ex.ToString, "AddNetworkItem", getInitials())
+            LogError(ex.ToString, "AddNetworkItem", currentUser)
             myReader.Close()
             Return False
         End Try

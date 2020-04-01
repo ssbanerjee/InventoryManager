@@ -26,10 +26,11 @@ Partial Class NewMenuP2
         Me.pbMojo = New System.Windows.Forms.PictureBox()
         Me.pbSwitch = New System.Windows.Forms.PictureBox()
         Me.pbPhone = New System.Windows.Forms.PictureBox()
-        Me.btnPrinter = New System.Windows.Forms.Button()
+        Me.pbPrinter = New System.Windows.Forms.PictureBox()
         CType(Me.pbMojo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbSwitch, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbPhone, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbPrinter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnExit
@@ -72,34 +73,35 @@ Partial Class NewMenuP2
         Me.pbPhone.TabIndex = 11
         Me.pbPhone.TabStop = False
         '
-        'btnPrinter
+        'pbPrinter
         '
-        Me.btnPrinter.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPrinter.Location = New System.Drawing.Point(51, 458)
-        Me.btnPrinter.Name = "btnPrinter"
-        Me.btnPrinter.Size = New System.Drawing.Size(418, 86)
-        Me.btnPrinter.TabIndex = 12
-        Me.btnPrinter.Text = "Epson Printer"
-        Me.btnPrinter.UseVisualStyleBackColor = True
+        Me.pbPrinter.BackColor = System.Drawing.Color.Transparent
+        Me.pbPrinter.Image = Global.InventoryManager.My.Resources.Resources.AddPrinter
+        Me.pbPrinter.Location = New System.Drawing.Point(51, 458)
+        Me.pbPrinter.Name = "pbPrinter"
+        Me.pbPrinter.Size = New System.Drawing.Size(418, 82)
+        Me.pbPrinter.TabIndex = 13
+        Me.pbPrinter.TabStop = False
         '
-        'NetworkTeamMenu
+        'NewMenuP2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.InventoryManager.My.Resources.Resources.NewMenu_empty
         Me.ClientSize = New System.Drawing.Size(1000, 625)
-        Me.Controls.Add(Me.btnPrinter)
+        Me.Controls.Add(Me.pbPrinter)
         Me.Controls.Add(Me.pbPhone)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.pbMojo)
         Me.Controls.Add(Me.pbSwitch)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "NetworkTeamMenu"
+        Me.Name = "NewMenuP2"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "NetworkTeamMenu"
         CType(Me.pbMojo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbSwitch, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbPhone, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbPrinter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -107,5 +109,5 @@ Partial Class NewMenuP2
     Friend WithEvents pbMojo As PictureBox
     Friend WithEvents pbSwitch As PictureBox
     Friend WithEvents pbPhone As PictureBox
-    Friend WithEvents btnPrinter As Button
+    Friend WithEvents pbPrinter As PictureBox
 End Class

@@ -30,9 +30,8 @@ Public Class Login
         myCmd = myConn.CreateCommand
 
         'Update Version Text
-
-        Dim lines() As String = IO.File.ReadAllLines("Text Files\version.txt")
-        lblVersion.Text = lines(0)
+        'Dim lines() As String = IO.File.ReadAllLines("Text Files\version.txt")
+        lblVersion.Text = My.Resources.version
         lblVersion.BackColor = Color.FromArgb(0, 129, 195)
 
         'Update Exit Button
@@ -56,15 +55,18 @@ Public Class Login
                         currentUser = myReader.GetString(0) 'Index increments by one, starting from 0
                         Dim result As MsgBoxResult = MsgBox("Login as " + currentUser + "?", MsgBoxStyle.YesNo) 'Asks if user wants to Login
                         role = myReader.GetString(3)
+                        Dim updated As Integer = myReader.GetInt32(2)
                         If result = MsgBoxResult.Yes Then
                             If myReader.GetInt32(1) = 1 Then 'If it is their first login, run updatePIN
                                 updatePIN(PIN)
-                                checkUpdate(PIN, myReader.GetInt32(2)) 'Check if user has logged in since last update (in this case this will be false)
+                                checkUpdate(PIN, updated) 'Check if user has logged in since last update (in this case this will be false)
                                 login(role) 'Check below for login function
                             Else
-                                checkUpdate(PIN, myReader.GetInt32(2)) 'Check if user has logged in since last update
+                                checkUpdate(PIN, updated) 'Check if user has logged in since last update
                                 login(role) 'Check below for login function
                             End If
+                        Else
+                            myReader.Close()
                         End If
                     Else 'If nothing was read, then the Employee was not found.
                         myReader.Close()
@@ -76,7 +78,6 @@ Public Class Login
             Else 'This runs if nothing is in the PIN textbox
                 MsgBox("Please enter a PIN.")
             End If
-            myReader.Close() 'Always close the reader after a query, even if you're going to make another one
         End If
     End Sub
 
@@ -125,7 +126,7 @@ Public Class Login
         cat += "(_／ " + vbNewLine
         cat += "Just for you."
 
-        If PIN = 5269 Then
+        If PIN = 5269 Or PIN = 2474 Then
             MsgBox(cat)
         End If
 
@@ -193,7 +194,7 @@ Public Class Login
         Hide() 'Hides current form
         If (role = "TECHNICIAN") Or (role = "ADMIN") Then 'Shows the menu according to role
             MainMenu.ShowDialog()
-        ElseIf role = "NETWORK" Then
+        ElseIf role = "NETWORK" Or role = "TELECOM" Then
             NewMenuP2.ShowDialog()
         ElseIf role = "DISABLED" Then
             MsgBox("You do not have access to enter the application.")
@@ -208,6 +209,11 @@ Public Class Login
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         Close()
+    End Sub
+
+    Private Sub txtPIN_TextChanged(sender As Object, e As EventArgs) Handles txtPIN.TextChanged
+        'Enforces only numerical input
+        checkNum(txtPIN.Text)
     End Sub
 
     '======================================

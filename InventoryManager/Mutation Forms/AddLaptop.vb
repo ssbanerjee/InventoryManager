@@ -52,7 +52,7 @@ Public Class AddLaptop
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES ('" + employee.Substring(0, getIndexOfNum(employee) - 1) + "', " + machineName.ToUpper() + ", " + assetTag + ", " +
                     serialNumber + ", " + SIM + ", " + IMEI + ", (SELECT modelID FROM Model WHERE name = '" + model + "'), " + centerNumber + ", '" + costCenter +
-                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
+                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + currentUser + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
@@ -62,7 +62,7 @@ Public Class AddLaptop
                     Close()
                 Catch ex As Exception
                     myReader.Close()
-                    LogError(ex.ToString, "AddLaptop", getInitials())
+                    LogError(ex.ToString, "AddLaptop", currentUser)
                 End Try
             End If
         End If
@@ -126,7 +126,7 @@ Public Class AddLaptop
                 Return False
             End If
         Catch ex As Exception
-            LogError(ex.ToString, "AddLaptop", getInitials())
+            LogError(ex.ToString, "AddLaptop", currentUser)
             myReader.Close()
             Return False
         End Try

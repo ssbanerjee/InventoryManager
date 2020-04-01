@@ -421,6 +421,12 @@
     <None Include="Resources\Shipping.png" />
     <None Include="Resources\Shipping_pressed.png" />
     <None Include="Resources\AddMachine_locked.png" />
+    <None Include="Resources\AddPrinter.png" />
+    <None Include="Resources\AddPrinter_locked.png" />
+    <None Include="Resources\AddPrinter_pressed.png" />
+    <None Include="Resources\MOJO_locked.png" />
+    <None Include="Resources\Switch_locked.png" />
+    <None Include="Resources\Phone_locked.png" />
     <Content Include="Text Files\changeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -29,7 +29,7 @@ Partial Class ExportDate
         'Calendar
         '
         Me.Calendar.Location = New System.Drawing.Point(18, 18)
-        Me.Calendar.MaxDate = New Date(2019, 12, 31, 0, 0, 0, 0)
+        Me.Calendar.MaxDate = New Date(2020, 12, 31, 0, 0, 0, 0)
         Me.Calendar.MaxSelectionCount = 1
         Me.Calendar.MinDate = New Date(2017, 1, 1, 0, 0, 0, 0)
         Me.Calendar.Name = "Calendar"

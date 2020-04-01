@@ -68,13 +68,13 @@ Public Class MainMenu
                     myCmd.CommandText = "INSERT INTO MachinesShipped VALUES ('" + machine.machineName + "', " + machine.assetTag + ", '" +
                                     machine.serialNumber + "', " + machine.SIM + ", " + machine.IMEI + ", '" + machine.model + "', " +
                                     machine.centerNumber + ", '" + machine.costCenter + "', SYSDATETIME(), '" + machine.condition + "', " +
-                                    machine.MESD + ", '" + getInitials() + "');"
+                                    machine.MESD + ", '" + currentUser + "');"
                     Try
                         myReader = myCmd.ExecuteReader()
                         MsgBox("Successfully recorded machine for shipment")
                         myReader.Close()
                     Catch ex As Exception
-                        LogError(ex.ToString, "mShipping", getInitials())
+                        LogError(ex.ToString, "mShipping", currentUser)
                         myReader.Close()
                     End Try
                 Else
@@ -108,12 +108,12 @@ Public Class MainMenu
             loadMachineData(input)
             If machineFound Then
                 myCmd.CommandText = "INSERT INTO MachinesReceived VALUES ('" + machine.machineName + "', " + machine.assetTag + ", '" +
-                                    machine.serialNumber + "', '" + machine.model + "', SYSDATETIME(), " + machine.MESD + ", '" + getInitials() + "');"
+                                    machine.serialNumber + "', '" + machine.model + "', SYSDATETIME(), " + machine.MESD + ", '" + currentUser + "');"
                 Try
                     myReader = myCmd.ExecuteReader
                     MsgBox("Successfully recorded " + machine.machineName + " as being received for today")
                 Catch ex As Exception
-                    LogError(ex.ToString, "mReceiving", getInitials())
+                    LogError(ex.ToString, "mReceiving", currentUser)
                 End Try
             Else
                 MsgBox("Machine not found in database." + vbNewLine + "PLEASE GIVE COMPUTER TO SHOUMIK OR ANDREW BEFORE ANYONE ELSE!")
@@ -221,7 +221,7 @@ Public Class MainMenu
             End If
             ldReader.Close()
         Catch ex As Exception
-            LogError(ex.ToString, "Search", getInitials())
+            LogError(ex.ToString, "Search", currentUser)
         End Try
     End Sub
 

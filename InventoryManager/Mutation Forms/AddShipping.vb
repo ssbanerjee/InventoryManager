@@ -47,7 +47,7 @@ Public Class AddShipping
 
         Dim command As String = ""
         command = "INSERT INTO Shipping VALUES ((SELECT noninventoriedID FROM NonInventoried WHERE name = '" + item + "'), " +
-            quantity + ", " + centerNumber + ", " + MESD + ", SYSDATETIME(), '" + getInitials() + "');"
+            quantity + ", " + centerNumber + ", " + MESD + ", SYSDATETIME(), '" + currentUser + "');"
         myCmd.CommandText = command
         Try
             myReader = myCmd.ExecuteReader
@@ -56,7 +56,7 @@ Public Class AddShipping
             myReader.Close()
             Me.Close()
         Catch ex As Exception
-            LogError(ex.ToString, "AddShipping", getInitials())
+            LogError(ex.ToString, "AddShipping", currentUser)
         End Try
     End Sub
 
@@ -92,7 +92,7 @@ Public Class AddShipping
                 cbCategory.Items.Add(myReader.GetString(0))
             Loop
         Catch ex As Exception
-            LogError(ex.ToString, "AddShipping", getInitials())
+            LogError(ex.ToString, "AddShipping", currentUser)
         End Try
         myReader.Close()
     End Sub

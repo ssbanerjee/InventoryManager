@@ -103,6 +103,36 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property AddPrinter() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("AddPrinter", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property AddPrinter_locked() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("AddPrinter_locked", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property AddPrinter_pressed() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("AddPrinter_pressed", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Adtran() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Adtran", resourceCulture)
@@ -167,6 +197,44 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("CenterInfo_pressed", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to v4.02.07
+        '''--Fixed menu dragging error on the initial login page
+        '''--Edited PhoneMenu to grab the center number when the cost center is left blank
+        '''--Apparently I removed the number check on the Login page. Login now enforcecs numerical only input..
+        '''</summary>
+        Friend ReadOnly Property changeLog() As String
+            Get
+                Return ResourceManager.GetString("changeLog", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 07/10/2018 	v1.04.1
+        '''-- Transaction Log implemented
+        '''-- Display Port Adapter added to NonInventoried
+        '''-- 3M Power Cable added to nonInventoried
+        '''-- Error Message updated
+        '''
+        '''07/11/2018 	v1.05.1
+        '''-- Fixed numeric-only checking on Machine adds
+        '''-- Added documention to code functions
+        '''-- Cleaned up code
+        '''-- Organized log folders
+        '''		v1.05.2
+        '''-- Added Check Scanner
+        '''-- Added Laptop Power Cable
+        '''-- Modified AddShipping to enforce users to fill in all boxes
+        '''-- Edited AddShipping mutation query
+        '''
+        '''07/13/2018	v1.06. [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property changeLog_Master() As String
+            Get
+                Return ResourceManager.GetString("changeLog_Master", resourceCulture)
             End Get
         End Property
         
@@ -313,6 +381,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property MOJO_locked() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("MOJO_locked", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property MOJO_pressed() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("MOJO_pressed", resourceCulture)
@@ -366,6 +444,16 @@ Namespace My.Resources
         Friend ReadOnly Property Phone() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Phone", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Phone_locked() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Phone_locked", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -503,6 +591,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property Switch_locked() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Switch_locked", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Switch_pressed() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Switch_pressed", resourceCulture)
@@ -527,6 +625,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("Tablet_pressed", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to v4.02.07.
+        '''</summary>
+        Friend ReadOnly Property version() As String
+            Get
+                Return ResourceManager.GetString("version", resourceCulture)
             End Get
         End Property
         

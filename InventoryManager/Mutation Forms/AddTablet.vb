@@ -40,7 +40,7 @@ Public Class AddTablet
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES (NULL, '" + machineName.ToUpper() + "', " + assetTag + ", '" +
                     serialNumber.ToUpper + "', NULL, NULL, 23, " + centerNumber + ", '" + costCenter +
-                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
+                    "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + currentUser + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
@@ -50,7 +50,7 @@ Public Class AddTablet
                     Close()
                 Catch ex As Exception
                     myReader.Close()
-                    LogError(ex.ToString, "AddTablet", getInitials())
+                    LogError(ex.ToString, "AddTablet", currentUser)
                 End Try
             End If
             Login.bgwShipping.RunWorkerAsync()
@@ -82,7 +82,7 @@ Public Class AddTablet
                 Return False
             End If
         Catch ex As Exception
-            LogError(ex.ToString, "AddTablet", getInitials())
+            LogError(ex.ToString, "AddTablet", currentUser)
             myReader.Close()
             Return False
         End Try

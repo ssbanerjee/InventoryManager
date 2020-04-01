@@ -121,7 +121,7 @@ Public Class AddEMV
         If Not (checkAT(assetTag)) Then
             myCmd.CommandText = "INSERT INTO Machine VALUES (null, '" + serialNumber.ToUpper() + "', " + assetTag + ", '" + serialNumber.ToUpper() + "', null, null, " +
                            "(SELECT modelID FROM Model WHERE name = '" + emvType + "'), " + centerNumber + ", '" + costCenter +
-                           "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
+                           "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + currentUser + "');"
             Try
                 myReader = myCmd.ExecuteReader
                 MsgBox("Success!")
@@ -130,7 +130,7 @@ Public Class AddEMV
                 Close()
             Catch ex As Exception
                 myReader.Close()
-                LogError(ex.ToString, "AddEMV", getInitials())
+                LogError(ex.ToString, "AddEMV", currentUser)
             End Try
             Login.bgwShipping.RunWorkerAsync()
         End If
@@ -160,7 +160,7 @@ Public Class AddEMV
                 Return False
             End If
         Catch ex As Exception
-            LogError(ex.ToString, "AddLaptop", getInitials())
+            LogError(ex.ToString, "AddLaptop", currentUser)
             myReader.Close()
             Return False
         End Try

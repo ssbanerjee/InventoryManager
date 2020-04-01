@@ -65,7 +65,7 @@ Public Class QueryBuilder
             End If
             myReader.Close()
         Catch ex As Exception
-            LogError(ex.ToString, "QueryBuilder", getInitials())
+            LogError(ex.ToString, "QueryBuilder", currentUser)
         End Try
     End Sub
 

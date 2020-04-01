@@ -106,7 +106,7 @@ Public Class AddWorkstation
 
                 If serialNumber <> "" Then
                     myCmd.CommandText = "INSERT INTO Machine VALUES ('AMF" + centerNumber + "NODE', " + machineName.ToUpper() + ", " + assetTag + ", " + serialNumber.ToUpper() + ", null, null, " +
-                     "(SELECT modelID FROM Model WHERE name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + getInitials() + "');"
+                     "(SELECT modelID FROM Model WHERE name = '" + model + "'), " + centerNumber + ", '" + costCenter + "', null, '" + dteAcquisition.Value + "', SYSDATETIME(), 2, (SELECT conditionID FROM Condition WHERE name = '" + NewOrUsed + "'), " + MESD + ", '" + currentUser + "');"
                     Try
                         myReader = myCmd.ExecuteReader
                         MsgBox("Success!")
@@ -115,7 +115,7 @@ Public Class AddWorkstation
                         Close()
                     Catch ex As Exception
                         myReader.Close()
-                        LogError(ex.ToString, "AddWorkstation", getInitials())
+                        LogError(ex.ToString, "AddWorkstation", currentUser)
                     End Try
                 End If
             End If
@@ -166,7 +166,7 @@ Public Class AddWorkstation
                 Return False
             End If
         Catch ex As Exception
-            LogError(ex.ToString, "AddLaptop", getInitials())
+            LogError(ex.ToString, "AddWorkstation", currentUser)
             myReader.Close()
             Return False
         End Try

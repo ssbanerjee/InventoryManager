@@ -48,6 +48,7 @@ Partial Class EditMachine
         Me.cbCondition = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtMESD = New System.Windows.Forms.TextBox()
+        Me.lblError = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblIMEI
@@ -97,6 +98,7 @@ Partial Class EditMachine
         '
         'btnSave
         '
+        Me.btnSave.Enabled = False
         Me.btnSave.Location = New System.Drawing.Point(12, 308)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(593, 45)
@@ -290,11 +292,23 @@ Partial Class EditMachine
         Me.txtMESD.Size = New System.Drawing.Size(86, 26)
         Me.txtMESD.TabIndex = 7
         '
+        'lblError
+        '
+        Me.lblError.AutoSize = True
+        Me.lblError.ForeColor = System.Drawing.Color.Red
+        Me.lblError.Location = New System.Drawing.Point(157, 56)
+        Me.lblError.Name = "lblError"
+        Me.lblError.Size = New System.Drawing.Size(29, 13)
+        Me.lblError.TabIndex = 47
+        Me.lblError.Text = "Error"
+        Me.lblError.Visible = False
+        '
         'EditMachine
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(617, 365)
+        Me.Controls.Add(Me.lblError)
         Me.Controls.Add(Me.txtMESD)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cbCondition)
@@ -356,4 +370,5 @@ Partial Class EditMachine
     Friend WithEvents cbCondition As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents txtMESD As TextBox
+    Friend WithEvents lblError As Label
 End Class

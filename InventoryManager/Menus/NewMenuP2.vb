@@ -4,6 +4,35 @@
 
         'Update Exit Button
         btnExit.BackColor = Color.FromArgb(0, 129, 195)
+
+        If Login.role.Equals("TELECOM") Then
+            pbMojo.Image = My.Resources.MOJO_locked
+            pbMojo.Enabled = False
+            pbSwitch.Image = My.Resources.Switch_locked
+            pbSwitch.Enabled = False
+            pbPrinter.Image = My.Resources.AddPrinter_locked
+            pbPrinter.Enabled = False
+            pbPhone.Image = My.Resources.Phone
+            pbPhone.Enabled = True
+        ElseIf Login.role.Equals("NETWORK") Then
+            pbMojo.Image = My.Resources.MOJO
+            pbMojo.Enabled = True
+            pbSwitch.Image = My.Resources.Switch
+            pbSwitch.Enabled = True
+            pbPrinter.Image = My.Resources.AddPrinter_locked
+            pbPrinter.Enabled = False
+            pbPhone.Image = My.Resources.Phone_locked
+            pbPhone.Enabled = False
+        Else
+            pbMojo.Image = My.Resources.MOJO
+            pbMojo.Enabled = True
+            pbSwitch.Image = My.Resources.Switch
+            pbSwitch.Enabled = True
+            pbPrinter.Image = My.Resources.AddPrinter
+            pbPrinter.Enabled = True
+            pbPhone.Image = My.Resources.Phone
+            pbPhone.Enabled = True
+        End If
     End Sub
 
     Private Sub pbSwitch_Click(sender As Object, e As EventArgs) Handles pbSwitch.Click
@@ -49,7 +78,7 @@
         pbPhone.Image = My.Resources.Phone
     End Sub
 
-    Private Sub BtnPrinter_Click(sender As Object, e As EventArgs) Handles btnPrinter.Click
+    Private Sub PbPrinter_Click(sender As Object, e As EventArgs) Handles pbPrinter.Click
         AddPrinter.ShowDialog()
     End Sub
 

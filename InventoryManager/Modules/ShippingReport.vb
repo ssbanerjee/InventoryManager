@@ -141,7 +141,7 @@ Module ShippingReport
                 machines.Add(m)
             End While
         Catch ex As Exception
-            LogError(ex.ToString, "ShippingReport", getInitials())
+            LogError(ex.ToString, "ShippingReport", currentUser)
         End Try
         myReader.Close()
 
@@ -287,7 +287,7 @@ Module ShippingReport
                 machines.Add(m)
             End While
         Catch ex As Exception
-            LogError(ex.ToString, "ShippingReport", getInitials())
+            LogError(ex.ToString, "ShippingReport", currentUser)
         End Try
         myReader.Close()
 
@@ -358,7 +358,7 @@ Module ShippingReport
                 shipping.Add(s)
             End While
         Catch ex As Exception
-            LogError(ex.ToString, "ShippingReport", getInitials())
+            LogError(ex.ToString, "ShippingReport", currentUser)
         End Try
         myReader.Close()
 
@@ -436,7 +436,7 @@ Module ShippingReport
                 shipping.Add(s)
             End While
         Catch ex As Exception
-            LogError(ex.ToString, "ShippingReport", getInitials())
+            LogError(ex.ToString, "ShippingReport", currentUser)
         End Try
         myReader.Close()
 
@@ -460,7 +460,7 @@ Module ShippingReport
         Try
             My.Computer.FileSystem.WriteAllText(path, str.ToString, False)
         Catch ex As Exception
-            LogError(ex.ToString, "ShippingReport", getInitials())
+            LogError(ex.ToString, "ShippingReport", currentUser)
         End Try
     End Sub
 
@@ -478,7 +478,7 @@ Module ShippingReport
             My.Computer.FileSystem.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\ShippingReport_CustomDate.csv", Str.ToString, False)
             MsgBox("Success!")
         Catch ex As Exception
-            LogError(ex.ToString, "ShippingReport", getInitials())
+            LogError(ex.ToString, "ShippingReport", currentUser)
         End Try
     End Sub
 End Module

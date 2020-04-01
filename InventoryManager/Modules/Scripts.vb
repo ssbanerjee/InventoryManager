@@ -38,21 +38,21 @@ Module Scripts
     '[Machine Type] Added; MachineName: [Machine Name]. By: [Technician Initials] on [DateTime]
     Public Sub LogMachineAdd(ByVal machine, ByVal machineName, ByVal transaction)
         File.AppendAllText(machineLogFilePath, machine + " Added; MachineName: " + machineName + ". By " + currentUser + " on " + DateTime.Now + vbNewLine)
-        LogTransaction(transaction)
+        LogTransaction(transaction, "MACHINE_ADD")
     End Sub
 
     'Creates a log for editing a machine
     'Machine Edited; MachineName: [Machine Name]. By: [Technician Initials] on [DateTime]
     Public Sub LogMachineEdit(ByVal machineName, ByVal transaction)
         File.AppendAllText(machineLogFilePath, "Machine Edited; MachineName: " + machineName + ". By " + currentUser + " on " + DateTime.Now + vbNewLine)
-        LogTransaction(transaction)
+        LogTransaction(transaction, "MACHINE_UPDATE")
     End Sub
 
     'Creates a log for adding an item to Shipping
     'Shipping Updated; Item: [Item], Quantity: [Quantity]. By: [Technician Initials] on [DateTime]
     Public Sub LogShippingAdd(ByVal item, ByVal quantity, ByVal transaction)
         File.AppendAllText(machineLogFilePath, "Shipping Updated; Item: " + item + ", Quantity: " + quantity + ". By " + currentUser + " on " + DateTime.Now + vbNewLine)
-        LogTransaction(transaction)
+        LogTransaction(transaction, "SHIPPING_UPDATE")
     End Sub
 
     'Creates a log for signing in
@@ -66,15 +66,31 @@ Module Scripts
     Public Sub LogError(ByVal errorMessage As String, ByVal form As String, ByVal tech As String)
         File.AppendAllText(errorLogFilePath, "Error on form " + form + " by " + tech + vbNewLine + vbNewLine + errorMessage)
         Dim lines() As String = errorMessage.Split(Environment.NewLine)
-        Dim stars As String = "*********************************************************************************"
+        Dim stars As String = "*************************************************************************"
         Dim err As String = stars + vbNewLine + lines(0) + vbNewLine + stars
 
         MsgBox("Error!" + vbNewLine + vbNewLine + err + vbNewLine + vbNewLine + "Check " + errorLogFilePath + " for more details.")
     End Sub
 
     'Creates a log for each transaction made on the server
-    Private Sub LogTransaction(ByVal transaction)
-        File.AppendAllText(transactionLogFilePath, transaction + vbNewLine)
+    Private Sub LogTransaction(ByVal transaction, ByVal operation)
+        'File.AppendAllText(transactionLogFilePath, transaction + vbNewLine)
+
+        myConn = New SqlConnection(connectionString)
+        myConn.Open()
+        myCmd = myConn.CreateCommand
+
+        Dim command As String
+        transaction = transaction.replace("'", "'" + "'")
+        command = "INSERT INTO TransactionLogs VALUES ('" + operation + "', '" + transaction + "', SYSDATETIME(), '" + currentUser + "');"
+        myCmd.CommandText = command
+        Try
+            myReader = myCmd.ExecuteReader()
+        Catch ex As Exception
+            LogError(ex.ToString, "LogTransaction", currentUser)
+        End Try
+
+        myReader.Close()
     End Sub
 
     'Gets all Center information from SQL DB and returns it as a List
@@ -117,6 +133,7 @@ Module Scripts
         Dim models As New List(Of String)
         myCmd.CommandText = "SELECT DISTINCT name FROM Model WHERE categoryID = " +
                             "(SELECT categoryID FROM Category WHERE name = '" + category + "') " +
+                            "AND modelID != 47 " +
                             "ORDER BY name ASC;"
         myReader = myCmd.ExecuteReader
         While myReader.Read()

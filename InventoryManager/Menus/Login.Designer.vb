@@ -90,6 +90,7 @@ Partial Class Login
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox1.Enabled = False
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(428, 0)
         Me.PictureBox1.Name = "PictureBox1"

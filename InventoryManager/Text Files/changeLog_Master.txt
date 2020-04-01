@@ -279,5 +279,28 @@ If any of you have edited the SIM/IMEI of any computer recently, let me know.
 --- This button has the same functionality as the Shipping button on the main page.
 --Information refresh after editing a machine on the search page now properly works.
 --- You no longer need to click on the machine again to reload the information.
+--Fixed slight bug when trying to login without typing a PIN.
 
 Lots of back end coding changes here, so please make sure you let me know if something no longer works!
+
+01/07/2020 v4.02.04
+--Fixed max date setting when exporting shipping info
+--Fixed transaction logging error
+--Altered error message dialogue box formatting
+
+01/10/2020 v4.02.05
+--Added in checks to prevent users from entering laptop informationon a workstation device.
+---If you run into a duplicate asset tag, please write down the information and send it to Shoumik.
+--In addition, the save button will be disabled until the proper tag has been added to the machine name (-L for laptop, AMF/ARCD/etc for workstation)
+
+01/14/2020	v4.02.06
+--Added role-based access for NETWORK and TELECOM users
+---Certain menu functions will be disabled based on role
+
+01/30/2020	v4.02.07
+--Fixed menu dragging error on the initial login page
+--Edited PhoneMenu to grab the center number when the cost center is left blank
+--Apparently I removed the number check on the Login page. Login now enforcecs numerical only input.
+
+02/26/2020	v4.02.08
+--Version information now embedded into software. You no longer need to copy the "Text Files" folder when creating a local copy on your computer.

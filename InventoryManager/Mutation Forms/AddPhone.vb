@@ -35,6 +35,11 @@ Public Class AddPhone
             centerNumber = "0"
         End If
 
+        If costCenter.Equals("") Then
+            costCenter = centerNumber
+            txtCostCenter.Text = costCenter
+        End If
+
         'checkAT checks to see if this machine already exists via its Asset Tag
         If Not (checkAT(assetTag)) Then
             'checkNulls checks to see if any of the textboxes are empty.
@@ -44,7 +49,7 @@ Public Class AddPhone
                 Dim command As String = ""
                 command = "INSERT INTO Machine VALUES (NULL, " + MAC.ToUpper() + ", " + assetTag + ", " +
                     MAC.ToUpper() + ", NULL, NULL, (SELECT modelID FROM Model WHERE name = '" + model + "'), " + centerNumber + ", '" + costCenter +
-                    "', null, SYSDATETIME(), SYSDATETIME(), 2, 1, NULL, '" + getInitials() + "');"
+                    "', null, SYSDATETIME(), SYSDATETIME(), 2, 1, NULL, '" + currentUser + "');"
                 myCmd.CommandText = command
                 Try
                     myReader = myCmd.ExecuteReader
@@ -54,7 +59,7 @@ Public Class AddPhone
                     Close()
                 Catch ex As Exception
                     myReader.Close()
-                    LogError(ex.ToString, "AddPhone", getInitials())
+                    LogError(ex.ToString, "AddPhone", currentUser)
                 End Try
             End If
             Login.bgwShipping.RunWorkerAsync()
@@ -126,7 +131,7 @@ Public Class AddPhone
                 Return False
             End If
         Catch ex As Exception
-            LogError(ex.ToString, "AddNetworkItem", getInitials())
+            LogError(ex.ToString, "AddNetworkItem", currentUser)
             myReader.Close()
             Return False
         End Try

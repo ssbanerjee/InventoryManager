@@ -152,7 +152,7 @@ Public Class EditMachine
             Loop
             myReader.Close()
         Catch ex As Exception
-            LogError(ex.ToString, "EditMachine", getInitials())
+            LogError(ex.ToString, "EditMachine", currentUser)
         End Try
 
         loadInformation()
@@ -186,6 +186,14 @@ Public Class EditMachine
         End If
         If old_acquisition <> "null" And old_acquisition <> "" Then
             dteAcquisition.Value = old_acquisition
+        End If
+
+        If category.Equals("Laptop") Then
+            txtSIM.Enabled = True
+            txtIMEI.Enabled = True
+        Else
+            txtSIM.Enabled = False
+            txtIMEI.Enabled = False
         End If
     End Sub
 
@@ -276,16 +284,16 @@ Public Class EditMachine
                 "received_date = '" + newMachine.received + "', " +
                 "last_modified = SYSDATETIME(), " +
                 "ticket_number = " + newMachine.MESD + ", " +
-                "technician = '" + getInitials() + "' " +
+                "technician = '" + currentUser + "' " +
                 "WHERE machine_id = " + machineID + ";"
             myCmd.CommandText = command
             myReader = myCmd.ExecuteReader
             myReader.Close()
             MsgBox("Success!")
-            LogMachineEdit(old_machineName, myCmd.CommandText)
+            LogMachineEdit(old_machineName, command)
             Me.Close()
         Catch ex As Exception
-            LogError(ex.ToString, "EditMachine", getInitials())
+            LogError(ex.ToString, "EditMachine", currentUser)
         End Try
     End Sub
     Private Sub cbCenter_TextChanged(sender As Object, e As EventArgs) Handles cbCenter.TextChanged
@@ -328,6 +336,31 @@ Public Class EditMachine
         Dim index As Integer = txtMachineName.SelectionStart
         checkSQLInjection(txtMachineName.Text)
         txtMachineName.SelectionStart = index
+        Select Case (category)
+            Case "Laptop"
+                If txtMachineName.Text.ToUpper().Contains("AMF") Or txtMachineName.Text.ToUpper().Contains("MGRRDP") Or txtMachineName.Text.ToUpper().Contains("CHKSCN") Or txtMachineName.Text.ToUpper().Contains("ARCD") Then
+                    btnSave.Enabled = False
+                    lblError.Visible = True
+                    lblError.Text = "Workstation name detected for Laptop device."
+                ElseIf txtMachineName.Text.ToUpper().Contains("-L") Then
+                    btnSave.Enabled = True
+                    lblError.Visible = False
+                Else
+                    btnSave.Enabled = False
+                End If
+            Case "Workstation"
+                If txtMachineName.Text.Contains("-L") Then
+                    btnSave.Enabled = False
+                    lblError.Visible = True
+                    lblError.Text = "Laptop name detected for Workstation device."
+                ElseIf txtMachineName.Text.ToUpper().Contains("AMF") Or txtMachineName.Text.ToUpper().Contains("MGRRDP") Or txtMachineName.Text.ToUpper().Contains("CHKSCN") Or txtMachineName.Text.ToUpper().Contains("ARCD") Then
+                    btnSave.Enabled = True
+                    lblError.Visible = False
+                Else
+                    btnSave.Enabled = False
+                End If
+        End Select
+
     End Sub
 
     Private Sub txtSerialNumber_TextChanged(sender As Object, e As EventArgs) Handles txtSerialNumber.TextChanged
